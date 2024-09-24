@@ -15,7 +15,7 @@ https://github.com/MistWarp/scratch-gui/blob/develop/src/lib/themes/index.js#L18
 And finally here<br>
 https://github.com/MistWarp/scratch-gui/blob/develop/src/lib/themes/index.js#L159C1-L165C18
 
-## tw-theme-accent.jsx
+## tw-theme-accent.jsx
 
 Add the theme name in here<br>
 https://github.com/MistWarp/scratch-gui/blob/develop/src/components/menu-bar/tw-theme-accent.jsx#L10C1-L10C157
