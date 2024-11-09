@@ -1,16 +1,16 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'TurboWarp Documentation',
-  url: 'https://docs.turbowarp.org',
+  title: 'MistWarp Documentation',
+  url: 'https://docs.warp.mistium.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  organizationName: 'TurboWarp',
+  organizationName: 'MistWarp',
   projectName: 'docs',
   trailingSlash: false,
   themeConfig: {
     navbar: {
-      title: 'TurboWarp Documentation',
+      title: 'MistWarp Documentation',
       items: [
         {
           href: '/packager/',
@@ -23,12 +23,17 @@ module.exports = {
           position: 'left'
         },
         {
-          href: 'https://turbowarp.org/',
-          label: 'TurboWarp',
+          href: '/internals/',
+          label: 'Internals',
+          position: 'left'
+        },
+        {
+          href: 'https://warp.mistium.com/',
+          label: 'MistWarp',
           position: 'right'
         },
         {
-          href: 'https://github.com/TurboWarp',
+          href: 'https://github.com/MistWarp',
           label: 'GitHub',
           position: 'right',
         },
@@ -55,7 +60,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
-          editUrl: 'https://github.com/TurboWarp/docs/edit/master/',
+          editUrl: 'https://github.com/MistWarp/docs/edit/master/',
           breadcrumbs: false,
         },
         theme: {

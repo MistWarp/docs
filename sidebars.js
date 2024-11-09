@@ -63,5 +63,10 @@ module.exports = {
     'packager/dynamic-stage-resize',
     'packager/special-cloud-behaviors',
     'packager/offline',
+  ],
+  internals: [
+    'internals/home',
+    'internals/themes',
+    'internals/rename'
   ]
 };
