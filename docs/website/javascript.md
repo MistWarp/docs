@@ -30,4 +30,10 @@ vm.enableDebug();
 Then the JavaScript will be logged to the console when it gets compiled.
 
 If you don't know what a "JavaScript console" is or how to access it, then it's in your best interest to not look at the generated JavaScript anyways.
+
+
+MistWarp has en extra feature, that allows you to disable this:
+```js
+vm.disableDebug()
+```
 </details>
