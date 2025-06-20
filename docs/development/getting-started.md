@@ -40,7 +40,7 @@ If you want to mod Scratch, you'll need to be able to build the GUI. This is a c
 
 ```bash
 # clone it
-git clone https://github.com/TurboWarp/scratch-gui
+git clone https://github.com/MistWarp/scratch-gui
 cd scratch-gui
 
 # install dependencies (preferred over `npm install` as it is faster and won't modify package-lock.json)
@@ -77,7 +77,7 @@ $env:NODE_ENV="production"
 npm run build
 ```
 
-By default TurboWarp generates links like `https://turbowarp.org/editor.html#123`. However, by setting the variables `ROOT=/` and `ROUTING_STYLE=wildcard` (in the same way that you set `NODE_ENV=production`), you can get routes like `https://turbowarp.org/123/editor` instead. Note that this requires a server that will setup the proper aliases. The webpack development server in scratch-gui is setup for this. For production you'd want something more like https://github.com/TurboWarp/turbowarp.org.
+By default TurboWarp generates links like `https://turbowarp.org/editor.html#123`. However, by setting the variables `ROOT=/` and `ROUTING_STYLE=wildcard` (in the same way that you set `NODE_ENV=production`), you can get routes like `https://turbowarp.org/123/editor` instead. Note that this requires a server that will setup the proper aliases. The webpack development server in scratch-gui is setup for this. For production you'd want something more like https://github.com/MistWarp/turbowarp.org.
 
 ## Linking other packages {#linking}
 
@@ -87,7 +87,7 @@ To develop packages other than scratch-gui, you need to tell npm to use local co
 # clone the package you want to develop in the same folder as scratch-gui
 # (folder doesn't really matter but it makes things easier to keep track of)
 cd scratch-gui/..
-git clone https://github.com/TurboWarp/scratch-vm
+git clone https://github.com/MistWarp/scratch-vm
 
 # install dependencies in the child package
 cd scratch-vm
