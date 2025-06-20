@@ -23,11 +23,12 @@ MistWarp is a Scratch modification built on TurboWarp, designed for developers a
 ### 🚀 [Getting Started](./getting-started)
 Access MistWarp and understand the technical differences from Scratch.
 
-### � [Development](./development)
+### 🛠️ [Development](./development)
 Contribute to MistWarp development and understand the codebase.
 
-### � [GUI Internals](./gui-internals)
+### ⚙️ [GUI Internals](./gui-internals)
 Technical documentation of the user interface architecture.
+Contribute to MistWarp development and understand the codebase.
 
 ### 📖 [API Reference](./api-reference)
 Programming interfaces and technical specifications.
