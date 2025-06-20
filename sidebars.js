@@ -36,17 +36,22 @@ module.exports = {
             'development/extensions/unsandboxed',
             'development/extensions/better-development-server',
             'development/extensions/assorted-apis',
-            'development/extensions/utility-apis',
-            'development/extensions/vm-api',
-            'development/extensions/renderer-api',
-            'development/extensions/audio-api',
-            'development/extensions/scratch-api',
-            'development/extensions/hidden-apis',
             'development/extensions/hats',
             'development/extensions/compatibility',
             'development/extensions/share',
             'development/extensions/docsURI-demo',
-            'development/extensions/wrapping-up'
+            'development/extensions/wrapping-up',
+            {
+              type: 'category',
+              label: 'APIs',
+              collapsed: true,
+              items: [
+                'development/extensions/apis/renderer-api',
+                'development/extensions/apis/audio-api',
+                'development/extensions/apis/scratch-api',
+                'development/extensions/apis/utility-apis',
+              ]
+            }
           ]
         },
         {
