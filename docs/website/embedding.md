@@ -17,7 +17,7 @@ TurboWarp's embeds will have a transparent background if the iframe is allowed t
 
 ## Unshared projects can't be embedded {#unshared-projects}
 
-Unshared projects [can not be shown in embeds](unshared-projects). Make sure the projects you embed are shared or use the [TurboWarp Packager](https://packager.turbowarp.org/) instead.
+Unshared projects [can not be shown in embeds](unshared-projects). Make sure the projects you embed are shared or use the [MistWarp Packager](https://packager.warp.mistium.com/) instead.
 
 ## URL parameters {#url-parameters}
 
@@ -67,7 +67,7 @@ If you use user-supplied information to generate embed links, you should sanitiz
 
 ## Need more control? {#packager}
 
-Use the [TurboWarp Packager](https://packager.turbowarp.org/) for more control over the loading screen, accent colors, controls, and more. You can also [embed the output of the packager](/packager/embedding) very easily.
+Use the [MistWarp Packager](https://packager.warp.mistium.com/) for more control over the loading screen, accent colors, controls, and more. You can also [embed the output of the packager](/packager/embedding) very easily.
 
 ## Donations {#donations}
 

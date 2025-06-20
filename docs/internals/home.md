@@ -10,4 +10,4 @@ This contains instructions for how to do things with the scratch internals, such
 
 Adding a theme to MistWarp: [Themes](./themes.md)
 
-Renaming a scratch mod: [Rename](./Rename.md)
+Renaming a scratch mod: [Rename](./rename.md)
