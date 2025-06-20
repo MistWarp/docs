@@ -48,4 +48,4 @@ Programming interfaces and technical specifications.
 
 *Technical documentation for developers. For general Scratch help, see [Scratch documentation](https://scratch.mit.edu/help/).*
 
-These pages are [open source](https://github.com/TurboWarp/docs). Contributions are welcome.
+These pages are [open source](https://github.com/MistWarp/docs). Contributions are welcome.

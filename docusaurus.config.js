@@ -77,7 +77,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           editUrl: 'https://github.com/MistWarp/docs/edit/master/',
-          breadcrumbs: false,
+          breadcrumbs: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
