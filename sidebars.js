@@ -43,6 +43,14 @@ module.exports = {
             'development/extensions/wrapping-up',
             {
               type: 'category',
+              label: 'Advanced Techniques',
+              collapsed: true,
+              items: [
+                'development/extensions/advanced-block-customization'
+              ]
+            },
+            {
+              type: 'category',
               label: 'APIs',
               collapsed: true,
               items: [
@@ -190,10 +198,10 @@ module.exports = {
       collapsed: true,
       items: [
         'api-reference/home',
-        'api-reference/overview',
         'api-reference/gui-api',
         'api-reference/vm-api',
         'api-reference/extension-api',
+        'api-reference/threads',
         'api-reference/addon-api',
         'api-reference/events',
         'api-reference/utilities'

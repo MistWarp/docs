@@ -3,464 +3,321 @@ title: Utilities
 sidebar_position: 6
 ---
 
-# Utility Functions
+# Available Utilities
 
-MistWarp provides a collection of utility functions and helpers available throughout the codebase for common operations.
+This page documents utilities and helper functions that are actually available in the MistWarp codebase.
 
-## Overview
+## Project Operations
 
-Utility functions provide:
-- Common data manipulation operations
-- File handling and format conversion
-- DOM utility functions
-- Performance optimization helpers
-- Validation and type checking
-
-## File Utilities
-
-### File Handling
-Common file operations and format conversions:
+### Project Loading and Saving
+The following project operations are available through the VM and GUI APIs:
 
 ```javascript
-import {
-  loadProject,
-  saveProject,
-  exportProject,
-  importAssets
-} from '../lib/file-utils';
+// Load a project (available through VM API)
+await vm.loadProject(projectData);
 
-// Load project from file
-const project = await loadProject(file);
+// Save project state
+const projectData = vm.toJSON();
 
-// Save project to blob
-const blob = await saveProject(projectData, 'my-project.sb3');
-
-// Export in different formats
-const sb3Blob = await exportProject(projectData, 'sb3');
-const jsonBlob = await exportProject(projectData, 'json');
+// Download project as SB3 (through GUI components)
+// This is typically handled by GUI components like SB3Downloader
 ```
 
-### Asset Processing
-Image and sound asset utilities:
+## Browser APIs and DOM Utilities
+
+### Basic DOM Operations
+Standard DOM APIs are available for addon development:
 
 ```javascript
-import {
-  resizeImage,
-  convertToDataURL,
-  validateImageFormat,
-  compressAudio
-} from '../lib/asset-utils';
+// Element selection
+const element = document.querySelector('.selector');
+const elements = document.querySelectorAll('.selector');
 
-// Resize image to fit constraints
-const resizedImage = await resizeImage(imageFile, 480, 360);
+// Element creation
+const button = document.createElement('button');
+button.textContent = 'Click me';
+button.className = 'custom-button';
 
-// Convert file to data URL
-const dataURL = await convertToDataURL(file);
-
-// Validate supported formats
-const isValid = validateImageFormat(file.type);
+// Event handling
+element.addEventListener('click', handleClick);
 ```
 
-## DOM Utilities
-
-### Element Utilities
-DOM manipulation and query helpers:
+### Addon-Specific Utilities
+Addons have access to specialized utilities through the addon API:
 
 ```javascript
-import {
-  waitForElement,
-  createElement,
-  addClass,
-  removeClass,
-  findParent
-} from '../lib/dom-utils';
-
-// Wait for element to appear
-const element = await waitForElement('.target-selector');
-
-// Create element with attributes
-const button = createElement('button', {
-  className: 'custom-button',
-  textContent: 'Click me',
-  onclick: handleClick
-});
-
-// Class manipulation
-addClass(element, 'active');
-removeClass(element, 'disabled');
-
-// Find parent by selector
-const container = findParent(element, '.container');
-```
-
-### Event Utilities
-Event handling helpers:
-
-```javascript
-import {
-  throttle,
-  debounce,
-  once,
-  addEventListeners
-} from '../lib/event-utils';
-
-// Throttle function calls
-const throttledHandler = throttle(handleScroll, 100);
-
-// Debounce function calls
-const debouncedSearch = debounce(performSearch, 300);
-
-// Execute only once
-const initHandler = once(initialize);
-
-// Add multiple event listeners
-addEventListeners(element, {
-  click: handleClick,
-  mouseenter: handleMouseEnter,
-  mouseleave: handleMouseLeave
-});
-```
-
-## Data Utilities
-
-### Object Manipulation
-Object and array processing helpers:
-
-```javascript
-import {
-  deepClone,
-  deepMerge,
-  pick,
-  omit,
-  groupBy,
-  unique
-} from '../lib/data-utils';
-
-// Deep clone objects
-const clonedProject = deepClone(originalProject);
-
-// Merge objects deeply
-const config = deepMerge(defaultConfig, userConfig);
-
-// Pick specific properties
-const metadata = pick(project, ['title', 'author', 'version']);
-
-// Omit properties
-const publicData = omit(project, ['internalId', 'privateNotes']);
-
-// Group array by property
-const spritesByType = groupBy(sprites, 'type');
-
-// Get unique values
-const uniqueColors = unique(blocks.map(b => b.color));
-```
-
-### Validation
-Type checking and validation utilities:
-
-```javascript
-import {
-  isValidProject,
-  isValidSprite,
-  validateBlockData,
-  sanitizeInput
-} from '../lib/validation-utils';
-
-// Validate project structure
-if (isValidProject(projectData)) {
-  console.log('Project is valid');
+export default async function ({ addon, msg }) {
+    // Wait for elements (addon-specific utility)
+    const button = await addon.tab.waitForElement('.green-flag');
+    
+    // Add CSS (addon-specific utility)
+    addon.tab.addCSS(`
+        .green-flag {
+            background-color: red !important;
+        }
+    `);
+    
+    // Access VM through addon context
+    const vm = addon.tab.traps.vm;
 }
-
-// Validate sprite data
-const spriteErrors = isValidSprite(spriteData);
-if (spriteErrors.length === 0) {
-  console.log('Sprite is valid');
-}
-
-// Validate and sanitize user input
-const safeInput = sanitizeInput(userInput);
 ```
 
-## String Utilities
+## Available Third-Party Utilities
 
-### Text Processing
-String manipulation and formatting:
+### Lodash Functions
+Some lodash utilities are available in the codebase:
 
 ```javascript
-import {
-  truncate,
-  slugify,
-  capitalize,
-  formatNumber,
-  formatDuration
-} from '../lib/string-utils';
+import bindAll from 'lodash.bindall';
 
-// Truncate long text
-const shortTitle = truncate(projectTitle, 50);
-
-// Create URL-safe slug
-const slug = slugify('My Awesome Project'); // 'my-awesome-project'
-
-// Capitalize text
-const title = capitalize('hello world'); // 'Hello World'
-
-// Format numbers
-const formattedCount = formatNumber(12345); // '12,345'
-
-// Format duration
-const duration = formatDuration(125000); // '2m 5s'
+// Bind methods to instance
+bindAll(this, ['method1', 'method2']);
 ```
 
-### Internationalization
-Localization and text utilities:
+### Storage APIs
+Browser storage through the Storage API:
 
 ```javascript
-import {
-  getLocale,
-  formatMessage,
-  pluralize,
-  formatDate
-} from '../lib/i18n-utils';
+// Local storage
+localStorage.setItem('key', 'value');
+const value = localStorage.getItem('key');
 
-// Get current locale
-const locale = getLocale(); // 'en-US'
-
-// Format messages with parameters
-const message = formatMessage('hello-user', { name: 'Alice' });
-
-// Handle pluralization
-const countText = pluralize(count, 'block', 'blocks');
-
-// Format dates
-const formattedDate = formatDate(new Date(), locale);
+// Session storage  
+sessionStorage.setItem('key', 'value');
 ```
 
-## Math Utilities
+## Redux Store Operations
 
-### Calculations
-Mathematical operations and calculations:
+### Accessing the Store
+The Redux store is available globally:
 
 ```javascript
-import {
-  clamp,
-  lerp,
-  distance,
-  angle,
-  random,
-  normalize
-} from '../lib/math-utils';
+// Access the store (note: capital R in ReduxStore)
+const store = window.ReduxStore;
 
-// Clamp value to range
-const clamped = clamp(value, 0, 100);
+// Get current state
+const state = store.getState();
 
-// Linear interpolation
-const interpolated = lerp(start, end, 0.5);
-
-// Distance between points
-const dist = distance(x1, y1, x2, y2);
-
-// Angle between points
-const angleRad = angle(x1, y1, x2, y2);
-
-// Random number in range
-const randomValue = random(min, max);
-
-// Normalize vector
-const normalized = normalize(x, y);
+// Dispatch actions
+store.dispatch({
+    type: 'ACTION_TYPE',
+    payload: data
+});
 ```
 
-### Color Utilities
-Color manipulation and conversion:
-
+### Common State Selectors
 ```javascript
-import {
-  hexToRgb,
-  rgbToHex,
-  hslToRgb,
-  adjustBrightness,
-  getContrastColor
-} from '../lib/color-utils';
+// Get VM state
+const vm = state.scratchGui.vm;
 
-// Convert color formats
-const rgb = hexToRgb('#ff0000'); // { r: 255, g: 0, b: 0 }
-const hex = rgbToHex(255, 0, 0); // '#ff0000'
+// Get current project state
+const projectState = state.scratchGui.projectState;
 
-// Adjust brightness
-const brighter = adjustBrightness('#ff0000', 0.2);
-
-// Get contrasting color for text
-const textColor = getContrastColor('#ff0000'); // '#ffffff'
+// Get targets/sprites
+const targets = state.scratchGui.targets;
 ```
 
-## Performance Utilities
+## VM Utilities
 
-### Optimization
-Performance monitoring and optimization helpers:
-
+### Target Management
 ```javascript
-import {
-  memoize,
-  measureTime,
-  raf,
-  idle,
-  createWorker
-} from '../lib/performance-utils';
+// Get all targets
+const targets = vm.runtime.targets;
 
-// Memoize expensive calculations
-const expensiveFunction = memoize((input) => {
-  // Expensive computation
-  return result;
+// Get sprites (non-stage targets)
+const sprites = vm.runtime.targets.filter(target => !target.isStage);
+
+// Get stage
+const stage = vm.runtime.targets.find(target => target.isStage);
+
+// Get target by ID
+const target = vm.runtime.getTargetById(targetId);
+```
+
+### Project Control
+```javascript
+// Start/stop project
+vm.start();
+vm.stop();
+
+// Green flag
+vm.greenFlag();
+
+// Set turbo mode
+vm.setTurboMode(true);
+```
+
+## Event Handling
+
+### VM Events
+```javascript
+// Listen to VM events
+vm.on('PROJECT_LOADED', () => {
+    console.log('Project loaded');
 });
 
-// Measure execution time
-const result = await measureTime('operation', () => {
-  // Code to measure
+vm.on('PROJECT_CHANGED', () => {
+    console.log('Project changed');
 });
 
-// Use requestAnimationFrame
-raf(() => {
-  // Animation code
+vm.on('PROJECT_START', () => {
+    console.log('Project started');
 });
 
-// Use requestIdleCallback
-idle(() => {
-  // Background work
+vm.on('PROJECT_STOP_ALL', () => {
+    console.log('Project stopped');
 });
-
-// Create web worker for heavy tasks
-const worker = createWorker(workerScript);
-const result = await worker.postMessage(data);
 ```
+
+### Standard DOM Events
+```javascript
+// Standard event listeners
+document.addEventListener('keydown', handleKeyDown);
+window.addEventListener('resize', handleResize);
+element.addEventListener('click', handleClick);
+```
+
+## File Operations
+
+### File API
+Modern browsers provide File API access:
+
+```javascript
+// File input handling
+const input = document.createElement('input');
+input.type = 'file';
+input.accept = '.sb3,.sb2';
+
+input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const data = e.target.result;
+            // Process file data
+        };
+        reader.readAsArrayBuffer(file);
+    }
+});
+```
+
+### Blob and URL Operations
+```javascript
+// Create blob
+const blob = new Blob([data], { type: 'application/json' });
+
+// Create download URL
+const url = URL.createObjectURL(blob);
+
+// Trigger download
+const a = document.createElement('a');
+a.href = url;
+a.download = 'project.sb3';
+a.click();
+
+// Clean up
+URL.revokeObjectURL(url);
+```
+
+## Performance Considerations
 
 ### Memory Management
-Memory usage optimization:
-
 ```javascript
-import {
-  createPool,
-  cleanup,
-  weakRef,
-  observeMemory
-} from '../lib/memory-utils';
+// Clean up event listeners
+element.removeEventListener('click', handler);
 
-// Object pooling
-const pool = createPool(() => new ExpensiveObject());
-const obj = pool.acquire();
-// Use object
-pool.release(obj);
+// Clean up VM listeners
+vm.off('PROJECT_LOADED', handler);
 
-// Cleanup references
-cleanup(obj);
-
-// Weak references
-const weakRef = createWeakRef(largeObject);
-
-// Monitor memory usage
-observeMemory((usage) => {
-  console.log('Memory usage:', usage);
-});
+// Clean up object URLs
+URL.revokeObjectURL(url);
 ```
 
-## Storage Utilities
-
-### Local Storage
-Browser storage helpers:
-
+### Efficient Operations
 ```javascript
-import {
-  getItem,
-  setItem,
-  removeItem,
-  clear,
-  hasItem
-} from '../lib/storage-utils';
-
-// Store data with expiration
-await setItem('user-preferences', data, { expires: '7d' });
-
-// Retrieve data
-const preferences = await getItem('user-preferences');
-
-// Check if item exists
-if (await hasItem('cache-key')) {
-  // Item exists
+// Use requestAnimationFrame for animations
+function animate() {
+    // Animation code
+    requestAnimationFrame(animate);
 }
 
-// Clear expired items
-await clear({ onlyExpired: true });
+// Use debouncing for frequent events (manual implementation)
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 ```
 
-## Testing Utilities
+## Available Globals
 
-### Test Helpers
-Utilities for testing components and functions:
+The following globals are available in MistWarp:
 
 ```javascript
-import {
-  mockVM,
-  createTestProject,
-  simulateClick,
-  waitForAsync,
-  expectNoConsoleErrors
-} from '../lib/test-utils';
+// VM instance
+window.vm
 
-// Mock VM for testing
-const vm = mockVM({
-  runtime: {
-    targets: [],
-    allTargets: []
-  }
-});
+// Redux store (note: capital R)
+window.ReduxStore  
 
-// Create test project
-const project = createTestProject({
-  sprites: 2,
-  blocks: 10
-});
+// Scratch Blocks (when blocks are loaded)
+window.ScratchBlocks
 
-// Simulate user interactions
-await simulateClick(button);
-
-// Wait for async operations
-await waitForAsync(() => element.textContent === 'Done');
-
-// Check for console errors
-expectNoConsoleErrors();
+// Debug flag
+window.DEBUG
 ```
 
 ## Best Practices
 
 ### Error Handling
-Robust error handling in utilities:
-
 ```javascript
-export function safeOperation(input) {
-  try {
-    return performOperation(input);
-  } catch (error) {
-    console.warn('Operation failed:', error);
-    return fallbackValue;
-  }
+try {
+    // Risky operation
+    vm.loadProject(projectData);
+} catch (error) {
+    console.error('Operation failed:', error);
+    // Handle error appropriately
 }
 ```
 
-### Type Safety
-TypeScript utilities for type checking:
-
+### Async Operations
 ```javascript
-export function isString(value): value is string {
-  return typeof value === 'string';
+// Use async/await for promises
+async function loadProject() {
+    try {
+        await vm.loadProject(projectData);
+        console.log('Project loaded successfully');
+    } catch (error) {
+        console.error('Failed to load project:', error);
+    }
 }
+```
 
-export function assertNumber(value): asserts value is number {
-  if (typeof value !== 'number') {
-    throw new Error('Expected number');
-  }
+### Resource Cleanup
+```javascript
+// Always clean up resources
+function cleanup() {
+    // Remove event listeners
+    element.removeEventListener('click', handler);
+    
+    // Clear timeouts/intervals
+    clearTimeout(timeoutId);
+    clearInterval(intervalId);
+    
+    // Remove VM listeners
+    vm.off('PROJECT_LOADED', handler);
 }
 ```
 
 ## Related Documentation
 
-- [Extension API Reference](./extension-api)
-- [Addon API Reference](./addon-api)
+- [VM API Reference](./vm-api)
+- [Addon API Reference](./addon-api)  
+- [GUI API Reference](./gui-api)
 - [Development Guide](../development)

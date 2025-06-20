@@ -388,3 +388,287 @@ case 'myextension.complexBlock':
 ```
 
 These advanced techniques enable you to create compiled extensions that rival the performance and functionality of native JavaScript code while maintaining the visual programming paradigm of Scratch.
+
+## Advanced Compiler API Integration
+
+### Accessing Extended Compiler APIs
+
+Beyond basic patching, you can access deeper compiler functionality for sophisticated code generation:
+
+```javascript
+// Check for extended compiler features
+if (vm.exports.i_will_not_ask_for_help_when_these_break) {
+    const compilerAPI = vm.exports.i_will_not_ask_for_help_when_these_break();
+    
+    // Access additional compiler components
+    if (compilerAPI.JSGenerator && compilerAPI.ScriptTreeGenerator) {
+        const { Frame, TypedInput, TYPE_UNKNOWN } = compilerAPI.JSGenerator.unstable_exports;
+        patchAdvancedCompiler(compilerAPI, { Frame, TypedInput, TYPE_UNKNOWN });
+    }
+}
+
+function patchAdvancedCompiler(api, types) {
+    const { JSGenerator, ScriptTreeGenerator } = api;
+    const { Frame, TypedInput, TYPE_UNKNOWN } = types;
+    
+    // Store original methods
+    const jsDescendStackedBlock = JSGenerator.prototype.descendStackedBlock;
+    const stDescendStackedBlock = ScriptTreeGenerator.prototype.descendStackedBlock;
+    
+    // Enhanced patching with frame management
+    JSGenerator.prototype.descendStackedBlock = function(node) {
+        if (node.kind?.startsWith('myExtension.')) {
+            return handleAdvancedBlock.call(this, node, types);
+        }
+        return jsDescendStackedBlock.call(this, node);
+    };
+}
+```
+
+### Frame-Based Code Generation
+
+Create blocks that manage their own execution contexts and variable scopes:
+
+```javascript
+function generateSwitchBlock(node, generator, types) {
+    const { Frame, TypedInput, TYPE_UNKNOWN } = types;
+    
+    // Create a breakable frame for switch statements
+    const switchFrame = new Frame(false);
+    switchFrame.isBreakable = true;
+    switchFrame.switchData = {
+        value: generator.localVariables.next(),
+        cases: [],
+        hasDefault: false
+    };
+    
+    // Generate switch variable
+    const switchVar = switchFrame.switchData.value;
+    const valueExpr = generator.descendInput(node.value).asUnknown();
+    
+    // Start switch statement
+    generator.source += `let ${switchVar} = ${valueExpr};\nswitch(${switchVar}) {\n`;
+    
+    // Process cases with custom frame context
+    generator.pushFrame(switchFrame);
+    const stackCode = generator.descendStackWithCustomContext(node.stack, switchFrame);
+    generator.popFrame();
+    
+    generator.source += stackCode;
+    generator.source += '}\n';
+    
+    return new TypedInput('', TYPE_UNKNOWN);
+}
+
+// Handle case blocks within switch context
+function generateCaseBlock(node, generator, types) {
+    const { TypedInput, TYPE_UNKNOWN } = types;
+    
+    // Find parent switch frame
+    const switchFrame = generator.frames.findLast(frame => frame.switchData);
+    if (!switchFrame) {
+        return; // Not inside a switch
+    }
+    
+    const caseValue = generator.descendInput(node.value).asUnknown();
+    const caseVar = generator.localVariables.next();
+    
+    // Generate case with fall-through logic
+    generator.source += `case (${switchFrame.switchData.value}): `;
+    generator.source += `(${caseVar} = (${caseValue}));\n`;
+    generator.source += `case (${caseVar}): {\n`;
+    
+    // Process case body
+    if (node.stack) {
+        const caseFrame = new Frame(false);
+        caseFrame.isBreakable = true;
+        generator.pushFrame(caseFrame);
+        generator.descendStack(node.stack);
+        generator.popFrame();
+    }
+    
+    generator.source += 'break;\n}\n';
+}
+```
+
+### Multi-Phase Compilation Support
+
+Handle complex blocks that require multiple compilation passes:
+
+```javascript
+class AdvancedBlockCompiler {
+    constructor(generator, types) {
+        this.generator = generator;
+        this.types = types;
+        this.pendingBlocks = new Map();
+        this.compiledBlocks = new Set();
+    }
+    
+    // First pass: collect block structure
+    collectBlockStructure(node) {
+        if (node.kind === 'myExtension.complexBlock') {
+            this.pendingBlocks.set(node.id, {
+                node,
+                dependencies: this.findDependencies(node),
+                variables: this.extractVariables(node)
+            });
+        }
+    }
+    
+    // Second pass: generate optimized code
+    generateOptimizedCode(blockId) {
+        if (this.compiledBlocks.has(blockId)) return;
+        
+        const blockData = this.pendingBlocks.get(blockId);
+        if (!blockData) return;
+        
+        // Ensure dependencies are compiled first
+        blockData.dependencies.forEach(dep => {
+            this.generateOptimizedCode(dep);
+        });
+        
+        // Generate this block's code
+        this.compileBlock(blockData);
+        this.compiledBlocks.add(blockId);
+    }
+    
+    compileBlock(blockData) {
+        const { node, variables } = blockData;
+        const { Frame, TypedInput } = this.types;
+        
+        // Pre-allocate variables for efficiency
+        const varDeclarations = variables.map(v => 
+            `let ${v.name} = ${v.initialValue || 'undefined'}`
+        ).join(', ');
+        
+        if (varDeclarations) {
+            this.generator.source += `${varDeclarations};\n`;
+        }
+        
+        // Generate optimized block body
+        const optimizedFrame = new Frame(false);
+        optimizedFrame.optimizations = {
+            precomputedValues: this.precomputeConstants(node),
+            inlinedFunctions: this.identifyInlineable(node)
+        };
+        
+        this.generator.pushFrame(optimizedFrame);
+        this.generateBlockBody(node);
+        this.generator.popFrame();
+    }
+}
+```
+
+### Compiler Hook Integration
+
+Integrate with the compiler's lifecycle hooks for advanced optimizations:
+
+```javascript
+function setupCompilerHooks(api) {
+    const { JSGenerator } = api;
+    
+    // Hook into compilation start
+    const originalCompile = JSGenerator.prototype.compile;
+    JSGenerator.prototype.compile = function() {
+        // Pre-compilation analysis
+        this.extensionData = this.extensionData || {};
+        this.extensionData.optimizations = new Map();
+        
+        // Analyze script for optimization opportunities
+        this.analyzeForOptimizations();
+        
+        const result = originalCompile.call(this);
+        
+        // Post-compilation cleanup
+        this.finalizeOptimizations();
+        
+        return result;
+    };
+    
+    // Add analysis methods
+    JSGenerator.prototype.analyzeForOptimizations = function() {
+        // Detect loop patterns for unrolling
+        this.detectLoopPatterns();
+        
+        // Identify constant expressions
+        this.identifyConstants();
+        
+        // Find function call patterns for inlining
+        this.analyzeFunctionCalls();
+    };
+    
+    JSGenerator.prototype.detectLoopPatterns = function() {
+        // Implementation for loop optimization detection
+        const loopBlocks = this.findBlocksByType('control_repeat');
+        loopBlocks.forEach(block => {
+            if (this.isConstantRepeatCount(block)) {
+                this.extensionData.optimizations.set(block.id, {
+                    type: 'loop_unroll',
+                    repeatCount: this.getConstantValue(block.TIMES)
+                });
+            }
+        });
+    };
+}
+```
+
+### Runtime Integration Patterns
+
+Seamlessly integrate compiled code with runtime systems:
+
+```javascript
+function createRuntimeBridge(extension) {
+    return {
+        // Bridge compiled code back to runtime when needed
+        invokeRuntime(method, args) {
+            return vm.runtime[method].apply(vm.runtime, args);
+        },
+        
+        // Access target and stage data
+        getTarget() {
+            return vm.runtime.getEditingTarget();
+        },
+        
+        // Thread-safe variable access
+        getVariable(name, target) {
+            target = target || this.getTarget();
+            return target.lookupVariableByNameAndType(name, '');
+        },
+        
+        setVariable(name, value, target) {
+            target = target || this.getTarget();
+            const variable = target.lookupVariableByNameAndType(name, '');
+            if (variable) {
+                variable.value = value;
+                vm.runtime.getMonitorState().requestUpdate(
+                    new Map([['id', variable.id]])
+                );
+            }
+        },
+        
+        // Safe list operations
+        getList(name, target) {
+            target = target || this.getTarget();
+            return target.lookupVariableByNameAndType(name, 'list');
+        },
+        
+        // Event emission for compiled blocks
+        emitEvent(eventName, data) {
+            vm.runtime.emit(eventName, data);
+        }
+    };
+}
+
+// Use in compiled block implementations
+function generateRuntimeBridgeCode(generator) {
+    generator.source += `
+        const bridge = this.getRuntimeBridge();
+        
+        // Example: compiled block that needs runtime access
+        const result = bridge.invokeRuntime('someMethod', [arg1, arg2]);
+        bridge.setVariable('result', result);
+    `;
+}
+```
+
+These advanced compiler integration techniques enable you to create sophisticated compiled extensions that seamlessly blend high-performance generated code with Scratch's runtime environment, achieving both optimal performance and full feature compatibility.
