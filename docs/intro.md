@@ -1,6 +1,6 @@
 ---
 slug: /
-title: MistWa### � [Development](./development/home)
+title: MistWarp Docs
 hide_table_of_contents: true
 ---
 
