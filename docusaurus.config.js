@@ -59,7 +59,7 @@ module.exports = {
       // This is all supposed to be public
       appId: 'HORQ9E5CCA',
       apiKey: 'c3873ce4208edb896a31bb3e7c2cbdad',
-      indexName: 'turbowarp'
+      indexName: 'mistwarp',
     },
     colorMode: {
       respectPrefersColorScheme: true,
