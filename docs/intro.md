@@ -1,6 +1,6 @@
 ---
 slug: /
-title: MistWarp Docs
+title: Intro
 hide_table_of_contents: true
 ---
 
