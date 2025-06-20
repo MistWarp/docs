@@ -201,6 +201,7 @@ module.exports = {
         'api-reference/gui-api',
         'api-reference/vm-api',
         'api-reference/extension-api',
+        'api-reference/block-registration',
         'api-reference/threads',
         'api-reference/addon-api',
         'api-reference/events',
