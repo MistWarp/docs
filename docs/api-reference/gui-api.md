@@ -9,57 +9,70 @@ The MistWarp GUI provides programmatic access to interface components, themes, p
 
 ## Core GUI Instance
 
-### Window.gui
+### Redux Store Access
 
-The main GUI instance is available globally as `window.gui`:
+The GUI state is managed through Redux and is accessible via the global store:
 
 ```javascript
-// Access the GUI instance
-const gui = window.gui;
+// Access the Redux store (note: capital R in ReduxStore)
+const store = window.ReduxStore;
 
-// Check if GUI is ready
-if (gui && gui.getBlockly) {
-    // GUI is available
+// Get current state
+const state = store.getState();
+
+// Access different parts of the GUI state
+const projectState = state.scratchGui.projectState;
+const targets = state.scratchGui.targets;
+const projectChanged = state.scratchGui.projectChanged;
+```
+
+## ScratchBlocks Integration
+
+### window.ScratchBlocks
+
+Access to the ScratchBlocks/Blockly workspace when available:
+
+```javascript
+// Access ScratchBlocks when available
+const ScratchBlocks = window.ScratchBlocks;
+
+if (ScratchBlocks) {
+    // Access the main workspace
+    const workspace = ScratchBlocks.getMainWorkspace();
+    
+    // Get all blocks in workspace
+    const blocks = workspace.getAllBlocks();
 }
 ```
 
-## Blockly Integration
+### Loading ScratchBlocks
 
-### getBlockly()
-
-Get access to the ScratchBlocks/Blockly workspace:
+ScratchBlocks is loaded lazily by the GUI. It becomes available when the blocks tab is opened:
 
 ```javascript
-// Get Blockly when available (lazy loading)
-const blockly = await gui.getBlockly();
-
-// Access workspace
-const workspace = blockly.getMainWorkspace();
+// ScratchBlocks is available after blocks are loaded
+if (window.ScratchBlocks) {
+    console.log('ScratchBlocks is available');
+} else {
+    console.log('ScratchBlocks not yet loaded');
+}
 ```
 
-### getBlocklyEagerly()
+## State Management
 
-Force-load Blockly immediately (resource intensive):
+### Redux State Access
 
-```javascript
-// Force load Blockly (causes network activity)
-const blockly = await gui.getBlocklyEagerly();
-```
-
-**Warning**: `getBlocklyEagerly()` downloads the full scratch-blocks bundle and should be used sparingly.
-
-## Theme Management
-
-### Theme API
-
-Access and modify GUI themes:
+Access and modify GUI state through the Redux store:
 
 ```javascript
+// Get current state
+const state = store.getState();
+
 // Get current theme
-const currentTheme = gui.store.getState().scratchGui.theme.theme;
+const currentTheme = state.scratchGui.theme.theme;
 
-// Set theme
-gui.store.dispatch({
+// Dispatch actions to change state
+store.dispatch({
     type: 'scratch-gui/theme/SET_THEME',
     theme: 'dark'
 });
@@ -68,85 +81,82 @@ gui.store.dispatch({
 const themes = ['light', 'dark', 'midnight'];
 ```
 
-### Theme Structure
+### State Structure
 
-Theme objects contain GUI and block styling:
+The Redux state contains various GUI-related data:
 
 ```javascript
-const themeConfig = {
-    gui: {
-        // GUI colors
-        primaryText: '#000000',
-        menuBarBackground: '#ffffff',
-        // ... more GUI properties
-    },
-    blocks: {
-        // Block colors
-        motion: '#4C97FF',
-        looks: '#9966FF',
-        // ... more block categories
-    },
-    accent: {
-        // Accent colors for highlights
-        primary: '#0FBD8C',
-        secondary: '#40BF4A'
-    }
+const guiState = {
+    // Project state
+    projectState: state.scratchGui.projectState,
+    
+    // Theme information
+    theme: state.scratchGui.theme,
+    
+    // VM instance
+    vm: state.scratchGui.vm,
+    
+    // Project title and metadata
+    projectTitle: state.scratchGui.projectTitle,
+    projectChanged: state.scratchGui.projectChanged
 };
 ```
 
-### Custom Themes
+### Common Actions
 
-Register custom themes:
+Dispatch common GUI actions:
 
 ```javascript
-// Define custom theme
-const customTheme = {
-    name: 'My Theme',
-    gui: guiLight, // Base GUI theme
-    blocks: blocksThree, // Base block theme  
-    accent: customAccent, // Custom accent colors
-    id: 'custom.mytheme'
-};
+// Set editing target
+store.dispatch({
+    type: 'scratch-gui/targets/SET_EDITING_TARGET',
+    targetId: 'sprite1'
+});
 
-// Apply custom theme
-gui.setCustomTheme(customTheme);
+// Set project title
+store.dispatch({
+    type: 'scratch-gui/project-title/SET_PROJECT_TITLE',
+    title: 'My Project'
+});
+
+// Set project as changed
+store.dispatch({
+    type: 'scratch-gui/project-changed/SET_PROJECT_CHANGED'
 ```
 
 ## Project Management
 
 ### Project State
 
-Access project information:
+Access project information through Redux:
 
 ```javascript
-const state = gui.store.getState().scratchGui.projectState;
+const state = store.getState().scratchGui.projectState;
 
 // Project properties
 const projectId = state.projectId;
-const projectTitle = state.projectTitle;
-const isLoading = state.loadingState;
-const hasUnsavedChanges = state.projectChanged;
+const loadingState = state.loadingState;
+
+// Get project title from different location in state
+const projectTitle = store.getState().scratchGui.projectTitle;
+const hasUnsavedChanges = store.getState().scratchGui.projectChanged;
 ```
 
 ### Project Actions
 
-Programmatically manage projects:
+Project operations are typically handled by components rather than direct API calls:
 
 ```javascript
-// Create new project
-gui.store.dispatch({
-    type: 'scratch-gui/project-state/CREATE_NEW',
-    canSave: true
+// Project actions are handled through Redux reducers
+// Most project operations require user interaction
+
+// Example: Request new project (used internally)
+store.dispatch({
+    type: 'scratch-gui/project-state/START_FETCHING_NEW'
 });
 
-// Load project from file
-const file = new File([projectData], 'project.sb3');
-gui.handleFileUpload(file);
-
-// Save project
-gui.store.dispatch({
-    type: 'scratch-gui/project-state/SAVE_PROJECT'
-});
+// Project loading is typically handled by file upload components
+// rather than direct API calls
 ```
 
 ## VM Integration
@@ -156,8 +166,11 @@ gui.store.dispatch({
 Access the Scratch VM instance:
 
 ```javascript
-// Get VM instance
-const vm = gui.store.getState().scratchGui.vm;
+// Get VM instance from Redux state
+const vm = store.getState().scratchGui.vm;
+
+// Or access directly from global
+const vm = window.vm;
 
 // VM operations
 vm.greenFlag(); // Start project
@@ -211,12 +224,12 @@ Control modal dialogs:
 
 ```javascript
 // Open modals
-gui.store.dispatch({ type: 'scratch-gui/modals/OPEN_EXTENSION_LIBRARY' });
-gui.store.dispatch({ type: 'scratch-gui/modals/OPEN_COSTUME_LIBRARY' });
+store.dispatch({ type: 'scratch-gui/modals/OPEN_EXTENSION_LIBRARY' });
+store.dispatch({ type: 'scratch-gui/modals/OPEN_COSTUME_LIBRARY' });
 
 // Close modals
-gui.store.dispatch({ type: 'scratch-gui/modals/CLOSE_EXTENSION_LIBRARY' });
-gui.store.dispatch({ type: 'scratch-gui/modals/CLOSE_COSTUME_LIBRARY' });
+store.dispatch({ type: 'scratch-gui/modals/CLOSE_EXTENSION_LIBRARY' });
+store.dispatch({ type: 'scratch-gui/modals/CLOSE_COSTUME_LIBRARY' });
 ```
 
 ### Tab Management
@@ -230,7 +243,7 @@ const COSTUMES_TAB = 1;
 const SOUNDS_TAB = 2;
 
 // Activate tab
-gui.store.dispatch({
+store.dispatch({
     type: 'scratch-gui/editor-tab/ACTIVATE_TAB',
     activeTabIndex: COSTUMES_TAB
 });
@@ -242,13 +255,13 @@ Manage stage dimensions:
 
 ```javascript
 // Set stage size mode
-gui.store.dispatch({
+store.dispatch({
     type: 'scratch-gui/stage-size/SET_STAGE_SIZE',
     stageSize: 'large' // 'small', 'large'
 });
 
 // Custom stage size
-gui.store.dispatch({
+store.dispatch({
     type: 'scratch-gui/custom-stage-size/SET_CUSTOM_STAGE_SIZE',
     width: 480,
     height: 360
@@ -275,7 +288,7 @@ Manage extension library visibility:
 
 ```javascript
 // Show extension library
-gui.store.dispatch({
+store.dispatch({
     type: 'scratch-gui/modals/OPEN_EXTENSION_LIBRARY'
 });
 
@@ -293,8 +306,8 @@ Listen to GUI state changes:
 
 ```javascript
 // Subscribe to store changes
-const unsubscribe = gui.store.subscribe(() => {
-    const state = gui.store.getState();
+const unsubscribe = store.subscribe(() => {
+    const state = store.getState();
     // Handle state changes
 });
 
@@ -372,7 +385,7 @@ console.log('FPS:', metrics.fps);
 console.log('Frame count:', metrics.frameCount);
 
 // Workspace metrics
-const workspaceMetrics = gui.store.getState().scratchGui.workspaceMetrics;
+const workspaceMetrics = store.getState().scratchGui.workspaceMetrics;
 ```
 
 ### Memory Usage
@@ -488,4 +501,353 @@ interface VMInstance {
 }
 ```
 
+## Renderer API Access
+
+### Canvas Operations
+Access to renderer canvas and coordinate conversion:
+
+```javascript
+// Get canvas dimensions
+const canvas = vm.renderer.canvas;
+const width = canvas.width;
+const height = canvas.height;
+
+// Access native size
+const nativeSize = vm.renderer._nativeSize; // [width, height]
+
+// Extract pixel color at coordinates
+const colorData = vm.renderer.extractColor(x, y, radius);
+const pixelColor = colorData.color; // {r, g, b, a}
+```
+
+### Layer Management
+Control rendering layer ordering:
+
+```javascript
+// Set layer group ordering
+vm.renderer.setLayerGroupOrdering(['background', 'video', 'pen', 'sprite']);
+
+// Access layer configuration
+const layerGroups = vm.renderer._layerGroups;
+```
+
+## Advanced Runtime APIs
+
+### Target Management
+Access and manipulate sprites and stage:
+
+```javascript
+// Get sprite by name
+const sprite = vm.runtime.getSpriteTargetByName('Sprite1');
+
+// Get stage target
+const stage = vm.runtime.getTargetForStage();
+
+// Delete sprite
+vm.deleteSprite(targetId);
+
+// Export sprite
+const spriteBlob = await vm.exportSprite(targetId);
+```
+
+### Project Operations
+Save and load projects:
+
+```javascript
+// Save project as SB3 blob
+const projectBlob = await vm.saveProjectSb3();
+
+// Load project from buffer
+await vm.loadProject(arrayBuffer);
+
+// Get project as JSON
+const projectData = vm.toJSON();
+```
+
+### Costume and Sound Management
+Manage target assets:
+
+```javascript
+// Delete costume by index
+target.deleteCostume(costumeIndex);
+
+// Get costume index by name
+const index = target.getCostumeIndexByName('costume1');
+
+// Delete sound by index  
+target.deleteSound(soundIndex);
+
+// Access sprite sounds
+const sounds = target.sprite.sounds;
+```
+
+### Frame Rate Control
+Control animation frame rate:
+
+```javascript
+// Set unclamped frame rate
+vm.runtime.frameLoop.framerate = 60;
+vm.runtime.frameLoop._restart();
+```
+
+## Advanced Thread Management
+
+### Thread Control
+
+The VM runtime provides advanced thread management capabilities for controlling script execution:
+
+```javascript
+// Get all active threads
+const activeThreads = vm.runtime.threads;
+
+// Check if a thread is active
+const isActive = vm.runtime.isActiveThread(thread);
+
+// Stop a specific thread
+thread.stopThisScript();
+
+// Restart a thread
+vm.runtime._restartThread(thread);
+
+// Push a new thread for execution
+const newThread = vm.runtime._pushThread(blockId, target, options);
+```
+
+### Thread Properties
+
+Thread objects contain execution state and context:
+
+```javascript
+// Thread properties
+console.log(thread.topBlock);      // Starting block ID
+console.log(thread.target);        // Target sprite/stage
+console.log(thread.blockContainer); // Block container
+console.log(thread.stack);         // Execution stack
+console.log(thread.stackFrames);   // Stack frames
+
+// Thread status constants
+const Thread = vm.runtime.sequencer.constructor.prototype.constructor;
+console.log(Thread.STATUS_RUNNING);
+console.log(Thread.STATUS_YIELD);
+console.log(Thread.STATUS_DONE);
+```
+
+### Custom Thread Data Storage
+
+Store custom data in thread context:
+
+```javascript
+// Store data in thread
+if (!thread.customStorage) thread.customStorage = {};
+thread.customStorage['myKey'] = 'myValue';
+
+// Retrieve stored data
+const value = thread.customStorage?.['myKey'];
+```
+
+### Thread Execution Control
+
+Control thread stepping and execution:
+
+```javascript
+// Manually step a thread
+vm.runtime.sequencer.stepThread(thread);
+
+// Control thread stepping
+thread.dontStepJustThisOneTime = true; // Skip next step
+
+// Force thread compilation (if compiler enabled)
+if (thread.tryCompile) {
+    thread.tryCompile();
+}
+```
+
+### Script Monitoring
+
+Monitor and track script execution:
+
+```javascript
+// Create a thread registry for monitoring
+const monitoredThreads = {};
+
+// Register a thread for monitoring
+monitoredThreads['myThreadId'] = thread;
+
+// Check if monitored thread is running
+const isRunning = vm.runtime.isActiveThread(monitoredThreads['myThreadId']);
+
+// Get blocks in a thread's script
+const topBlock = thread.topBlock;
+const blocks = thread.blockContainer;
+let currentBlock = blocks.getBlock(topBlock);
+const blockIds = [];
+
+while (currentBlock) {
+    blockIds.push(currentBlock.id);
+    currentBlock = currentBlock.next ? blocks.getBlock(currentBlock.next) : null;
+}
+```
+
+### Block Glow Control
+
+Control visual feedback for blocks:
+
+```javascript
+// Make a block glow
+vm.runtime.glowBlock(blockId, true);
+
+// Stop block glow
+vm.runtime.glowBlock(blockId, false);
+
+// Quiet glow (internal use)
+vm.runtime.quietGlow(blockId);
+```
+
+### Script Management
+
+Manage scripts and their execution:
+
+```javascript
+// Toggle script on/off
+vm.runtime.toggleScript(blockId, target);
+
+// Get all scripts in a target
+const scripts = target.blocks.getScripts();
+
+// Add a new script
+target.blocks._addScript(topBlockId);
+
+// Delete a script
+target.blocks._deleteScript(topBlockId);
+```
+
+## Redux State Structure
+
+### GUI Mode Information
+Access editor state through Redux:
+
+```javascript
+const guiState = window.ReduxStore.getState().scratchGui;
+
+// Check editor mode
+const isEmbedded = guiState.mode?.isEmbedded;
+const isPlayerOnly = guiState.mode?.isPlayerOnly;
+const isFullscreen = guiState.mode?.isFullScreen;
+const hasEverEnteredEditor = guiState.mode?.hasEverEnteredEditor;
+
+// Get theme information
+const currentTheme = guiState.theme?.theme;
+```
+
+### Packaging Detection
+Detect if running in packaged environment:
+
+```javascript
+// Check if running in TurboWarp Packager
+const isPackaged = !window.ReduxStore?.getState && !!window.scaffolding?.vm;
+```
+
 This API provides comprehensive access to MistWarp's GUI functionality while maintaining compatibility with the underlying Scratch architecture.
+
+## Block Manipulation
+
+Advanced block management and manipulation:
+
+```javascript
+// Get block by ID
+const block = target.blocks.getBlock(blockId);
+
+// Create a new block
+target.blocks.createBlock(blockData);
+
+// Delete a block
+delete target.blocks._blocks[blockId];
+
+// Get block's branch (substack)
+const branchBlockId = target.blocks.getBranch(blockId, index);
+
+// Get next block in sequence
+const nextBlockId = target.blocks.getNextBlock(blockId);
+
+// Clone block structure
+function cloneBlock(blockId, target) {
+    const block = target.blocks.getBlock(blockId);
+    if (!block) return [];
+    
+    let clonedBlocks = [block];
+    
+    // Clone inputs
+    Object.values(block.inputs || {}).forEach(input => {
+        if (input.block) clonedBlocks.push(...cloneBlock(input.block, target));
+        if (input.shadow && input.shadow !== input.block) {
+            clonedBlocks.push(...cloneBlock(input.shadow, target));
+        }
+    });
+    
+    // Clone field references
+    Object.values(block.fields || {}).forEach(field => {
+        if (field.id) clonedBlocks.push(...cloneBlock(field.id, target));
+    });
+    
+    return clonedBlocks;
+}
+```
+
+### ScratchBlocks Integration
+
+Work with the visual block editor:
+
+```javascript
+// Get main workspace
+const workspace = window.ScratchBlocks?.getMainWorkspace();
+
+if (workspace) {
+    // Get all blocks in workspace
+    const allBlocks = workspace.getAllBlocks();
+    
+    // Get blocks by type
+    const motionBlocks = allBlocks.filter(block => block.type.startsWith('motion_'));
+    
+    // Set block warnings
+    const block = workspace.getBlockById(blockId);
+    if (block) {
+        block.setWarningText('Warning message', 'warningId');
+        block.setTooltip('Tooltip text');
+    }
+    
+    // Listen for workspace updates
+    vm.on('workspaceUpdate', () => {
+        console.log('Workspace updated');
+    });
+}
+```
+
+### Runtime Hooks
+
+Modify runtime behavior through hooks:
+
+```javascript
+// Hook into block conversion for ScratchBlocks
+const originalConvert = vm.runtime._convertBlockForScratchBlocks;
+vm.runtime._convertBlockForScratchBlocks = function(blockInfo, categoryInfo) {
+    // Modify block info before conversion
+    if (blockInfo.customProperty) {
+        blockInfo.outputShape = 3; // Custom output shape
+    }
+    
+    return originalConvert.call(this, blockInfo, categoryInfo);
+};
+
+// Hook into thread stepping
+const sequencer = vm.runtime.sequencer;
+const originalStep = sequencer.stepThread;
+sequencer.stepThread = function(thread) {
+    // Custom logic before stepping
+    if (thread.skipThisStep) {
+        thread.skipThisStep = false;
+        return;
+    }
+    
+    return originalStep.call(this, thread);
+};
+```

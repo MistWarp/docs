@@ -25,6 +25,9 @@ The Addon API provides tools for modifying and extending the MistWarp interface 
 ### 📡 [Events](./events.md)
 Comprehensive event system documentation for listening to and dispatching events throughout MistWarp.
 
+### 🧵 [Threads API](./threads.md)
+Advanced thread management for controlling script execution, monitoring threads, and managing execution flow.
+
 ### 🛠️ [Utilities](./utilities.md)
 Collection of utility functions and helpers available throughout the MistWarp codebase.
 
@@ -38,14 +41,14 @@ MistWarp exposes several global objects for API access:
 // Virtual Machine instance
 const vm = window.vm;
 
-// Redux store for GUI state
-const store = window.reduxStore;
+// Redux store for GUI state (note: capital R in ReduxStore)
+const store = window.ReduxStore;
 
 // Scratch blocks (when available)
 const ScratchBlocks = window.ScratchBlocks;
 
-// Addon system (for addon development)
-const addons = window.addons;
+// Note: window.addons is not available as a global.
+// Addons have their own API available within addon contexts.
 ```
 
 ### Basic Usage Examples
@@ -66,7 +69,7 @@ vm.on('PROJECT_START', () => {
 
 #### GUI API Example
 ```javascript
-// Access the Redux store
+// Access the Redux store (note: capital R in ReduxStore)
 const state = store.getState();
 
 // Get current editing target
@@ -269,15 +272,20 @@ vm.on('ERROR', (error) => {
 ```javascript
 // ❌ Inefficient: Multiple separate calls
 sprites.forEach(sprite => {
-    vm.runtime.setEditingTarget(sprite.id);
-    vm.runtime.updateSprite(sprite);
+    // Note: vm.runtime.setEditingTarget doesn't exist
+    // Use proper target selection methods instead
+    vm.runtime.targets.forEach(target => {
+        if (target.id === sprite.id) {
+            // Perform operations on target
+        }
+    });
 });
 
-// ✅ Efficient: Batch operations
-vm.runtime.batchUpdate(() => {
-    sprites.forEach(sprite => {
-        vm.runtime.updateSprite(sprite);
-    });
+// ✅ Efficient: Single iteration
+vm.runtime.targets.forEach(target => {
+    if (!target.isStage) {
+        // Perform sprite operations
+    }
 });
 ```
 
@@ -301,13 +309,18 @@ vm.off('PROJECT_START', myHandler);
 // Enable debug mode
 window.DEBUG = true;
 
-// Debug VM operations
-vm.debug.enableLogging();
-vm.debug.stepThroughExecution();
+// VM inspection tools (these are examples of what you can access)
+window.vmDebug = {
+    inspectTarget: (targetId) => vm.runtime.getTargetById(targetId),
+    inspectRuntime: () => vm.runtime,
+    inspectTargets: () => vm.runtime.targets
+};
 
-// Debug GUI state
-store.debug.logStateChanges();
-store.debug.timeTravel();
+// GUI inspection tools  
+window.guiDebug = {
+    inspectState: () => window.ReduxStore.getState(),
+    inspectComponent: (selector) => document.querySelector(selector)
+};
 ```
 
 ### Development Tools
@@ -316,15 +329,14 @@ store.debug.timeTravel();
 // VM inspection tools
 window.vmDebug = {
     inspectTarget: (targetId) => vm.runtime.getTargetById(targetId),
-    inspectBlocks: () => vm.runtime.flyoutBlocks,
-    inspectVariables: () => vm.runtime.getGlobalVariables()
+    inspectRuntime: () => vm.runtime,
+    inspectTargets: () => vm.runtime.targets
 };
 
 // GUI inspection tools  
 window.guiDebug = {
-    inspectState: () => store.getState(),
-    inspectComponent: (selector) => document.querySelector(selector),
-    inspectAddons: () => window.addons.getEnabledAddons()
+    inspectState: () => window.ReduxStore.getState(),
+    inspectComponent: (selector) => document.querySelector(selector)
 };
 ```
 

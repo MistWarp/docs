@@ -1,54 +1,59 @@
-# VM API Reference
+# Virtual Machine API Reference
 
-The MistWarp Virtual Machine API provides programmatic access to the Scratch runtime environment.
+The MistWarp Virtual Machine (VM) is the core execution engine that powers Scratch projects. It provides comprehensive programmatic access to the runtime environment, allowing external code to control project execution, manipulate sprites and assets, listen for events, and configure runtime behavior.
 
 ## Overview
 
-The VM API allows external code to:
-- Control project execution (start, stop, step)
-- Access and modify project data
-- Listen for runtime events
-- Manage sprites and their properties
-- Control stage and rendering
+The VM API is accessible through `window.vm` and provides the following capabilities:
+
+- **Project Control**: Start, stop, pause, and manage project execution
+- **Asset Management**: Load, modify, and manage sprites, costumes, and sounds  
+- **Runtime Configuration**: Control performance settings, compilation options, and stage properties
+- **Event System**: Listen for runtime events and state changes
+- **Extension Integration**: Register custom blocks and functionality
+- **Data Access**: Read and modify project variables, sprites, and blocks
 
 ## Getting the VM Instance
 
+The VM instance is globally available and can be accessed in several ways:
+
 ```javascript
-// In browser environment
-const vm = window.vm; // Global VM instance
+// Global VM instance (most common)
+const vm = window.vm;
 
-// In extension/addon context
-const vm = addon.api.vm;
-
-// From Redux store
+// From React Redux store
 import { useSelector } from 'react-redux';
-const vm = useSelector(state => state.vm.instance);
+const vm = useSelector(state => state.scratchGui.vm);
 ```
 
-## Core Methods
+## Core Architecture
 
-### Project Control
+The VM consists of several key components:
+
+- **Runtime** (`vm.runtime`): Core execution engine and state management
+- **Targets** (`vm.runtime.targets`): Sprites and stage objects
+- **Sequencer** (`vm.runtime.sequencer`): Thread scheduler and execution controller
+- **IO Devices** (`vm.runtime.ioDevices`): Input/output handlers (keyboard, mouse, etc.)
+- **Extension Manager** (`vm.extensionManager`): Extension loading and management
+
+## Project Control
+
+### Starting and Stopping
 
 #### `vm.start()`
-Start project execution.
+Initializes and starts the VM runtime.
 
 ```javascript
 vm.start();
-// Equivalent to clicking the green flag
-```
-
-#### `vm.stop()`
-Stop project execution.
-
-```javascript
-vm.stop();
-// Equivalent to clicking the stop button
+// Must be called before project execution
 ```
 
 #### `vm.greenFlag()`
-Trigger green flag event.
+Triggers the green flag event, starting all scripts with green flag hat blocks.
 
 ```javascript
+vm.greenFlag();
+// Equivalent to clicking the green flag button
 vm.greenFlag();
 // Starts project and triggers "when green flag clicked" blocks
 ```
@@ -101,37 +106,81 @@ a.click();
 
 ### Target Management
 
-#### `vm.getTargets()`
-Get all targets (sprites and stage).
+#### `vm.runtime.targets`
+Array of all targets (sprites and stage).
 
 ```javascript
-const targets = vm.getTargets();
+const targets = vm.runtime.targets;
+console.log('All targets:', targets);
 console.log('Sprites:', targets.filter(t => !t.isStage));
 console.log('Stage:', targets.find(t => t.isStage));
 ```
 
-**Returns:** Array of target objects
+**Type:** Array of target objects
 
-#### `vm.getEditingTarget()`
-Get currently selected sprite/stage.
+#### `vm.editingTarget`
+Currently selected sprite/stage.
 
 ```javascript
-const target = vm.getEditingTarget();
-console.log('Currently editing:', target.getName());
+const target = vm.editingTarget;
+if (target) {
+  console.log('Currently editing:', target.getName());
+}
 ```
 
-**Returns:** Target object or null
+**Type:** Target object or null
 
 #### `vm.setEditingTarget(targetId)`
 Set the editing target.
 
 ```javascript
-const sprite = vm.getTargets().find(t => t.getName() === 'Misty');
-vm.setEditingTarget(sprite.id);
+const sprite = vm.runtime.targets.find(t => t.getName() === 'Misty');
+if (sprite) {
+  vm.setEditingTarget(sprite.id);
+}
 ```
 
 **Parameters:**
 - `targetId` (string): ID of target to select
+
+#### `vm.deleteSprite(targetId)`
+Delete a sprite from the project.
+
+```javascript
+// Find sprite by name
+const sprite = vm.runtime.targets.find(t => t.getName() === 'Sprite1' && !t.isStage);
+if (sprite) {
+  vm.deleteSprite(sprite.id);
+}
+```
+
+**Parameters:**
+- `targetId` (string): ID of the sprite to delete
+
+**Note:** Cannot delete the stage target
+
+#### `vm.exportSprite(targetId)`
+Export a sprite as a .sprite3 file blob.
+
+```javascript
+// Export sprite
+const sprite = vm.runtime.targets.find(t => t.getName() === 'Sprite1');
+if (sprite) {
+  const spriteBlob = await vm.exportSprite(sprite.id);
+  
+  // Save to file
+  const url = URL.createObjectURL(spriteBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${sprite.getName()}.sprite3`;
+  a.click();
+}
+```
+
+**Parameters:**
+- `targetId` (string): ID of the sprite to export
+
+**Returns:** `Promise<Blob>` containing .sprite3 sprite data
 
 ### Runtime Information
 
@@ -147,15 +196,25 @@ console.log('Lists:', data.lists);
 
 **Returns:** Object containing runtime state
 
-#### `vm.getMonitorState()`
-Get monitor (variable display) state.
+#### `vm.runtime._monitorState`
+Access monitor (variable display) state.
 
 ```javascript
-const monitors = vm.getMonitorState();
-console.log('Visible monitors:', monitors);
+const monitorState = vm.runtime._monitorState;
+console.log('Monitor state:', monitorState);
 ```
 
-**Returns:** Object mapping monitor IDs to their state
+**Type:** Object containing monitor state information
+
+#### `vm.runtime.monitorBlocks`
+Access monitor blocks container.
+
+```javascript
+const monitorBlocks = vm.runtime.monitorBlocks;
+console.log('Monitor blocks:', monitorBlocks);
+```
+
+**Type:** Monitor blocks container object
 
 ## Target API
 
@@ -164,7 +223,7 @@ Target objects represent sprites and the stage.
 ### Target Properties
 
 ```javascript
-const target = vm.getEditingTarget();
+const target = vm.editingTarget;
 
 // Basic properties
 console.log(target.id);        // Unique identifier
@@ -192,8 +251,10 @@ console.log(target.getCurrentCostume());
 Set sprite position.
 
 ```javascript
-const sprite = vm.getEditingTarget();
-sprite.setXY(100, 50);
+const sprite = vm.editingTarget;
+if (sprite && !sprite.isStage) {
+  sprite.setXY(100, 50);
+}
 ```
 
 #### `target.setDirection(direction)`
@@ -303,12 +364,12 @@ vm.on('PROJECT_RUN_STOP', () => {
 });
 ```
 
-#### `SCRIPT_ERROR`
-Script execution error occurs.
+#### `COMPILE_ERROR`
+Script compilation error occurs.
 
 ```javascript
-vm.on('SCRIPT_ERROR', (error) => {
-  console.error('Script error:', error);
+vm.on('COMPILE_ERROR', (target, error) => {
+  console.error('Compile error in target:', target, error);
 });
 ```
 
@@ -318,17 +379,25 @@ vm.on('SCRIPT_ERROR', (error) => {
 
 ```javascript
 // Get all variables for a target
-const variables = target.getAllVariableNamesInScopeForTarget();
+const target = vm.editingTarget;
+console.log('Target variables:', target.variables);
 
-// Get variable value
-const value = target.lookupVariableByNameAndType('my variable', 'variable');
-console.log('Variable value:', value.value);
+// Look up variable by name and type
+const variable = target.lookupVariableByNameAndType('my variable', 'variable');
+if (variable) {
+  console.log('Variable value:', variable.value);
+}
+
+// Get all variable names of a type from runtime
+const allVarNames = vm.runtime.getAllVarNamesOfType('variable');
+console.log('All variable names:', allVarNames);
 ```
 
 ### Setting Variables
 
 ```javascript
 // Set variable value
+const target = vm.editingTarget;
 const variable = target.lookupVariableByNameAndType('score', 'variable');
 if (variable) {
   variable.value = 100;
@@ -338,8 +407,13 @@ if (variable) {
 ### Creating Variables
 
 ```javascript
-// Create new variable
-vm.createVariable('new variable', 'variable', target.id);
+// Create new variable on target
+const target = vm.editingTarget;
+target.createVariable('new-var-id', 'new variable', 'variable', false);
+
+// Create new global variable
+const newVar = vm.runtime.createNewGlobalVariable('global var', null, 'variable');
+console.log('Created variable:', newVar.name);
 ```
 
 ## Block Management
@@ -359,13 +433,18 @@ console.log('Block inputs:', block.inputs);
 ### Running Blocks
 
 ```javascript
-// Execute a specific block
-vm.runtime.sequencer.stepThread({
-  target: target,
-  topBlock: blockId,
-  isCompiled: false
-});
+// Create and start a new thread for a block
+const target = vm.editingTarget;
+vm.runtime._pushThread(blockId, target);
+
+// Access running threads
+console.log('Active threads:', vm.runtime.threads);
+
+// Step through threads (this is normally done automatically)
+const doneThreads = vm.runtime.sequencer.stepThreads();
 ```
+
+**Note:** For advanced thread management, monitoring, and control, see the [Threads API Reference](./threads.md).
 
 ## Extension API
 
@@ -449,46 +528,27 @@ vm.on('VISUAL_REPORT', () => {
 ### Script Performance
 
 ```javascript
-// Monitor script execution time
-vm.runtime.on('BEFORE_EXECUTE', (thread) => {
-  thread._startTime = performance.now();
+// Monitor script execution timing
+let executeStartTime;
+
+vm.runtime.on('BEFORE_EXECUTE', () => {
+  executeStartTime = performance.now();
 });
 
-vm.runtime.on('AFTER_EXECUTE', (thread) => {
-  const duration = performance.now() - thread._startTime;
-  if (duration > 16) { // Longer than one frame
-    console.warn('Slow script:', thread.topBlock, duration + 'ms');
-  }
+vm.runtime.on('AFTER_EXECUTE', () => {
+  const duration = performance.now() - executeStartTime;
+  console.log('Execution cycle took:', duration + 'ms');
 });
 ```
 
 ## Error Handling
 
-### Catching VM Errors
-
-```javascript
-vm.on('ERROR', (error) => {
-  console.error('VM Error:', error);
-  
-  // Handle different error types
-  switch (error.type) {
-    case 'SCRIPT_ERROR':
-      handleScriptError(error);
-      break;
-    case 'LOAD_ERROR':
-      handleLoadError(error);
-      break;
-    default:
-      handleGenericError(error);
-  }
-});
-```
-
-### Graceful Degradation
+### Catching Load Errors
 
 ```javascript
 try {
   await vm.loadProject(projectData);
+  console.log('Project loaded successfully');
 } catch (error) {
   console.error('Failed to load project:', error);
   
@@ -498,6 +558,17 @@ try {
   // Show user-friendly error
   showErrorMessage('Could not load project. Started with empty project.');
 }
+```
+
+### Monitoring Compilation Errors
+
+```javascript
+vm.runtime.on('COMPILE_ERROR', (target, error) => {
+  console.error('Compilation error in target:', target.getName(), error);
+  
+  // Could disable compiler for this target or show user feedback
+  target.blocks.resetCache();
+});
 ```
 
 ## Best Practices
@@ -548,3 +619,96 @@ const loadProjectWithRetry = async (data, maxRetries = 3) => {
 - [GUI API Reference](gui-api)
 - [Extension API Reference](extension-api)
 - [Event System](events)
+
+## Renderer API
+
+### Canvas Access
+
+#### `vm.renderer.canvas`
+Access to the main rendering canvas.
+
+```javascript
+const canvas = vm.renderer.canvas;
+console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
+
+// Canvas context (if needed for custom rendering)
+const ctx = canvas.getContext('2d');
+```
+
+#### `vm.renderer._nativeSize`
+Get the native rendering size.
+
+```javascript
+const [width, height] = vm.renderer._nativeSize;
+console.log('Native size:', width, 'x', height);
+```
+
+### Color Sampling
+
+#### `vm.renderer.extractColor(x, y, radius)`
+Extract pixel color data from the canvas at given coordinates.
+
+```javascript
+// Extract color at screen coordinates
+const colorData = vm.renderer.extractColor(100, 150, 1);
+
+// Access color components
+const color = colorData.color;
+console.log('RGBA:', color.r, color.g, color.b, color.a);
+
+// Get raw pixel data
+const pixels = colorData.data; // Uint8Array of pixel data
+```
+
+**Parameters:**
+- `x` (number): X coordinate on canvas
+- `y` (number): Y coordinate on canvas  
+- `radius` (number): Sampling radius (minimum 1)
+
+**Returns:** Object with `color` and `data` properties
+
+### Layer Management
+
+#### `vm.renderer.setLayerGroupOrdering(layers)`
+Set the order of rendering layers.
+
+```javascript
+// Default layer order
+const defaultLayers = ['background', 'video', 'pen', 'sprite'];
+vm.renderer.setLayerGroupOrdering(defaultLayers);
+
+// Custom layer order (pen on top)
+const customLayers = ['background', 'video', 'sprite', 'pen'];
+vm.renderer.setLayerGroupOrdering(customLayers);
+```
+
+**Parameters:**
+- `layers` (Array\<String\>): Array of layer names in render order
+
+**Required layers:** 'background', 'video', 'pen', 'sprite'
+
+#### `vm.runtime.getSpriteTargetByName(name)`
+Get a sprite target by its name.
+
+```javascript
+// Find sprite by name
+const sprite = vm.runtime.getSpriteTargetByName('Sprite1');
+if (sprite && !sprite.isStage) {
+  console.log('Found sprite:', sprite.getName());
+}
+```
+
+**Parameters:**
+- `name` (string): Name of the sprite
+
+**Returns:** Target object or null if not found
+
+#### `vm.runtime.getTargetForStage()`
+Get the stage target.
+
+```javascript
+const stage = vm.runtime.getTargetForStage();
+console.log('Stage target:', stage.getName());
+```
+
+**Returns:** Stage target object
