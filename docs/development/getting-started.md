@@ -103,3 +103,14 @@ npm run build
 cd ../scratch-gui
 npm link scratch-vm
 ```
+
+Trust me, always link multiple at once, linking one at a time will just break things a lot of the time and if you do npm ci or similar make sure to relink to the gui
+
+```bash
+# do this
+npm link scratch-vm scratch-blocks
+
+# not this
+npm link scratch-vm
+npm link scratch-blocks
+```
