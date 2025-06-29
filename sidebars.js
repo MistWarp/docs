@@ -26,7 +26,23 @@ module.exports = {
         'development/contributing',
         'development/deploying',
         'development/globals',
-        'development/scratchx'
+        'development/scratchx',
+        {
+          type: 'category',
+          label: 'Components',
+          collapsed: true,
+          items: [
+            {
+              type: 'category',
+              label: 'Extensions Library',
+              collapsed: true,
+              items: [
+                'development/components/extensions-library/overview',
+                'development/components/extensions-library/adding-tags'
+              ]
+            }
+          ]
+        }
       ]
     },
     {
