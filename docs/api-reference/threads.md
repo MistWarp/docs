@@ -492,11 +492,12 @@ function safeThreadOperation(thread, operation) {
 }
 ```
 
+
 ## Related APIs
 
 - [VM API Reference](./vm-api) - Core VM functionality
-- [Runtime API](./vm-api#runtime-api) - Runtime management
-- [Block Management](./vm-api#block-api) - Block manipulation
+- [Runtime Information](./vm-api#runtime-information) - Runtime management
+- [Block Management](./vm-api#block-management) - Block manipulation
 - [Extension API](./extension-api) - Custom block creation
 
 ## Best Practices

@@ -203,6 +203,6 @@ Control external hardware and devices:
 
 ## Related Documentation
 
-- [Development Extensions Guide](../development/extensions/introduction)
+- [Development Extensions Guide](../extensions/introduction)
 - [VM API Reference](./vm-api)
-- [Extension Development Examples](../development/extensions/hello-world)
+- [Extension Development Examples](../extensions/hello-world)

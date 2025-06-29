@@ -118,7 +118,7 @@ const vm = Scratch.vm;
 }(Scratch));
 ```
 
-Dig around for a while to find what you're looking for. Your developer tools will be immensely useful as you can access `Scratch` from there after an extension is loaded, or use the other [debugging global variables](../globals) that are available (but please don't use those in extensions). You may find the [scratch-vm source code](https://github.com/TurboWarp/scratch-vm/) or [@turbowarp/types](https://github.com/turboWarp/types) to be useful resources.
+Dig around for a while to find what you're looking for. Your developer tools will be immensely useful as you can access `Scratch` from there after an extension is loaded, or use the other [debugging global variables](../development/globals) that are available (but please don't use those in extensions). You may find the [scratch-vm source code](https://github.com/TurboWarp/scratch-vm/) or [@turbowarp/types](https://github.com/turboWarp/types) to be useful resources.
 
 Here is an example of an extension that uses Scratch.vm to toggle turbo mode, similar to the "runtime options" extension on [extensions.turbowarp.org](https://extensions.turbowarp.org/):
 
