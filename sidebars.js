@@ -24,6 +24,7 @@ module.exports = {
         'development/building-running',
         'development/testing',
         'development/contributing',
+        'development/deploying',
         {
           type: 'category',
           label: 'Extension Development',
