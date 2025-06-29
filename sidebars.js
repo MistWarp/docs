@@ -19,6 +19,7 @@ module.exports = {
       items: [
         'development/home',
         'development/getting-started',
+        'development/first-steps',
         'development/project-structure',
         'development/building-running',
         'development/testing',
