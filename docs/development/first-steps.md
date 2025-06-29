@@ -3,12 +3,13 @@ title: First Steps
 sidebar_position: 3
 ---
 
-# Brand configuration for MistWarp.
+# Brand Configuration for MistWarp
 
-This file defines the application name and other configuration options used by build-time scripts.
+This guide outlines how to configure the branding for your MistWarp mod, including renaming your application and customizing icons and links.
 
 ## Renaming Your Mod
-To rename your mod, update the `APP_NAME` property in the file `src/lib/brand.js` in the scratch-gui with your desired name:
+
+To rename your mod, update the `APP_NAME` property in `src/lib/brand.js` within your fork of the Scratch GUI repository:
 
 ```js
 module.exports = {
@@ -18,6 +19,16 @@ module.exports = {
 };
 ```
 
-You can also update other properties, such as `FEEDBACK_URL` and `GITHUB_URL`, to customize feedback and repository links for your mod.
+You can also update the `FEEDBACK_URL` and `GITHUB_URL` to point to your own feedback page or GitHub repository.
+After making these changes, save the file and rebuild your project for them to take effect.
 
-Make sure to save the file and rebuild your project for the changes to take effect.
+## Changing the Favicon
+
+To update the favicon used by your mod:
+
+1. Prepare your new favicon as an `.ico` file.
+2. Navigate to the `static/` directory in your fork of the Scratch GUI.
+3. Replace the existing `favicon.ico` file with your new icon.
+
+Make sure the new file is named exactly `favicon.ico` so it will be picked up correctly.
+After replacing the file, rebuild your project to apply the changes in the browser.
