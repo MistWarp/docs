@@ -30,7 +30,7 @@ It is not possible to use this to connect to Scratch's cloud variable server as 
 
 ## Custom extensions {#extension}
 
-The `extension` option loads a custom extension from a URL. See [Custom Extensions](/development/extensions/introduction).
+The `extension` option loads a custom extension from a URL. See [Custom Extensions](/extensions/introduction).
 
 <!-- Commented due to possible removal -->
 <!--

@@ -194,7 +194,7 @@ Ready to dive deeper? Here's what to explore next:
 
 ### For Advanced Users
 1. **[JavaScript Integration](./javascript.md)** - Add custom functionality
-2. **[Extension Development](/development/extensions/introduction.md)** - Create custom blocks
+2. **[Extension Development](/extensions/introduction.md)** - Create custom blocks
 3. **[Addon Development](/gui-internals/addons/home.md)** - Build interface enhancements
 
 ## Getting Help

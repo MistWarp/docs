@@ -19,7 +19,7 @@ Learn about the codebase organization and how different components work together
 ### ⚙️ [Building & Running](./building-running.md)
 Detailed instructions for building MistWarp from source and running development servers.
 
-### 🧩 [Extension Development](./extensions/introduction.md)
+### 🧩 [Extension Development](../extensions/introduction.md)
 Create custom blocks and extensions that integrate with Scratch's programming environment.
 
 ### 🌐 [Global Objects](./globals.md)
@@ -431,7 +431,7 @@ MistWarp is open source and welcomes contributions:
 Ready to start developing? Choose your path:
 
 - **New to MistWarp?** Start with [Getting Started](./getting-started.md)
-- **Want to create extensions?** Check out [Extension Development](./extensions/introduction.md)
+- **Want to create extensions?** Check out [Extension Development](../extensions/introduction.md)
 - **Ready to contribute?** Read our [Contributing Guide](./contributing.md)
 
 ---

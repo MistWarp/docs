@@ -8,7 +8,7 @@ hide_table_of_contents: true
 
 These are the instructions for setting up a development environment for TurboWarp itself. This is useful if you want to submit pull requests to us or make your own mod.
 
-If you just want to develop custom extensions, see [the custom extension documentation](./extensions/introduction.md) instead.
+If you just want to develop custom extensions, see [the custom extension documentation](../extensions/introduction.md) instead.
 
 ## Dependencies {#dependencies}
 
