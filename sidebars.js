@@ -25,43 +25,45 @@ module.exports = {
         'development/testing',
         'development/contributing',
         'development/deploying',
+        'development/globals',
+        'development/scratchx'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Extensions',
+      collapsed: true,
+      items: [
+        'extensions/introduction',
+        'extensions/hello-world',
+        'extensions/inputs',
+        'extensions/async',
+        'extensions/sandbox',
+        'extensions/unsandboxed',
+        'extensions/better-development-server',
+        'extensions/assorted-apis',
+        'extensions/hats',
+        'extensions/compatibility',
+        'extensions/share',
+        'extensions/docsURI-demo',
+        'extensions/wrapping-up',
         {
           type: 'category',
-          label: 'Extension Development',
+          label: 'Advanced Techniques',
           collapsed: true,
           items: [
-            'development/extensions/introduction',
-            'development/extensions/hello-world',
-            'development/extensions/inputs',
-            'development/extensions/async',
-            'development/extensions/sandbox',
-            'development/extensions/unsandboxed',
-            'development/extensions/better-development-server',
-            'development/extensions/assorted-apis',
-            'development/extensions/hats',
-            'development/extensions/compatibility',
-            'development/extensions/share',
-            'development/extensions/docsURI-demo',
-            'development/extensions/wrapping-up',
-            {
-              type: 'category',
-              label: 'Advanced Techniques',
-              collapsed: true,
-              items: [
-                'development/extensions/advanced-block-customization'
-              ]
-            },
-            {
-              type: 'category',
-              label: 'APIs',
-              collapsed: true,
-              items: [
-                'development/extensions/apis/renderer-api',
-                'development/extensions/apis/audio-api',
-                'development/extensions/apis/scratch-api',
-                'development/extensions/apis/utility-apis',
-              ]
-            }
+            'extensions/advanced-block-customization'
+          ]
+        },
+        {
+          type: 'category',
+          label: 'APIs',
+          collapsed: true,
+          items: [
+            'extensions/apis/renderer-api',
+            'extensions/apis/audio-api',
+            'extensions/apis/scratch-api',
+            'extensions/apis/utility-apis',
           ]
         },
         {
@@ -69,15 +71,13 @@ module.exports = {
           label: 'Compiled Extensions',
           collapsed: true,
           items: [
-            'development/compiled-extensions/overview',
-            'development/compiled-extensions/structure',
-            'development/compiled-extensions/patching',
-            'development/compiled-extensions/first-extension',
-            'development/compiled-extensions/advanced'
+            'extensions/compiled-extensions/overview',
+            'extensions/compiled-extensions/structure',
+            'extensions/compiled-extensions/patching',
+            'extensions/compiled-extensions/first-extension',
+            'extensions/compiled-extensions/advanced'
           ]
         },
-        'development/globals',
-        'development/scratchx'
       ]
     },
     {
