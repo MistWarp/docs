@@ -1,4 +1,4 @@
-# Virtual Machine API Reference
+# VM API Reference
 
 The MistWarp Virtual Machine (VM) is the core execution engine that powers Scratch projects. It provides comprehensive programmatic access to the runtime environment, allowing external code to control project execution, manipulate sprites and assets, listen for events, and configure runtime behavior.
 
@@ -102,7 +102,7 @@ a.download = 'project.sb3';
 a.click();
 ```
 
-**Returns:** `Promise&lt;ArrayBuffer&gt;` containing .sb3 project data
+**Returns:** `Promise<ArrayBuffer>;` containing .sb3 project data
 
 ### Target Management
 
@@ -195,6 +195,32 @@ console.log('Lists:', data.lists);
 ```
 
 **Returns:** Object containing runtime state
+
+#### `vm.runtime.getSpriteTargetByName(name)`
+Get a sprite target by its name.
+
+```javascript
+// Find sprite by name
+const sprite = vm.runtime.getSpriteTargetByName('Sprite1');
+if (sprite && !sprite.isStage) {
+  console.log('Found sprite:', sprite.getName());
+}
+```
+
+**Parameters:**
+- `name` (string): Name of the sprite
+
+**Returns:** Target object or null if not found
+
+#### `vm.runtime.getTargetForStage()`
+Get the stage target.
+
+```javascript
+const stage = vm.runtime.getTargetForStage();
+console.log('Stage target:', stage.getName());
+```
+
+**Returns:** Stage target object
 
 #### `vm.runtime._monitorState`
 Access monitor (variable display) state.
@@ -614,12 +640,6 @@ const loadProjectWithRetry = async (data, maxRetries = 3) => {
 };
 ```
 
-## Related Documentation
-
-- [GUI API Reference](gui-api)
-- [Extension API Reference](extension-api)
-- [Event System](events)
-
 ## Renderer API
 
 ### Canvas Access
@@ -687,28 +707,9 @@ vm.renderer.setLayerGroupOrdering(customLayers);
 
 **Required layers:** 'background', 'video', 'pen', 'sprite'
 
-#### `vm.runtime.getSpriteTargetByName(name)`
-Get a sprite target by its name.
 
-```javascript
-// Find sprite by name
-const sprite = vm.runtime.getSpriteTargetByName('Sprite1');
-if (sprite && !sprite.isStage) {
-  console.log('Found sprite:', sprite.getName());
-}
-```
+## Related Documentation
 
-**Parameters:**
-- `name` (string): Name of the sprite
-
-**Returns:** Target object or null if not found
-
-#### `vm.runtime.getTargetForStage()`
-Get the stage target.
-
-```javascript
-const stage = vm.runtime.getTargetForStage();
-console.log('Stage target:', stage.getName());
-```
-
-**Returns:** Stage target object
+- [GUI API Reference](gui-api)
+- [Extension API Reference](extension-api)
+- [Event System](events)
