@@ -166,34 +166,6 @@ async myAsyncBlock(args) {
 }
 ```
 
-## Extension Categories
-
-### Sensing Extensions
-Interact with device sensors and external data:
-
-```javascript
-{
-  id: 'mysensing',
-  name: 'My Sensing',
-  color1: '#5CB1D6',
-  color2: '#47A8D1',
-  blocks: [...]
-}
-```
-
-### Hardware Extensions
-Control external hardware and devices:
-
-```javascript
-{
-  id: 'myhardware',
-  name: 'My Hardware',
-  color1: '#9966FF',
-  color2: '#774DCB',
-  blocks: [...]
-}
-```
-
 ## Best Practices
 
 1. **Error Handling**: Always include proper error handling
