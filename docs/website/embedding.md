@@ -5,15 +5,15 @@ hide_table_of_contents: true
 
 # Embedding
 
-TurboWarp can be embedded with a standard iframe:
+MistWarp can be embedded with a standard iframe:
 
 ```html
-<iframe src="https://turbowarp.org/414716080/embed" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+<iframe src="https://warp.mistium.com/414716080/embed" width="482" height="412" frameborder="0" scrolling="no" allowfullscreen></iframe>
 ```
 
 Replace `414716080` with the ID of your project. You can change the width and height of the iframe and the player will automatically resize to fit (482x412 will result in the stage rendering at an undistorted 480x360).
 
-TurboWarp's embeds will have a transparent background if the iframe is allowed to be transparent. TurboWarp's embeds will have a fullscreen button if the iframe is allowed to become fullscreen. The example code above enables both of these feature.
+Embeds have a transparent background and a fullscreen button when allowed by the browser.
 
 ## Unshared projects can't be embedded {#unshared-projects}
 
@@ -21,19 +21,19 @@ Unshared projects [can not be shown in embeds](unshared-projects). Make sure the
 
 ## URL parameters {#url-parameters}
 
-All [standard URL Parameters](url-parameters.md) are still available. You can use these to control usernames and other things.
+All [standard URL Parameters](url-parameters.md) are available. You can use these to control usernames and other things.
 
 There are also some special parameters only available in embeds:
 
 ### Autoplay {#autoplay}
 
-Embeds support the `autoplay` parameter, which will automatically hit the green flag when the project loads. For example: https://turbowarp.org/15832807/embed?autoplay
+Embeds support the `autoplay` parameter, which will automatically hit the green flag when the project loads. For example: https://warp.mistium.com/15832807/embed?autoplay
 
 Note that sound blocks may not work until the user interacts with the project (for example, by clicking). This is a restriction imposed by browsers. There is nothing TurboWarp can do to work around this.
 
 ### Settings button {#settings-button}
 
-You can optionally enable a settings button in embeds with the `settings-button` parameter that opens a similar menu to the "Advanced settings" menu found in the website and editor. For example: https://turbowarp.org/15832807/embed?autoplay&settings-button
+You can optionally enable a settings button in embeds with the `settings-button` parameter that opens a similar menu to the "Advanced settings" menu found in the website and editor. For example: https://warp.mistium.com/15832807/embed?autoplay&settings-button
 
 ### Fullscreen background color {#fullscreen-background}
 
@@ -41,13 +41,13 @@ Outside of fullscreen mode, the embed is transparent so you can style the parent
 
 In fullscreen mode, the embed will either use a white or an almost black color depending on whether the user's computer is configured to dark mode or not.
 
-To override this behavior, set the `fullscreen-background` parameter to a CSS color value like `black` or `rgb(50,90,100)`. For example: https://turbowarp.org/15832807/embed?fullscreen-background=yellow
+To override this behavior, set the `fullscreen-background` parameter to a CSS color value like `black` or `rgb(50,90,100)`. For example: https://warp.mistium.com/15832807/embed?fullscreen-background=yellow
 
 You can also use hex colors if you escape the `#` with percent encoding: `%23abc123`.
 
 ### Addons {#addons}
 
-By default, embeds have no addons enabled. This can be overridden with the `addons` parameter, which is a comma separated list of addon IDs to enable. For example: https://turbowarp.org/15832807/embed?addons=pause,gamepad,mute-project
+By default, embeds have no addons enabled. This can be overridden with the `addons` parameter, which is a comma separated list of addon IDs to enable. For example: https://warp.mistium.com/15832807/embed?addons=pause,gamepad,mute-project
 
 Useful addons and their IDs:
 
@@ -67,11 +67,11 @@ If you use user-supplied information to generate embed links, you should sanitiz
 
 ## Need more control? {#packager}
 
-Use the [MistWarp Packager](https://packager.warp.mistium.com/) for more control over the loading screen, accent colors, controls, and more. You can also [embed the output of the packager](/packager/embedding) very easily.
+Use the [MistWarp Packager](https://packager.warp.mistium.com/) for more control over the loading screen and UI. You can also [embed the output of the packager](/packager/embedding) very easily.
 
 ## Donations {#donations}
 
-If you use a TurboWarp embed in a commercial website, it is in your best interest to [donate to us and the projects we rely upon](/donate) to ensure the embed continues to function smoothly. ❤️
+If you use a MistWarp embed in a commercial website, consider [donating](/donate) to support hosting and upstream projects. ❤️
 
 ## License {#license}
 

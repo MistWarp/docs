@@ -20,7 +20,6 @@ MistWarp Ecosystem
 ├── scratch-paint/        # Costume and backdrop editor
 ├── scratch-audio/        # Web Audio API implementation
 ├── packager/             # Web-based project packager
-├── packager/             # Tool for packaging projects
 └── docs/                 # Documentation site (this site)
 ```
 
@@ -162,10 +161,10 @@ src/lib/
             visible: true,
             alertsList: []
         },
-        theme: {                  # Theme state
+        theme: {                  // Theme state
             theme: 'dark'
         },
-        tw: {                     # MistWarp-specific state
+        tw: {                     // MistWarp-specific state
             customStageSize: { width: 480, height: 360 },
             isWindowFullScreen: false
         }

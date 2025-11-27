@@ -4,9 +4,9 @@ sidebar_position: 2
 hide_table_of_contents: true
 ---
 
-# Modding Introduction
+# Development Introduction
 
-These are the instructions for setting up a development environment for TurboWarp itself. This is useful if you want to submit pull requests to us or make your own mod.
+These are the instructions for setting up a development environment for MistWarp itself. This is useful if you want to submit pull requests to us or make your own mod.
 
 If you just want to develop custom extensions, see [the custom extension documentation](../extensions/introduction.md) instead.
 
@@ -16,7 +16,7 @@ All of our packages need [Git](https://git-scm.com/download) and [Node.js **v20*
 
 Some packages may want some additional things installed, so check the README in each package you want to develop.
 
-TurboWarp is a large app that can require multiple gigabytes of disk space and memory to build.
+MistWarp is a large app that can require multiple gigabytes of disk space and memory to build.
 
 ## A note on how Scratch is organized {#organization}
 
@@ -62,7 +62,7 @@ npm run build
 
 The output will be in the `build` folder.
 
-When deploying TurboWarp to a live website, you should enable production mode. This will result in faster execution and a greatly reduced file size:
+When deploying MistWarp to a live website, you should enable production mode. This will result in faster execution and a greatly reduced file size:
 
 ```bash
 # mac, linux
@@ -77,7 +77,7 @@ $env:NODE_ENV="production"
 npm run build
 ```
 
-By default TurboWarp generates links like `https://turbowarp.org/editor.html#123`. However, by setting the variables `ROOT=/` and `ROUTING_STYLE=wildcard` (in the same way that you set `NODE_ENV=production`), you can get routes like `https://turbowarp.org/123/editor` instead. Note that this requires a server that will setup the proper aliases. The webpack development server in scratch-gui is setup for this. For production you'd want something more like https://github.com/MistWarp/turbowarp.org.
+By default MistWarp generates links like `https://warp.mistium.com/editor.html#123`. However, by setting the variables `ROOT=/` and `ROUTING_STYLE=wildcard` (in the same way that you set `NODE_ENV=production`), you can get routes like `https://warp.mistium.com/123/editor` instead. Note that this requires a server that will setup the proper aliases. The webpack development server in scratch-gui is setup for this. For production you'd want something more like https://github.com/MistWarp/warp.mistium.com.
 
 ## Linking other packages {#linking}
 

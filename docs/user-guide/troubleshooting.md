@@ -87,7 +87,7 @@ end
 
 **Enable Performance Features**
 ```
-https://warp.mistium.com/?turbo&fps=60&nointerp
+https://warp.mistium.com/?turbo&fps=60
 ```
 
 **Optimize Project Code**
@@ -181,7 +181,7 @@ end
 ❌ Problem: Theme appears broken or default
 ✅ Solutions:
 1. Clear browser cache
-2. Try different theme: ?theme=dark or ?theme=light
+2. Use the settings menu to change theme
 3. Reset theme settings
 4. Check for CSS loading errors in console
 ```
@@ -192,7 +192,7 @@ end
 ✅ Solutions:
 1. Use valid size format: ?size=800x600
 2. Check browser zoom level (should be 100%)
-3. Try fullscreen mode: ?fullscreen
+3. Use the fullscreen control in the player header
 4. Refresh page after changing size
 ```
 

@@ -5,21 +5,20 @@ sidebar_position: 7
 
 # Cloud Variables
 
-Cloud variables in MistWarp provide persistent data storage and enable real-time collaboration between users. MistWarp extends the standard Scratch cloud variable functionality with enhanced features and custom server support.
+Cloud variables in MistWarp provide shared data storage and enable real-time collaboration between users. MistWarp uses a cloud server compatible with Scratch’s protocol.
 
 ## Understanding Cloud Variables
 
 ### What Are Cloud Variables?
 Cloud variables are special variables that:
-- **Persist**: Data survives page refreshes and browser sessions
-- **Sync**: Share data between different users in real-time
-- **Global**: Accessible to all instances of your project
+- **Sync**: Share data between different users in real time
+- **Global**: Accessible to all active instances of your project
+- **Server-backed**: Stored on a cloud server while users are connected
 
 ### Limitations
-- **Text Only**: Cloud variables store text strings only
-- **Size Limit**: 100,000 characters per variable
-- **Count Limit**: Maximum 10 cloud variables per project
-- **Rate Limit**: Updates limited to prevent spam
+- **Numbers only**: Cloud variables only hold numbers
+- **Length limit**: Up to 100,000 characters
+- **Buffering**: Updates may be batched and reordered; sending over ~10 per second is redundant
 
 ## Creating Cloud Variables
 
@@ -172,61 +171,15 @@ forever
 end
 ```
 
-## MistWarp Enhancements
+## Server Configuration
 
-### Custom Cloud Servers
-MistWarp supports alternative cloud variable providers:
-
-#### Configuration
-```javascript
-// Connect to custom server
-vm.runtime.ioDevices.cloud.setProvider({
-  url: 'wss://your-cloud-server.com',
-  username: 'player123'
-});
+### Custom Cloud Host
+Override the cloud server with a URL parameter:
+```
+https://warp.mistium.com/?cloud_host=wss://clouddata.turbowarp.org
 ```
 
-#### Local Storage Mode
-Use browser storage as cloud variables:
-```javascript
-// Enable local storage mode
-vm.runtime.ioDevices.cloud.setProvider('localstorage');
-```
-
-### Enhanced Security
-MistWarp provides additional security features:
-
-#### Encryption
-```javascript
-// Enable client-side encryption
-vm.runtime.ioDevices.cloud.setEncryption(true);
-```
-
-#### Rate Limiting
-```javascript
-// Custom rate limits
-vm.runtime.ioDevices.cloud.setRateLimit({
-  maxUpdatesPerSecond: 5,
-  maxUpdatesPerMinute: 100
-});
-```
-
-### Real-Time Synchronization
-Enhanced real-time features:
-
-#### Instant Updates
-- **Zero Delay**: Changes appear immediately
-- **Conflict Resolution**: Automatic merge conflicts
-- **Offline Queue**: Queue updates when offline
-
-#### Presence System
-```javascript
-// User presence tracking
-vm.runtime.ioDevices.cloud.trackPresence({
-  onUserJoin: (user) => console.log(`${user} joined`),
-  onUserLeave: (user) => console.log(`${user} left`)
-});
-```
+MistWarp uses `wss://` by default. Insecure `ws://` hosts may not work in HTTPS environments.
 
 ## Best Practices
 
@@ -302,7 +255,7 @@ set [cached_data v] to (☁ remote_data)
 - Check internet connection
 - Verify project is shared
 - Ensure variable name starts with ☁
-- Check rate limits
+- Avoid very frequent updates
 
 #### Data Loss
 - Implement periodic backups

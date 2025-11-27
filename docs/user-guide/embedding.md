@@ -24,17 +24,16 @@ The easiest way to embed a MistWarp project:
 ```
 
 ### Enhanced Embedding
-MistWarp offers additional embedding parameters:
+Supported embed parameters include `autoplay`, `addons`, and standard runtime options like `turbo`, `fps`, `hqpen`, `interpolate`, and `size`:
 
 ```html
 <iframe
-  src="https://warp.mistium.com/123456789/embed?autoplay&turbo&controls=0"
+  src="https://warp.mistium.com/123456789/embed?autoplay&turbo&fps=60"
   width="800"
   height="600"
   frameborder="0"
   scrolling="no"
-  allowfullscreen
-  allowtransparency="true">
+  allowfullscreen>
 </iframe>
 ```
 
@@ -44,28 +43,26 @@ MistWarp offers additional embedding parameters:
 
 | Parameter | Values | Description |
 |-----------|--------|-------------|
-| `autoplay` | boolean | Start project automatically |
-| `controls` | 0, 1 | Show/hide control buttons |
-| `username` | string | Set default username |
+| `autoplay` | boolean | Auto-start project on load |
+| `username` | string | Set username used by blocks |
 | `turbo` | boolean | Enable turbo mode |
 
 ### Display Parameters
 
 | Parameter | Values | Description |
 |-----------|--------|-------------|
-| `fps` | 30, 60, 120 | Set frame rate |
+| `fps` | number | Set frame rate |
 | `hqpen` | boolean | High quality pen rendering |
 | `size` | WIDTHxHEIGHT | Custom stage dimensions |
-| `transparent` | boolean | Transparent background |
+| `interpolate` | boolean | Enable motion interpolation |
 
-### Interaction Parameters
+### Embed-Specific Parameters
 
 | Parameter | Values | Description |
 |-----------|--------|-------------|
-| `mouse` | boolean | Enable mouse interaction |
-| `keyboard` | boolean | Enable keyboard input |
-| `fullscreen` | boolean | Allow fullscreen mode |
-| `download` | boolean | Show download button |
+| `addons` | comma list | Enable specific addons (eg. `pause,gamepad`) |
+| `settings-button` | boolean | Show settings button in player header |
+| `fullscreen-background` | CSS color | Fullscreen background color override |
 
 ## Advanced Embedding
 
@@ -84,57 +81,32 @@ Create responsive embeds that adapt to container size:
 ```
 
 ### Custom Theming
-Apply custom themes to embedded projects:
-
-```html
-<iframe
-  src="https://warp.mistium.com/123456789/embed?theme=dark&accent=blue"
-  width="480"
-  height="360">
-</iframe>
-```
+Theme and accent are not controlled by URL parameters in embeds. Use CSS around the iframe or the Packager for theme control.
 
 ## JavaScript API Integration
 
 ### PostMessage Communication
-Communicate with embedded projects using postMessage:
+Embeds accept `LOAD_SB3` messages for loading projects. See detailed guide: [/user-guide/embed-messaging](/user-guide/embed-messaging).
 
 ```javascript
-// Send message to embedded project
+// Send SB3 to the embed (URL or binary)
 const iframe = document.getElementById('mistwarp-embed');
 iframe.contentWindow.postMessage({
-  type: 'SET_VARIABLE',
-  name: 'score',
-  value: 100
+  type: 'LOAD_SB3',
+  data: 'https://example.com/project.sb3',
+  title: 'Optional Title'
 }, '*');
 
-// Listen for messages from project
+// Receive load response
 window.addEventListener('message', (event) => {
-  if (event.data.type === 'PROJECT_LOADED') {
-    console.log('Project loaded successfully');
+  if (event.data && event.data.type === 'LOAD_SB3_RESPONSE') {
+    console.log(event.data.status, event.data.message);
   }
 });
 ```
 
 ### Event Handling
-Handle project events in the parent page:
-
-```javascript
-// Listen for project events
-window.addEventListener('message', (event) => {
-  switch (event.data.type) {
-    case 'GREEN_FLAG':
-      console.log('Project started');
-      break;
-    case 'STOP_ALL':
-      console.log('Project stopped');
-      break;
-    case 'COSTUME_CHANGED':
-      console.log('Costume changed:', event.data.costume);
-      break;
-  }
-});
-```
+Embeds do not emit general project events via `postMessage`. Use the VM API within the embed context if you need state.
 
 ## Packager Integration
 
@@ -207,14 +179,7 @@ Provide alternative content for screen readers:
 ```
 
 #### Keyboard Navigation
-Ensure embedded projects support keyboard navigation:
-
-```html
-<iframe
-  src="https://warp.mistium.com/123456789/embed?keyboard=1"
-  tabindex="0">
-</iframe>
-```
+Ensure embedded projects support keyboard navigation by focusing the iframe or providing external controls.
 
 ## Security Considerations
 
@@ -316,15 +281,7 @@ export default MistWarpEmbed;
 - Test responsive behavior
 - Validate HTML structure
 
-### Debug Mode
-Enable debug mode for troubleshooting:
-
-```html
-<iframe
-  src="https://warp.mistium.com/123456789/embed?debug"
-  width="480"
-  height="360">
-</iframe>
-```
+### Debugging
+Use the browser devtools console and network inspector. There is no `debug` URL parameter.
 
 MistWarp's embedding capabilities make it easy to integrate interactive content into any website or application. Use these features to create engaging, interactive experiences for your users!

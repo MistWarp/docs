@@ -9,6 +9,7 @@ module.exports = {
       items: [
         'getting-started/introduction',
         'getting-started/installation',
+        'getting-started/quick-start',
         'getting-started/migrating-from-scratch'
       ]
     },
@@ -63,20 +64,47 @@ module.exports = {
         'extensions/share',
         'extensions/docsURI-demo',
         'extensions/wrapping-up',
-        {
-          type: 'category',
-          label: 'Advanced Techniques',
-          collapsed: true,
-          items: [
-            'extensions/advanced-block-customization'
-          ]
-        },
+        'extensions/custom-c-blocks',
+        'extensions/advanced-block-customization',
         {
           type: 'category',
           label: 'APIs',
           collapsed: true,
           items: [
-            'extensions/apis/renderer-api',
+            {
+              type: 'category',
+              label: 'Renderer',
+              collapsed: true,
+              items: [
+                'extensions/apis/renderer-api',
+                'extensions/apis/renderer/createBitmapSkin',
+                'extensions/apis/renderer/createDrawable',
+                'extensions/apis/renderer/createPenSkin',
+                'extensions/apis/renderer/createSVGSkin',
+                'extensions/apis/renderer/createTextSkin',
+                'extensions/apis/renderer/destroyDrawable',
+                'extensions/apis/renderer/destroySkin',
+                'extensions/apis/renderer/draw',
+                'extensions/apis/renderer/getBounds',
+                'extensions/apis/renderer/getBoundsForBubble',
+                'extensions/apis/renderer/getCurrentSkinSize',
+                'extensions/apis/renderer/getDrawableOrder',
+                'extensions/apis/renderer/getSkinRotationCenter',
+                'extensions/apis/renderer/getSkinSize',
+                'extensions/apis/renderer/isTouchingColor',
+                'extensions/apis/renderer/isTouchingDrawables',
+                'extensions/apis/renderer/markSkinAsPrivate',
+                'extensions/apis/renderer/requestSnapshot',
+                'extensions/apis/renderer/resize',
+                'extensions/apis/renderer/setBackgroundColor',
+                'extensions/apis/renderer/setDrawableOrder',
+                'extensions/apis/renderer/setStageSize',
+                'extensions/apis/renderer/updateBitmapSkin',
+                'extensions/apis/renderer/updateDrawableProperties',
+                'extensions/apis/renderer/updateSVGSkin',
+                'extensions/apis/renderer/updateTextSkin'
+              ]
+            },
             'extensions/apis/audio-api',
             'extensions/apis/scratch-api',
             'extensions/apis/utility-apis',

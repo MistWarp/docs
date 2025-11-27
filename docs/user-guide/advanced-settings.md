@@ -33,7 +33,6 @@ https://warp.mistium.com/?turbo&hqpen&fps=60
 
 #### Frame Rate Control
 - **Default**: 30 FPS (same as Scratch)
-- **Options**: 30, 60, 120 FPS
 - **URL Parameter**: `?fps=60`
 - **Impact**: Higher FPS = smoother animation, more CPU usage
 
@@ -45,16 +44,14 @@ https://warp.mistium.com/?turbo&hqpen&fps=60
 
 ### Memory Management
 
-#### Remove Sprite Fencing
+#### Offscreen Fencing
 - **Purpose**: Allow sprites to go outside stage bounds
-- **Effect**: Improved performance, different behavior
+- **URL Parameter**: `?offscreen`
 - **Compatibility**: May affect some projects
-- **Use Case**: Large-scale simulations
 
-#### Disable Interpolation
-- **Purpose**: Skip frame interpolation for maximum speed
-- **Effect**: Choppy animation at low frame rates
-- **Benefit**: Maximum performance for computational projects
+#### Motion Interpolation
+- **Purpose**: Enable smoother motion between frames
+- **URL Parameter**: `?interpolate`
 
 ## Stage Configuration
 
@@ -74,15 +71,13 @@ setStageSize(800, 600);
 
 ### Stage Options
 
-#### Remove Limits
-- **Sprite Count**: No limit on simultaneous sprites
-- **Clone Count**: No limit on clones (within memory)
-- **Variable Count**: No limit on variables
+#### Misc Limits
+- **Disable certain runtime limits**
+- **URL Parameter**: `?limitless`
+- **Clone Limit**: `?clones=300`
 
 #### Rendering Options
-- **Force Canvas**: Use Canvas renderer (better performance)
-- **Force WebGL**: Use WebGL renderer (better quality)
-- **Pixel Perfect**: Disable anti-aliasing for pixel art
+- High quality pen: `?hqpen`
 
 ## Audio Settings
 
@@ -122,14 +117,7 @@ setStageSize(800, 600);
 ### Cloud Variables
 
 #### Alternative Providers
-- **Custom Servers**: Connect to non-Scratch cloud servers
-- **Local Storage**: Use browser storage as cloud variables
-- **WebSocket**: Real-time synchronization
-
-#### Security Options
-- **Encryption**: Encrypt cloud variable data
-- **Rate Limiting**: Prevent spam and abuse
-- **Validation**: Server-side data validation
+- Use `?cloud_host=wss://...` to change server
 
 ## Development Features
 
@@ -237,17 +225,19 @@ Load settings from configuration files or URLs.
 | Parameter | Values | Description |
 |-----------|--------|-------------|
 | `turbo` | boolean | Enable turbo mode |
-| `fps` | 30, 60, 120 | Set frame rate |
+| `fps` | number | Set frame rate |
 | `hqpen` | boolean | High quality pen |
 | `size` | WIDTHxHEIGHT | Custom stage size |
-| `nointerp` | boolean | Disable interpolation |
-| `nolimits` | boolean | Remove sprite limits |
+| `interpolate` | boolean | Enable motion interpolation |
+| `offscreen` | boolean | Disable offscreen fencing |
+| `limitless` | boolean | Disable misc limits |
+| `clones` | number | Set max clones |
 
 ## Performance Tips
 
 1. **Enable Turbo Mode** for computational projects
 2. **Use 60 FPS** for smooth animations
-3. **Disable interpolation** for maximum speed
+3. **Enable interpolation** for smoother motion when needed
 4. **Custom stage sizes** for specific use cases
 5. **Monitor memory usage** for large projects
 
