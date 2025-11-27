@@ -115,6 +115,22 @@ if (Scratch.extensions.unsandboxed) {
 }
 ```
 
+### `Scratch.vm.extensionManager`
+**Unsandboxed Only**
+
+Manages loaded extensions. Useful for dynamic block updates.
+
+```js
+// Force the toolbox to re-render
+// Useful when changing button text
+// Force a toolbox refresh
+vm.extensionManager.refreshBlocks(extensionId);
+```
+
+### UI Customization
+
+For advanced UI customization involving the block editor itself (Blockly), you can access the global `ScratchBlocks` object. See [GUI API](/api-reference/gui-api#scratchblocks-integration) for details.
+
 ## Type Constants
 
 ### `Scratch.ArgumentType`
@@ -319,6 +335,7 @@ const hasList = !!util.target.lookupVariableByNameAndType('items', 'list');
 const startedThreads = util.startHats('event_whenbroadcastreceived', {
   BROADCAST_OPTION: 'my message'
 });
+// Note: options object matches the fields in the hat block
 
 // Control block execution
 util.yield();        // Pause this block until next frame

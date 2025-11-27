@@ -5,84 +5,41 @@ sidebar_position: 8
 
 # JavaScript Integration
 
-MistWarp provides powerful JavaScript integration capabilities that allow you to extend projects with custom code, interact with web APIs, and create sophisticated applications beyond what's possible with blocks alone.
+MistWarp supports powerful extension APIs and embedding workflows. Arbitrary “JavaScript blocks” are not part of MistWarp; instead, use unsandboxed extensions for advanced behavior or the Packager to include custom JavaScript in standalone builds.
 
 ## Understanding JavaScript in MistWarp
 
-### What is JavaScript Integration?
-JavaScript integration allows you to:
-- **Execute Custom Code**: Run JavaScript alongside block scripts
-- **Access Web APIs**: Use browser APIs for advanced functionality
-- **External Libraries**: Include popular JavaScript libraries
-- **DOM Manipulation**: Interact with the webpage
-- **Real-time Communication**: WebSockets, API calls, and more
+### What is supported?
+- **Unsandboxed extensions**: Write extensions that run in the editor context and interact with the VM, renderer, and runtime.
+- **Packager custom JS**: When exporting with the Packager, include custom JavaScript in the output for standalone deployments.
+- **Embedding**: Communicate with embedded projects via `postMessage` from the host page.
 
 ### Security Model
-MistWarp runs JavaScript in different security contexts:
-- **Sandboxed**: Safe, limited access (default)
-- **Unsandboxed**: Full access, requires user permission
-- **Extension Context**: Special privileges for extensions
+- **Sandboxed extensions**: Limited access; blocks may incur a per-frame delay.
+- **Unsandboxed extensions**: Full access to internal APIs; must remain stable and not block the main thread.
+- **Packager JS**: Runs in your packaged app’s context; follow CSP best practices.
 
-## Enabling JavaScript
+## Enabling Advanced Behavior
 
-### Via Interface
-1. Click the **Advanced** button in the editor
-2. Enable **Allow custom JavaScript**
-3. Accept security warning
-4. JavaScript blocks become available
-
-### Via URL Parameter
+### Unsandboxed Extensions
+Load your extension via URL or register directly in an IIFE:
 ```
-https://warp.mistium.com/?unsafe
+https://warp.mistium.com/?extension=https://example.com/extension.js
 ```
+
+### Packager
+Use the Packager to inject custom JS into the exported app.
 
 :::warning Security Notice
-Custom JavaScript can access your computer and personal data. Only enable it for projects you trust.
+Unsandboxed extensions and Packager JS run with elevated privileges. Only load code you trust.
 :::
 
-## JavaScript Blocks
-
-### Basic JavaScript Block
-Execute custom JavaScript code:
-
-```scratch
-run js [
-  console.log("Hello from MistWarp!");
-  return 42;
-] // Returns: 42
-```
-
-### JavaScript Function Block
-Create reusable JavaScript functions:
-
-```scratch
-define js function [factorial] with parameters [n]
-[
-  function factorial(n) {
-    return n <= 1 ? 1 : n * factorial(n - 1);
-  }
-  return factorial(n);
-]
-
-// Usage
-set [result v] to (call js function [factorial] with [5]) // Returns: 120
-```
-
-### Asynchronous JavaScript
-Handle promises and async operations:
-
-```scratch
-run js async [
-  const response = await fetch('https://api.example.com/data');
-  const data = await response.json();
-  return data.value;
-]
-```
+## Unsandboxed Extension Patterns
 
 ## Interacting with Scratch
 
 ### Accessing Variables
-Read and modify Scratch variables from JavaScript:
+Read and modify Scratch variables from an unsandboxed extension:
 
 ```javascript
 // Get variable value
@@ -117,7 +74,7 @@ sprite.setDirection(90);
 ```
 
 ### Broadcasting Events
-Trigger Scratch broadcasts from JavaScript:
+Trigger Scratch broadcasts:
 
 ```javascript
 // Simple broadcast
@@ -132,7 +89,7 @@ vm.runtime.startHats('event_whenbroadcastreceived', {
 });
 ```
 
-## Web API Integration
+## Web API Integration (unsandboxed extensions)
 
 ### Fetch API
 Make HTTP requests:
@@ -197,7 +154,7 @@ video.play();
 const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 ```
 
-## External Libraries
+## External Libraries (Packager or host page)
 
 ### Including Libraries
 Add external JavaScript libraries:
@@ -288,8 +245,8 @@ class MyCustomExtension {
   }
 }
 
-// Register extension
-vm.extensionManager.loadExtensionIdSync('myextension', MyCustomExtension);
+// Register extension (unsandboxed)
+Scratch.extensions.register(new MyCustomExtension());
 ```
 
 ### Event System

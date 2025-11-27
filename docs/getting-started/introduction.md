@@ -36,15 +36,13 @@ MistWarp is a powerful, feature-rich modification of Scratch that enhances the o
 
 ## Key Differences from Scratch
 
-| Feature | Scratch | MistWarp |
-|---------|---------|----------|
-| **Performance** | Standard | Highly optimized compiler |
-| **Themes** | Light only | Dark mode + custom themes |
-| **Addons** | None | 80+ built-in addons |
-| **Frame Rate** | 30 FPS | Up to 60+ FPS |
-| **Debugging** | Basic | Advanced debugging tools |
-| **Customization** | Limited | Extensive customization |
-| **Extensions** | Basic | Advanced extension system |
+| Feature | Scratch | TurboWarp | MistWarp |
+|---------|---------|----------|----------|
+| **Performance** | Slow | Fast | Highly optimized compiler |
+| **Themes** | Light only | Dark mode | Custom themes |
+| **Addons** | None | 80+ built-in addons | ~90 built-in addons |
+| **Frame Rate** | 30 FPS | 60 FPS | 10,000+ FPS |
+| **Customization** | Limited | Limited | Extensive customization |
 
 ## Architecture Overview
 

@@ -28,7 +28,6 @@ Contribute to MistWarp development and understand the codebase.
 
 ### ⚙️ [GUI Internals](./gui-internals)
 Technical documentation of the user interface architecture.
-Contribute to MistWarp development and understand the codebase.
 
 ### 📖 [API Reference](./api-reference)
 Programming interfaces and technical specifications.

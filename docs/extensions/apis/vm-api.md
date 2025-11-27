@@ -306,6 +306,29 @@ const target = runtime.getSpriteTargetByName('Sprite1');
 const thread = runtime._pushThread(blockId, target);
 ```
 
+### Manual Thread Management
+**Advanced / Internal**
+
+For more granular control, you can manually push threads and inspect their status.
+
+```js
+// Manually start a thread
+// _pushThread(blockId, target, opts)
+const thread = runtime._pushThread(startBlockId, target, {
+  stackClick: true // Treat as a stack click (restarts if running)
+});
+
+// Thread Status Constants
+// 0: RUNNING
+// 1: PROMISE_WAIT
+// 2: YIELD
+// 3: YIELD_TICK
+// 4: DONE
+if (thread.status === 4) {
+  console.log('Thread finished');
+}
+```
+
 ### Thread Management
 
 ```js
@@ -488,6 +511,33 @@ vm.on('COMPILE_ERROR', (target, error) => {
 if (runtime.precompile) {
   runtime.precompile();
 }
+
+### Compiler Access
+**Advanced / Internal**
+
+Unsandboxed extensions can access the compiler infrastructure through `vm.exports`. This is primarily used for [Compiler Patching](../advanced-techniques/compiler-patching.md).
+
+```js
+// Check for compiler exports
+if (vm.exports) {
+    // Access generators
+    const JSGenerator = vm.exports.JSGenerator;
+    const IRGenerator = vm.exports.IRGenerator;
+    
+    // Access helper classes
+    const { TypedInput, TYPE_UNKNOWN } = JSGenerator.exports;
+}
+```
+
+> [!WARNING]
+> Compiler APIs are internal and subject to change. Always check for existence before use.
+
+### Runtime Hooks
+**Advanced**
+
+For deep integration, you can hook into runtime processes. See [GUI API](/api-reference/gui-api#runtime-hooks) for details on:
+- `runtime._convertBlockForScratchBlocks` (Custom block serialization)
+- `ScratchBlocks` integration
 ```
 
 ### Performance Monitoring

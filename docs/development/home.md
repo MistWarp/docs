@@ -80,7 +80,6 @@ MistWarp Ecosystem
 ├── scratch-blocks/       # Visual block editor
 ├── scratch-paint/        # Costume/backdrop editor
 ├── packager/             # Web-based project packager
-├── packager/             # Project packaging tool
 └── docs/                 # Documentation (this site)
 ```
 
