@@ -1,15 +1,225 @@
+/*
+ * The Help window renders these docs in a same-origin iframe inside the editor and
+ * copies the editor's live theme custom properties (--ui-*, --looks-*, --menu-bar-*,
+ * --theme-font, ...) onto this document's root, so the docs match whatever MistWarp
+ * theme the user has set. The var() fallbacks below are the standalone-site colors
+ * (used when opened directly, outside the editor), split light/dark.
+ */
+
 :root {
-  --ifm-color-primary: #d399e5;
-  --ifm-color-primary-dark: #c67dd9;
-  --ifm-color-primary-darker: #bf70d5;
-  --ifm-color-primary-darkest: #a649c3;
-  --ifm-color-primary-light: #e0b5f1;
-  --ifm-color-primary-lighter: #e7c2f5;
-  --ifm-color-primary-lightest: #f3e0fd;
-  --ifm-font-family-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ifm-background-color: var(--ui-modal-background, #ffffff);
+  --ifm-background-surface-color: var(--ui-primary, #e5f0ff);
+  --ifm-font-color-base: var(--text-primary, #12181f);
+  --ifm-font-family-base: var(--theme-font, "Helvetica Neue", Helvetica, Arial, sans-serif);
+
+  --mw-accent: var(--looks-secondary, #855cd6);
+  --ifm-color-primary: var(--mw-accent);
+  --ifm-color-primary-dark: color-mix(in srgb, var(--mw-accent) 90%, black);
+  --ifm-color-primary-darker: color-mix(in srgb, var(--mw-accent) 85%, black);
+  --ifm-color-primary-darkest: color-mix(in srgb, var(--mw-accent) 70%, black);
+  --ifm-color-primary-light: color-mix(in srgb, var(--mw-accent) 90%, white);
+  --ifm-color-primary-lighter: color-mix(in srgb, var(--mw-accent) 85%, white);
+  --ifm-color-primary-lightest: color-mix(in srgb, var(--mw-accent) 70%, white);
+
+  --ifm-link-color: var(--mw-accent);
+  --ifm-link-hover-color: color-mix(in srgb, var(--mw-accent) 80%, black);
+
+  --ifm-navbar-height: 0px;
+  --ifm-navbar-background-color: var(--ui-modal-background, #ffffff);
+  --ifm-navbar-link-color: var(--text-primary, #12181f);
+  --ifm-navbar-link-hover-color: var(--mw-accent);
+
+  --ifm-menu-color: color-mix(in srgb, var(--ifm-font-color-base) 72%, transparent);
+  --ifm-menu-color-active: var(--mw-accent);
+  --ifm-menu-color-background-active: color-mix(in srgb, var(--ifm-font-color-base) 10%, transparent);
+  --ifm-menu-color-background-hover: color-mix(in srgb, var(--ifm-font-color-base) 6%, transparent);
+
+  --ifm-code-background: var(--ui-primary, #eef3fb);
+  --ifm-pre-background: var(--ui-primary, #eef3fb);
+  --ifm-color-emphasis-200: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
+  --ifm-color-emphasis-300: var(--ui-tertiary, rgba(0, 0, 0, 0.16));
+  --ifm-toc-border-color: var(--ui-black-transparent, rgba(0, 0, 0, 0.12));
+  --ifm-table-border-color: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
+  --ifm-table-stripe-background: var(--ui-black-transparent, rgba(0, 0, 0, 0.03));
+  --ifm-hr-background-color: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
+  --ifm-blockquote-border-color: var(--mw-accent);
+  --ifm-blockquote-color: color-mix(in srgb, var(--ifm-font-color-base) 78%, transparent);
+
   --ifm-container-width: 800px;
   --ifm-container-width-xl: 1000px;
-  --docusaurus-highlighted-code-line-bg: rgba(211, 153, 229, 0.15);
+  --docusaurus-highlighted-code-line-bg: color-mix(in srgb, var(--mw-accent) 15%, transparent);
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: var(--ui-modal-background, #1a1726);
+  --ifm-background-surface-color: var(--ui-primary, #241f33);
+  --ifm-font-color-base: var(--text-primary, #e9e6f2);
+
+  --mw-accent: var(--looks-secondary, #b39ae6);
+
+  --ifm-code-background: var(--ui-primary, #241f33);
+  --ifm-pre-background: var(--ui-primary, #201c2e);
+  --ifm-color-emphasis-200: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
+  --ifm-color-emphasis-300: var(--ui-tertiary, rgba(255, 255, 255, 0.2));
+  --ifm-toc-border-color: var(--ui-black-transparent, rgba(255, 255, 255, 0.14));
+  --ifm-table-border-color: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
+  --ifm-table-stripe-background: var(--ui-black-transparent, rgba(255, 255, 255, 0.04));
+  --ifm-hr-background-color: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
+}
+
+.navbar {
+  display: none;
+}
+
+/* No navbar means no hamburger, so a floating button opens the sidebar as a
+   drawer on narrow screens. Hidden where the sidebar is always visible. */
+.mw-sidebar-toggle {
+  display: none;
+}
+
+@media (max-width: 996.98px) {
+  .mw-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 12px;
+    top: 12px;
+    z-index: 340;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: var(--ui-modal-background, var(--ifm-background-color));
+    color: var(--text-primary, var(--ifm-font-color-base));
+    cursor: pointer;
+  }
+
+  body.mw-sidebar-open::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 350;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  body.mw-sidebar-open .theme-doc-sidebar-container {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(300px, 82vw);
+    margin: 0;
+    z-index: 360;
+    overflow-y: auto;
+    background: var(--ui-modal-background, var(--ifm-background-color));
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* No rubber-band / bounce when scrolling the docs inside the Help window. */
+html,
+body {
+  overscroll-behavior: none;
+}
+
+/* Left sidebar reads like the Settings window's category nav: blended panel, thin divider. */
+.theme-doc-sidebar-container {
+  background: transparent;
+  border-right: 1px solid var(--ui-black-transparent, var(--ifm-toc-border-color));
+}
+
+.menu {
+  background: transparent;
+}
+
+/* Search button styled after the editor's find bar. */
+.DocSearch-Button {
+  height: 2.2rem;
+  min-width: 220px;
+  margin: 0;
+  padding: 0 0.6rem 0 0.75rem;
+  border-radius: 10px;
+  background: var(--ui-tertiary, #e6f3ff);
+  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
+  color: color-mix(in srgb, var(--ifm-font-color-base) 60%, transparent);
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.DocSearch-Button:hover {
+  background: var(--ui-tertiary, #e6f3ff);
+  border-color: var(--looks-secondary, #855cd6);
+  box-shadow: none;
+}
+
+.DocSearch-Button:focus,
+.DocSearch-Button:active {
+  background: var(--ui-white, #ffffff);
+  border-color: var(--looks-secondary, #855cd6);
+  box-shadow: 0 0 0 2px var(--looks-transparent, rgba(133, 92, 214, 0.25));
+  outline: none;
+}
+
+.DocSearch-Button .DocSearch-Search-Icon {
+  width: 1rem;
+  height: 1rem;
+  color: inherit;
+}
+
+.DocSearch-Button-Placeholder {
+  font-size: 0.75rem;
+  padding: 0 0.6rem;
+}
+
+/* Find bar shows its shortcut in the placeholder, not as separate key badges. */
+.DocSearch-Button-Keys {
+  display: none;
+}
+
+/* The Algolia search modal follows the editor theme and MistWarp window styling. */
+:root {
+  --docsearch-primary-color: var(--looks-secondary, #855cd6);
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: color-mix(in srgb, var(--ifm-font-color-base) 55%, transparent);
+  --docsearch-container-background: color-mix(in srgb, #0f121c 42%, transparent);
+  --docsearch-modal-background: var(--ui-modal-background, #ffffff);
+  --docsearch-modal-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --docsearch-searchbox-background: var(--ui-tertiary, #e6f3ff);
+  --docsearch-searchbox-focus-background: var(--ui-white, #ffffff);
+  --docsearch-searchbox-shadow: inset 0 0 0 1px var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
+  --docsearch-hit-background: var(--ui-primary, #ffffff);
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-shadow: none;
+  --docsearch-hit-active-color: #ffffff;
+  --docsearch-footer-background: var(--ui-secondary, var(--ui-modal-background, #ffffff));
+  --docsearch-footer-shadow: 0 -1px 0 var(--ui-black-transparent, rgba(0, 0, 0, 0.12));
+  --docsearch-key-gradient: var(--ui-primary, #ffffff);
+  --docsearch-key-shadow: none;
+  --docsearch-key-pressed-shadow: none;
+}
+
+.DocSearch-Modal {
+  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
+  border-radius: 10px;
+  margin: min(12vh, 84px) auto auto;
+}
+
+.DocSearch-Form {
+  border-radius: 10px;
+}
+
+.DocSearch-Hit a {
+  border-radius: 8px;
+}
+
+.DocSearch-Commands-Key,
+.DocSearch-Hit-Container .DocSearch-Hit-action-button {
+  box-shadow: none;
+  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
 }
 
 h1 {
