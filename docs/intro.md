@@ -1,50 +1,40 @@
 ---
 slug: /
-title: Intro
+title: MistWarp Documentation
 hide_table_of_contents: true
 ---
 
 # MistWarp Documentation
 
-Technical documentation for [MistWarp](https://warp.mistium.com/) - a modified Scratch environment for developers.
+[MistWarp](https://warp.mistium.com/) is a Scratch modification built on TurboWarp, by Mistium. It keeps the Scratch editor you already know and adds a compiler that turns blocks into JavaScript, a large set of addons and themes, a project packager, a debugger, git version control, live collaboration, and a full community platform with accounts.
 
-## What is MistWarp?
+The editor and the community site ship from one build. You can use MistWarp entirely in the browser at [warp.mistium.com](https://warp.mistium.com/), with no account and no install required. Sign in with a Rotur account when you want to publish projects, follow other people, and sync your settings across devices.
 
-MistWarp is a Scratch modification built on TurboWarp, designed for developers and advanced users:
+## Start here
 
-- **Enhanced VM** - Modified virtual machine with developer features
-- **No Cloud Storage** - Local execution only
-- **JavaScript Integration** - Enhanced extension capabilities
-- **Developer Tools** - Technical documentation and APIs
-- **Modified Interface** - Uses "Misty" as default sprite
+- [Introduction](/getting-started/introduction) covers what MistWarp is and who it is for.
+- [Installation](/getting-started/installation) explains how to use MistWarp on the web, as a desktop app, or through the packager.
+- [Quick start](/getting-started/quick-start) walks you through building your first project.
+- [Editor tour](/getting-started/editor-tour) labels every region of the editor and links to its reference page.
 
-## Quick Navigation
+## Coming from Scratch or TurboWarp
 
-### 🚀 [Getting Started](./getting-started)
-Access MistWarp and understand the technical differences from Scratch.
+- [Migrating from Scratch](/getting-started/migrating-from-scratch) if you are new to modifications.
+- [Migrating from TurboWarp](/getting-started/migrating-from-turbowarp) if you already know TurboWarp and want to know what MistWarp adds.
 
-### 🛠️ [Development](./development)
-Contribute to MistWarp development and understand the codebase.
+## Browse the docs
 
-### ⚙️ [GUI Internals](./gui-internals)
-Technical documentation of the user interface architecture.
+- [Editor](/editor/interface) is the reference for every part of the editor UI.
+- [Blocks](/blocks/overview) documents each block category.
+- [Extensions](/extensions/overview) covers the built-in and loadable extensions.
+- [Advanced](/advanced/javascript) explains performance settings, URL parameters, embedding, and cloud variables.
+- [Packager](/packager/overview) turns a project into a standalone app or web page.
+- [Building extensions](/building-extensions/introduction) and the [API reference](/api-reference/overview) are for developers writing custom blocks and tooling.
 
-### 📖 [API Reference](./api-reference)
-Programming interfaces and technical specifications.
+## Related sites
 
-## Related Projects
+- [MistWarp editor](https://warp.mistium.com/)
+- [MistWarp packager](https://packager.warp.mistium.com/)
+- [MistWarp on GitHub](https://github.com/MistWarp)
 
-- **[MistWarp Web](https://warp.mistium.com/)** - Main web application
-- **[MistWarp Packager](https://packager.warp.mistium.com/)** - Package projects for web deployment
-- **[TurboWarp](https://turbowarp.org/)** - Base project that MistWarp is built on
-
-## Development
-
-- **GitHub**: [https://github.com/MistWarp](https://github.com/MistWarp)
-- **Issues**: Report technical issues and bugs
-- **Contributions**: Submit pull requests for improvements
----
-
-*Technical documentation for developers. For general Scratch help, see [Scratch documentation](https://scratch.mit.edu/help/).*
-
-These pages are [open source](https://github.com/MistWarp/docs). Contributions are welcome.
+MistWarp is free and open source. These docs are on [GitHub](https://github.com/MistWarp/docs) and contributions are welcome. For general Scratch help, see the [Scratch help pages](https://scratch.mit.edu/help/).
