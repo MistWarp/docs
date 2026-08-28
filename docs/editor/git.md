@@ -1,29 +1,23 @@
 ---
-title: Git version control
+title: Version history
 sidebar_position: 22
 ---
 
-MistWarp has a full Git version-control system built into the editor. It tracks the history of your project so you can commit snapshots, look back through changes, work on branches, and push to a hosted repository. The whole repository, including its history, lives **inside the project file**, so it travels with the `.sb3`.
+MistWarp keeps version history in the background. Your first **Save to MistWarp** creates an initial version without asking you to name it. Later saves ask **What changed?** and use that short note to label the new version. You can inspect or restore old versions and use branches without learning Git first. The `.mwp` project file carries the complete history and every branch.
 
-Version control suits larger or longer-lived projects, and it is the foundation for collaborating through pull requests rather than live editing.
+You can use **File, Export, Scratch project (.sb3)** to make a standard copy for Scratch or TurboWarp. The project itself is preserved, but the exported `.sb3` does not include its Git history.
+
+Version control suits larger or longer-lived projects, and it is the foundation for MistWarp's remix-and-pull-request workflow.
 
 ## Opening version control
 
-Open the **Tools** menu and choose **Git**, which opens the **Version Control** window. A sidebar down the left switches between Changes, History, Branches, Diff, Remote, Rotur Git, and Readme.
+Open the **Tools** menu and choose **Version history**. Its sidebar has **History**, **Branches**, and **Connections**.
 
-If the project is not under version control yet, you are offered **Initialize repository** to start one, or a field to **clone** an existing project by URL.
+MistWarp initializes history automatically for account projects and forks. If you deliberately open a standalone project in the advanced Version history window, you can also initialize it there or clone an existing project by URL.
 
-## Committing changes
+## History
 
-The **Changes** view lists every file that has changed since your last commit, each tagged with a status: modified, added, or deleted. Write a message describing the change and click **Commit**. **Undo last commit** reverses the most recent one. Clicking a changed file opens its diff.
-
-You can also have MistWarp commit for you on every save: turn on **Commit automatically when the project is saved** on the **Version Control** [settings](/editor/settings) page, where you also set your commit author name and email.
-
-## History and diffs
-
-**History** lists your commits, each with its message, short hash, and a colour-coded branch graph. Select a commit to see the files it changed, restore the project to it, or download it as an `.sb3`.
-
-**Diff** shows a readable, line-by-line comparison of your working changes against the last commit. Because MistWarp diffs a text representation of the project rather than raw JSON, additions and removals are legible: you can actually read what changed in a script.
+**History** lists saved versions with their note, date, author, and a colour-coded branch graph. Separate lanes show where branches split and merge. Project owners can choose **Restore this version** on the web project page. Restoring adds a new version with the old contents, so it does not delete anything that came later.
 
 ## Branches and merging
 
@@ -31,13 +25,11 @@ You can also have MistWarp commit for you on every save: turn on **Commit automa
 
 If the merge has conflicts, MistWarp lists each conflicting file and asks you to choose a side, **Ours** or **Theirs**, for each one, then **Apply merge**. For anything more involved, **Resolve in editor** opens the conflicting files in the code editor with the usual conflict markers so you can resolve them by hand.
 
-## Remotes and hosting
+## Connections
 
-**Remote** manages generic Git remotes (for example a GitHub repository): add a remote with its URL and an access token, then push a branch to it.
+Paste a repository URL under **Connections**. MistWarp gives it an internal name and syncs the current branch after every successful Save to MistWarp. MistWarp saves its own copy first, so a connection failure cannot lose the MistWarp version.
 
-**Rotur Git** is the built-in hosted backend, running on git.rotur.dev. When you are signed in with your [Rotur account](/getting-started/introduction), you can create repositories, push your project straight from the editor, and clone any Rotur repository, all without setting up a separate access token. Repositories can be public or private. There is no separate step to configure credentials: your Rotur sign-in is used.
-
-**Readme** edits the project's README, which is stored in the repository and travels inside the `.sb3` with everything else.
+RoturGit is optional. A RoturGit URL uses your Rotur sign-in automatically. Other services can use the token or password stored in the Connections page. RoturGit can also supply issues and hosted pull requests, but MistWarp does not require it for local branches, `.mwp` history, remixes, or MistWarp pull requests.
 
 ## See also
 

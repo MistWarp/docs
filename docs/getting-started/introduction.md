@@ -20,6 +20,8 @@ The editor and the community site are one application. You can open the editor a
 - **Git version control** and **live collaboration** for working on projects over time and with other people. See [Git](/editor/git) and [Collaboration](/editor/collaboration).
 - A **packager** that turns a project into a standalone app or web page. See the [Packager](/packager/overview).
 - A **community platform** with accounts, where you publish projects, follow people, and comment. Accounts are handled through Rotur; see [Migrating from TurboWarp](/getting-started/migrating-from-turbowarp) for how the community side fits together.
+- **Spaces and challenges** for collecting projects, running events, and organizing personal collections. See [Discovery and spaces](/community/discovery-and-spaces).
+- **Releases, draft previews, tracked feedback, and player diagnostics** for maintaining published projects. See [Releases, previews, and feedback](/community/releases-and-feedback).
 
 ## Who this is for
 
