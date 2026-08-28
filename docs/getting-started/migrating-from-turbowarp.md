@@ -23,9 +23,9 @@ You do not need an account to build, run, package, or save projects locally, exa
 
 MistWarp includes additional blocks and extensions beyond TurboWarp's set. Browse them in [Extensions overview](/extensions/overview) and [MistWarp extras](/blocks/mistwarp-extras).
 
-## Git version control
+## Version history
 
-MistWarp can track a project in **git**. Once a repository exists for a project, the File menu gains commit, push, and pull actions for its remotes, so you can version your work and collaborate through a git host. See [Git](/editor/git).
+MistWarp creates version history when you save a project to your account. Later saves ask for a short description, and the project page lets you browse or restore old versions. Advanced users can add branches and repository connections under **Tools, Version history**. See [Version history](/editor/git).
 
 ## Live collaboration
 

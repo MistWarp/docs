@@ -16,12 +16,11 @@ Keyboard shortcuts shown below use `Ctrl` on Windows/Linux and `⌘` on macOS. T
 - **Save now** (`Ctrl+S`) saves to wherever the project currently lives. When you are signed in and the project belongs to you, this uploads to MistWarp. See [project management](/editor/project-management).
 - **Save as a copy** (`Ctrl+Shift+S`) saves a new, independent copy.
 - **Remix** starts a new project based on the current one.
-- **Save to MistWarp** / **Remix to MistWarp** (shown when you are signed in with a [Rotur account](/editor/project-management)) uploads the project to your account. Uploading never publishes it on its own; sharing happens separately on the site.
+- **Save to MistWarp** / **Remix to MistWarp** uploads the project to your account. It is disabled with a **No new changes** tooltip when the saved project is already current. Uploading never publishes it on its own; sharing happens separately on the site.
 - **See project page** opens this project's page on the community site (shown once the project exists on MistWarp).
 - **Load from your computer** (`Ctrl+O`) opens an `.sb3` file from disk.
 - **Save to (filename)** and **Save as...** save an `.sb3` to your computer. On browsers that support the File System Access API you can save back to the same file; otherwise you get a normal download.
-- **Package project** (`Ctrl+P`) opens the current project in the [packager](/packager/overview).
-- **Commit to Git…**, **Push to (remote)**, **Pull from (remote)** appear when the project has a [git repository](/editor/git).
+- **Export** contains Scratch `.sb3` export and **Package project** (`Ctrl+P`).
 - **Restore points** (`Alt+R`) opens the [restore point](/editor/restore-points) manager; **Create restore point** makes one immediately.
 - **Project metadata** shows the open project's author, dates, and contents.
 - **Pause autosave** / **Resume autosave** appears when autosave is on, with a live countdown to the next automatic save.
@@ -44,7 +43,7 @@ A **Mode** menu appears only during the editor's occasional April Fools state. I
 
 ## Tools
 
-- **Git** opens the [version-control](/editor/git) window.
+- **Version history** opens saved versions, branches, and repository connections.
 - **Terminal** opens a shell window.
 - **Live Collaboration** opens [live collaboration](/editor/collaboration).
 - **Debugger** and **Variable Manager** appear when those tools are available, opening the [debugger](/editor/debugger) and [variable manager](/editor/variable-manager).

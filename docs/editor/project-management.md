@@ -20,12 +20,17 @@ There are two independent places a project can be saved: to your computer as a f
 
 An `.sb3` is a single self-contained file: a ZIP archive holding `project.json` (all sprites, scripts, variables, and settings) plus every costume and sound. It is the portable, offline copy of your project, and it works in Scratch, TurboWarp, and MistWarp.
 
+MistWarp saves local projects as `.mwp` by default. The file contains the Fractch source together with the complete Git repository, so it keeps commits and branches and can be opened through **Load from your computer**. After the initial version, saving asks **What changed?** Choose **Skip** to update the file without adding a version. Use **File, Export, Scratch project (.sb3)** when you need a Scratch-compatible copy; the runnable project is preserved but Git history is left behind.
+
+The first **Save to MistWarp** creates the starting version without asking for a note. Later saves ask **What changed?** and use that short description in project history. Choose **Skip** to upload without adding a version. Forking a project that does not have history yet creates a shared starting version for the original and the fork, so changes can still be sent back as a pull request.
+
 ### Save to MistWarp
 
 When you are signed in with a [Rotur account](/getting-started/introduction), the File menu shows **Save to MistWarp** (and **Save now** / `Ctrl+S` saves to your account once the project lives there). This uploads the project to your account so you can reach it from any device through the community site.
 
 - Uploading is **not** publishing. A saved project stays private to you until you share it.
 - MistWarp uploads assets efficiently, sending only costumes and sounds it does not already have, so re-saving a project is fast.
+- If you add repository URLs under **Version history, Connections**, MistWarp syncs them after it saves its own copy. RoturGit URLs use your Rotur sign-in automatically.
 
 To make a copy that saves independently, use **File, Save as a copy** (`Ctrl+Shift+S`).
 
