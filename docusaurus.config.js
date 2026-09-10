@@ -2,7 +2,7 @@
 module.exports = {
   title: 'MistWarp Documentation',
   tagline: 'A comprehensive guide to MistWarp - the advanced Scratch modification platform',
-  url: 'https://warp.mistium.com',
+  url: 'https://mistwarp.org',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

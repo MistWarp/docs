@@ -7,13 +7,13 @@ MistWarp's appearance is themeable: a light or dark editor, an accent colour, th
 
 ## Editor theme and accent
 
-The overall **light or dark** look and the **accent colour** apply across all of MistWarp (the editor and the community site), so they live in your MistWarp account settings rather than the editor's own window. Open the [settings window](/editor/settings), go to the **Theme** page, and follow **Edit my MistWarp settings** to change them on the site.
+The overall **light or dark** look and the **accent colour** apply across all of MistWarp (the editor and the community site), so they live in your MistWarp account settings rather than the editor's own window. Open your account settings on the community site to change them. Editor controls are in [Settings → Theme](/editor/settings).
 
 Accent colours are grouped into plain colours, a set of pride flags, and richer gradient accents (such as Sunset, Ocean, and Aurora). Your choice is saved to your account and syncs across your devices when you are signed in.
 
 ## Block colours
 
-The editor's **Theme** page sets the colour scheme of the blocks themselves, separately from the interface theme:
+The editor's **Theme → Blocks** tab sets the colour scheme of the blocks themselves, separately from the interface theme:
 
 - **Original**: the standard Scratch block colours.
 - **High Contrast**: bolder, higher-contrast colours for readability.

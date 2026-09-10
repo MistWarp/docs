@@ -73,7 +73,7 @@ This means your directory layout matters: the engine packages must be siblings o
 
 Two pieces are not Scratch or TurboWarp code at all:
 
-- **mistwarp-api** is the community backend (accounts, projects, comments, notifications, settings sync). It is written in OSL and stores data as flat JSON, using Cloudflare R2 for project blobs. The frontend talks to it at `https://mwapi.mistium.com/api`.
+- **mistwarp-api** is the community backend (accounts, projects, comments, notifications, settings sync). It is written in OSL and stores data as flat JSON, using Cloudflare R2 for project blobs. The frontend talks to it at `https://api.mistwarp.org/v1`.
 - Identity and social features run through **Rotur**. Signing in exchanges a Rotur token for a MistWarp session; social features (posts, likes, follows) go to `https://api.rotur.dev`.
 
 You do not need either running to work on the editor itself. They matter when you are working on the community site.

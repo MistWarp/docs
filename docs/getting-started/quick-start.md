@@ -9,7 +9,7 @@ This page builds a small working project from an empty editor. It takes a few mi
 
 ## Open the editor
 
-Go to [warp.mistium.com](https://warp.mistium.com/). A new project opens with the default sprite, **Misty**, already on the stage. You do not need an account for anything on this page.
+Go to [mistwarp.org](https://mistwarp.org/). A new project opens with the default sprite, **Misty**, already on the stage. You do not need an account for anything on this page.
 
 ## Add code
 

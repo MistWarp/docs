@@ -9,7 +9,7 @@ MistWarp is free and open source. There is nothing to buy and, for the web versi
 
 ## Use it on the web
 
-Open [warp.mistium.com](https://warp.mistium.com/) in any modern browser. The editor loads and you can start building right away. No account is required to create, edit, save to your computer, or open `.sb3` files.
+Open [mistwarp.org](https://mistwarp.org/) in any modern browser. The editor loads and you can start building right away. No account is required to create, edit, save to your computer, or open `.sb3` files.
 
 Sign in with a **Rotur account** when you want to:
 

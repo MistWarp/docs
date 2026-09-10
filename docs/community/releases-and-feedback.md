@@ -36,7 +36,17 @@ Diagnostics include loading time, broad input device type, and a short error mes
 
 ## Contributions
 
-Projects backed by a Rotur Git repository have a **Contribute** tab. Remix the project, edit and save the remix, then send its project ID back to the original project. MistWarp creates a pull request for the creator to review and merge.
+You can send an improvement without changing the creator's project directly:
+
+1. Open the project page and check **Contribute** for open bounties. Picking a bounty is optional.
+2. Select **Remix** to create a private fork.
+3. Make your changes in the fork and save it to MistWarp.
+4. Open the fork's project page, choose **Contribute**, and create a pull request.
+5. The project owner reviews the changes and decides whether to merge them.
+
+A bounty is a credit reward for a specific piece of work. Attach it when you create the pull request. MistWarp pays the reward when the project owner merges that pull request. Creating a fork or pull request alone does not claim the credits.
+
+Project owners create bounties under **Manage and analytics**, **Collaboration**, then **Bounties**. A useful bounty says exactly what should change and what the owner will accept as done.
 
 The editor menu bar also has a project activity button. It opens comments and pull requests without closing the editor.
 

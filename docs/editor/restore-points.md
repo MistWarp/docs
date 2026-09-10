@@ -35,9 +35,9 @@ Automatic restore points are pruned over time to stay within a modest limit; man
 
 ## Autosave
 
-Autosave is a separate, opt-in feature that periodically re-saves the actual project to wherever it currently lives (its file or your account), rather than snapshotting into the browser. It is off by default.
+Autosave is a separate, opt-in feature that periodically pushes the current worktree to MistWarp without creating a version, rather than snapshotting into the browser. It is off by default. Edits pushed this way stay as uncommitted changes until you version them explicitly from the save window or Project history.
 
-When autosave is on, the **File** menu shows a **Pause autosave** / **Resume autosave** item with a live countdown to the next save. It saves to the same place a manual **Save** would.
+Turn autosave on, and change its interval, from Settings under Autosave.
 
 ## See also
 

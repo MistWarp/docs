@@ -18,7 +18,7 @@ You can review and remove blocks or mutes under **Settings**, then **Safety**.
 
 Use the report button on a project, profile, or comment when content breaks the community terms. Reports go to MistWarp moderators.
 
-Use the [support page](https://warp.mistium.com/support) for private account help, safety concerns, legal requests, and moderation appeals. Product bugs belong on the [Roadmap](https://warp.mistium.com/roadmap), where other users can confirm them and follow their status.
+Use the [support page](https://mistwarp.org/support) for private account help, safety concerns, legal requests, and moderation appeals. Product bugs belong on the [Roadmap](https://mistwarp.org/roadmap), where other users can confirm them and follow their status.
 
 ## Export or delete MistWarp data
 
