@@ -9,7 +9,7 @@ You can embed a MistWarp project into any website with a standard `<iframe>`. Th
 
 ```html
 <iframe
-  src="https://warp.mistium.com/414716080/embed"
+  src="https://mistwarp.org/414716080/embed"
   width="482"
   height="412"
   frameborder="0"
@@ -25,10 +25,10 @@ Replace `414716080` with your project's ID. You can pick any width and height; t
 The ID in the URL can be either kind of project:
 
 - A **Scratch project ID** (all digits, like `414716080`) embeds a project shared on Scratch.
-- A **MistWarp community project ID** (like `p1784079025833421000VYnQRa`) embeds a project shared on the MistWarp community site. This is the ID in the project's page URL, `https://warp.mistium.com/project/p1784079025833421000VYnQRa`.
+- A **MistWarp community project ID** (like `p1784079025833421000VYnQRa`) embeds a project shared on the MistWarp community site. This is the ID in the project's page URL, `https://mistwarp.org/project/p1784079025833421000VYnQRa`.
 
 ```html
-<iframe src="https://warp.mistium.com/p1784079025833421000VYnQRa/embed"></iframe>
+<iframe src="https://mistwarp.org/p1784079025833421000VYnQRa/embed"></iframe>
 ```
 
 Both use the same `/embed` path, parameters, and postMessage API described below.
@@ -49,7 +49,7 @@ All [standard URL parameters](/advanced/url-parameters) work on embeds, plus a f
 | `addons` | Enables specific addons (see below). |
 
 ```html
-<iframe src="https://warp.mistium.com/15832807/embed?autoplay&settings-button"></iframe>
+<iframe src="https://mistwarp.org/15832807/embed?autoplay&settings-button"></iframe>
 ```
 
 Sound blocks may not play until the user interacts with the project (a click, for example). This is a browser restriction, not something MistWarp can bypass, so autoplay cannot force audio on load.
@@ -59,7 +59,7 @@ Sound blocks may not play until the user interacts with the project (a click, fo
 Embeds start with no addons enabled. The `addons` parameter takes a comma-separated list of addon IDs:
 
 ```
-https://warp.mistium.com/15832807/embed?addons=pause,gamepad,mute-project
+https://mistwarp.org/15832807/embed?addons=pause,gamepad,mute-project
 ```
 
 Addons useful in embeds include:
@@ -80,7 +80,7 @@ To make an embed scale with its container, wrap it in a padded box:
 ```html
 <div style="position: relative; padding-bottom: 75%; height: 0;">
   <iframe
-    src="https://warp.mistium.com/123456789/embed"
+    src="https://mistwarp.org/123456789/embed"
     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
     frameborder="0"
     allowfullscreen
@@ -136,7 +136,7 @@ If you build embed links from user-supplied data, sanitize the inputs. A user wh
 
 ```html
 <iframe
-  src="https://warp.mistium.com/123456789/embed"
+  src="https://mistwarp.org/123456789/embed"
   sandbox="allow-scripts allow-same-origin allow-fullscreen"
 ></iframe>
 ```

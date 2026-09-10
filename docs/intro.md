@@ -6,9 +6,9 @@ hide_table_of_contents: true
 
 # MistWarp Documentation
 
-[MistWarp](https://warp.mistium.com/) is a Scratch modification built on TurboWarp, by Mistium. It keeps the Scratch editor you already know and adds a compiler that turns blocks into JavaScript, a large set of addons and themes, a project packager, a debugger, git version control, live collaboration, and a full community platform with accounts.
+[MistWarp](https://mistwarp.org/) is a Scratch modification built on TurboWarp, by Mistium. It keeps the Scratch editor you already know and adds a compiler that turns blocks into JavaScript, a large set of addons and themes, a project packager, a debugger, git version control, live collaboration, and a full community platform with accounts.
 
-The editor and the community site ship from one build. You can use MistWarp entirely in the browser at [warp.mistium.com](https://warp.mistium.com/), with no account and no install required. Sign in with a Rotur account when you want to publish projects, follow other people, and sync your settings across devices.
+The editor and the community site ship from one build. You can use MistWarp entirely in the browser at [mistwarp.org](https://mistwarp.org/), with no account and no install required. Sign in with a Rotur account when you want to publish projects, follow other people, and sync your settings across devices.
 
 ## Start here
 
@@ -33,7 +33,7 @@ The editor and the community site ship from one build. You can use MistWarp enti
 
 ## Related sites
 
-- [MistWarp editor](https://warp.mistium.com/)
+- [MistWarp editor](https://mistwarp.org/)
 - [MistWarp packager](https://packager.warp.mistium.com/)
 - [MistWarp on GitHub](https://github.com/MistWarp)
 

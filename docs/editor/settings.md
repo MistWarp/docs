@@ -21,23 +21,21 @@ The **Settings** button in the [menu bar](/editor/menu-bar) opens the settings w
 
 ## Appearance
 
-- **Theme** chooses block colours and links to your MistWarp account settings, where the overall light/dark theme and accent colour live. See [themes](/editor/themes).
-- **Wallpaper** sets a background image for the editor, with opacity, darkness, and a grid toggle.
-- **Fonts** sets a custom editor font.
-- **Editor** collects interface toggles under three headers:
-  - **Stage**: **Show Pause Button** and **Show Frame Step Button** (see the [debugger](/editor/debugger)), and **Square Stage Corners**.
-  - **Block Palette**: **Hide Extension Button**, **Hide Extendable Operator Arrows**, **Unclip Block Palette**, and **Vanilla Compatible Blocks Only** (hides blocks vanilla Scratch cannot run).
-  - **Interface**: **Hide Delete Button** and **Hide Backpack**.
-- **Styles** picks the look of the tabs and window chrome (tab style, tab looks, and window style).
-- **Menu Bar** lets you reorder, hide, and align the items in the [menu bar](/editor/menu-bar).
-- **Loading Screen** customises the project loading screen.
+Open **Theme** in the sidebar, then choose a tab:
+
+- **Appearance** controls tabs, window chrome, and menu bar layout and visibility.
+- **Blocks** chooses block colours. See [themes](/editor/themes).
+- **Wallpaper** sets the editor background image, opacity, darkness, and grid.
+- **Fonts** chooses the editor font.
+- **Editor** groups stage controls, overlays, sound, screenshots, the block palette, and interface controls into tabs.
+- **Loading screen** customises the project loading screen.
 
 ## Tools
 
 - **Version Control** sets your commit author name and email, the default branch name, and whether to commit automatically on save. See [git](/editor/git).
 - **Variable Manager** configures the [variable manager](/editor/variable-manager): default view, live updates, and display limits.
 - **Debugger** holds the [debugger](/editor/debugger) toggles: highlight running blocks, and various logging options.
-- **Rotur** controls whether your MistWarp editing activity shows on your Rotur profile.
+- **Autosave** configures automatic restore points and their frequency. See [restore points](/editor/restore-points).
 
 On the desktop app a **Desktop** page adds app-level options (update channel, microphone and camera, hardware acceleration, and more).
 

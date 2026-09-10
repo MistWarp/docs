@@ -35,7 +35,7 @@ If you need more than an inline expression (to call a web API, use a browser fea
 This is a real programming task, not a block. The full guide is in [Building Extensions](/building-extensions/introduction), and the specifics of the unsandboxed environment are in [Unsandboxed Extensions](/building-extensions/unsandboxed). You can load an extension from a URL with the [`extension` URL parameter](/advanced/url-parameters#extension):
 
 ```
-https://warp.mistium.com/?extension=https://example.com/extension.js
+https://mistwarp.org/?extension=https://example.com/extension.js
 ```
 
 :::warning

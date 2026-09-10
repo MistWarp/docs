@@ -3,7 +3,7 @@ title: The menu bar
 sidebar_position: 2
 ---
 
-The menu bar runs across the top of the editor. It holds the dropdown menus (File, Edit, Tools, Bookmarks), the Settings button, the project title, and, on the right, your save status and account. This page lists every menu and item.
+The menu bar runs across the top of the editor. It holds the dropdown menus (File, Edit, Project, Bookmarks), the Settings button, the project title, and, on the right, your save status and account. This page lists every menu and item.
 
 The far-left **MistWarp** logo is a link to the home page. On narrow windows the menus collapse behind a **More** (☰) button; the items are identical.
 
@@ -22,8 +22,6 @@ Keyboard shortcuts shown below use `Ctrl` on Windows/Linux and `⌘` on macOS. T
 - **Save to (filename)** and **Save as...** save an `.sb3` to your computer. On browsers that support the File System Access API you can save back to the same file; otherwise you get a normal download.
 - **Export** contains Scratch `.sb3` export and **Package project** (`Ctrl+P`).
 - **Restore points** (`Alt+R`) opens the [restore point](/editor/restore-points) manager; **Create restore point** makes one immediately.
-- **Project metadata** shows the open project's author, dates, and contents.
-- **Pause autosave** / **Resume autosave** appears when autosave is on, with a live countdown to the next automatic save.
 
 ## Edit
 
@@ -33,18 +31,19 @@ Keyboard shortcuts shown below use `Ctrl` on Windows/Linux and `⌘` on macOS. T
 - **Desktop settings** (desktop app only) opens app-level options.
 - **Change Username** sets the username reported to projects and cloud variables.
 - **Enable / Disable Cloud Variables** toggles [cloud variables](/advanced/cloud-variables) for this session (disabled when they are unavailable).
-- **Show Tutorial** replays the getting-started walkthrough.
 - **Help** opens the in-editor Help window, a searchable reference to the editor, blocks, and extensions.
-- **originChats** links out to the originChats community chat.
+- **Products** opens the product catalog: items players can purchase, with test ownership and live publishing.
+- **Game Items** opens the collectables window: cross-project persistent items players keep. Items are never sold directly; award them with blocks.
 
 ## Mode
 
 A **Mode** menu appears only during the editor's occasional April Fools state. It offers **Normal mode** and **Caturday mode** (cat-themed blocks). It has no effect on how projects run and is off the rest of the year.
 
-## Tools
+## Project
+
+- **Project metadata** shows the open project's author, dates, and contents.
 
 - **Version history** opens saved versions, branches, and repository connections.
-- **Terminal** opens a shell window.
 - **Live Collaboration** opens [live collaboration](/editor/collaboration).
 - **Debugger** and **Variable Manager** appear when those tools are available, opening the [debugger](/editor/debugger) and [variable manager](/editor/variable-manager).
 - **Add Extension** (`Ctrl+.`) opens the [extension library](/extensions/overview) to add or import an extension.
