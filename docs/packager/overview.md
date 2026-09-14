@@ -7,7 +7,7 @@ sidebar_position: 1
 
 The MistWarp Packager turns a Scratch or MistWarp project into a standalone program: a single HTML file, a zip, or a native executable for Windows, macOS, or Linux. The output does not need the editor or an internet connection to run, and it bundles MistWarp's fast compiled runtime.
 
-Use it at [packager.warp.mistium.com](https://packager.warp.mistium.com/).
+Open it in the editor with **File, Export, Package project**. The packager is part of the GUI and uses the editor theme and window controls.
 
 It fills the same role as HTMLifier or the forkphorus packager, with more output formats and more control over the loading screen, controls, and runtime settings.
 
@@ -20,13 +20,9 @@ It fills the same role as HTMLifier or the forkphorus packager, with more output
 
 ## Getting a project into the packager
 
-You have a few options:
+Open your project in the editor, then choose **File, Export, Package project**. The options open immediately. Each Package or Preview action reads the current project, including unsaved changes.
 
-- Enter a Scratch project ID or a direct project URL.
-- Upload an `.sb3` file from your computer.
-- Send the current project straight from the editor. See [Editor integration](/packager/editor-integration).
-
-Remember that [unshared Scratch projects](/advanced/unshared-projects) cannot be loaded by ID; download the `.sb3` and upload it instead.
+For a project on your computer, load its `.sb3` in the editor first. See [Editor integration](/packager/editor-integration).
 
 ## Common settings
 

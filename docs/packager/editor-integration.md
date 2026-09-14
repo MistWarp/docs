@@ -1,39 +1,25 @@
 ---
-title: Editor Integration
+title: Editor integration
 sidebar_position: 7
 ---
 
 # Editor integration
 
-The MistWarp editor can hand the current project directly to the packager, so you can go from editing to a packaged build in one step without saving and re-uploading a file. Under the hood this is a small `postMessage` handshake between the editor and the packager, which is documented here for tool developers.
+Choose **File, Export, Package project** to package the project open in the editor. The packager opens in a resizable editor window and follows the editor's theme.
 
-## The handshake
+## Current project
 
-1. The editor opens the packager at `https://packager.warp.mistium.com/?import_from=<editor-origin>`.
-2. The packager posts `{ p4: { type: 'ready-for-import' } }` back to the editor.
-3. The editor replies `{ p4: { type: 'start-import' } }` so the packager can show a loading state.
-4. The editor exports the project and posts `{ p4: { type: 'finish-import', data, name } }`, transferring the SB3 `ArrayBuffer`.
-5. If the export fails, the editor posts `{ p4: { type: 'cancel-import' } }` instead.
+The options open immediately. Each Package or Preview action takes a fresh snapshot of the current project, including unsaved changes. You can continue editing while the packager is open.
 
-Every message is wrapped in a `p4` object.
+The Export tab selects the output format. Runtime, Appearance, and Advanced contain the remaining settings. Package and Preview remain available at the bottom of the window on every tab.
 
-## finish-import
+Closing the packager cancels work in progress. Packaging options are saved for the project.
 
-```js
-source.postMessage({
-  p4: {
-    type: 'finish-import',
-    data: buffer,        // SB3 ArrayBuffer
-    name: 'My Project.sb3'
-  }
-}, origin, [buffer]);    // buffer is transferred, not copied
-```
+## GUI integration
 
-## Notes
+The React window is maintained in the GUI repository under `src/containers/packager.jsx`, with its options in `src/components/packager` and export engine in `src/packager`. It uses the editor's window components, theme, and brand constants. Project data comes from the active VM through `vm.saveProjectSb3('arraybuffer')` when an export starts.
 
-- The editor only acts on messages whose origin is `https://packager.warp.mistium.com`.
-- The SB3 is produced with `vm.saveProjectSb3('arraybuffer')`.
-- The file name is the current project title with `.sb3` appended.
+The old cross-origin `p4` message handshake is no longer used by the editor. GUI builds include the packager UI and the player scripts needed to generate exports. Desktop runtime archives are downloaded when needed.
 
 ## See also
 
