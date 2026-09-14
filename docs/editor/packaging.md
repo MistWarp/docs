@@ -3,11 +3,13 @@ title: Packaging a project
 sidebar_position: 24
 ---
 
-The **packager** turns a project into a standalone application: an HTML file, a zip, or a native app for Windows, macOS, or Linux that runs without the editor. It is a separate tool that the editor can hand your current project to directly.
+The **packager** turns a project into a standalone application: an HTML file, a zip, or a native app for Windows, macOS, or Linux that runs without the editor. It is built into the editor and opens in an editor window.
 
 ## Opening the packager
 
-**File, Export, Package project** (`Ctrl+P`) opens the [MistWarp packager](/packager/overview) with the project you have open loaded and ready. You can also visit the packager on its own at [packager.warp.mistium.com](https://packager.warp.mistium.com/) and load an `.sb3` there.
+**File, Export, Package project** (`Ctrl+P`, or `Cmd+P` on macOS) opens the [MistWarp packager](/packager/overview) as an editor window. The options appear immediately. Each Package or Preview action includes the latest project changes, even edits made while the window is open.
+
+The window follows the editor theme. Its settings are grouped into Export, Runtime, Appearance, and Advanced tabs.
 
 ## What packaging is for
 
