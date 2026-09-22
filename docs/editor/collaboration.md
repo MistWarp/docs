@@ -18,6 +18,21 @@ Open the **Tools** menu and choose **Live Collaboration**. The window shows the 
 
 Sharing a room is done by sending its URL, which carries a `?room=` code; opening that link joins the room automatically.
 
+## Inviting friends
+
+If you are signed in with Rotur, the **Friends** section of the Live Collaboration window shows which of your Rotur friends have MistWarp open right now, with what they are working on. You can also open it with the **Friends** button in the menu bar, which shows how many friends are online.
+
+The first time, choose **Show my friends**. Rotur asks you once to let MistWarp read your friends list.
+
+- **Invite** sends a friend an invite to edit your project with you. If you are not in a session yet, MistWarp opens a private one for you. If your project is saved to MistWarp and you can host its live session, the invite uses that session instead.
+- The friend sees a card with **Join** and **Decline**. **Join** asks them to back up and replaces their editor with your project, as with any other join. Invited friends skip the approval queue, and the invite only works for the person you sent it to.
+- **Ask to join** appears next to friends who are in a live session. Their host gets a card and can answer with an invite.
+- **Add friend** sends a Rotur friend request by username, and incoming friend requests appear at the top of the section with **Accept** and **Decline**. In a session, **Add friend** also appears next to collaborators who are not your friends yet.
+
+Invites expire after two minutes, and ending a session cancels any invites that have not been answered. Only the host can invite people into a session.
+
+Turn off **Let friends see when I am here and invite me** to stop appearing online to friends. You can still see them and invite them, but they cannot invite you. The same switch is in the Presence section of [Settings](https://mistwarp.org/settings?section=presence) on the MistWarp website, and it syncs between your devices.
+
 ## During a session
 
 Once connected, the window lists everyone in the room. Each person shows their avatar and name, a **Host** or **You** badge where relevant, and a live description of what they are doing, for example "Editing code in Sprite1" or "Editing costume in the Stage". In the workspace you see other people's **cursors** with name labels as they move around.
@@ -30,7 +45,7 @@ The person who created the room is the host and has extra controls:
 
 - **Kick** any other participant.
 - Set the room to **Public** (anyone with the code can join) or **Private** (people must request approval).
-- In a private room, **approve or deny** each pending join request.
+- In a private room, **approve or deny** each pending join request. Friends you invite join without waiting for approval.
 
 When you join a private room you wait for the host to approve you before entering.
 
