@@ -16,7 +16,7 @@ Open the **Tools** menu and choose **Live Collaboration**. The window shows the 
 - **Create a New Room**: host a room. You get a room code (and a URL you can share) that others use to join. You are the room's **host**.
 - **Join an Existing Room**: enter a room code to join a room someone else is hosting.
 
-Sharing a room is done by sending its URL, which carries a `?room=` code; opening that link joins the room automatically.
+Sharing a room is done by sending its URL, which carries a `?room=` code; opening that link joins the room automatically. If you have unsaved changes when you join a room, MistWarp offers to save them first.
 
 ## Inviting friends
 
@@ -25,7 +25,7 @@ If you are signed in with Rotur, the **Friends** section of the Live Collaborati
 The first time, choose **Show my friends**. Rotur asks you once to let MistWarp read your friends list.
 
 - **Invite** sends a friend an invite to edit your project with you. If you are not in a session yet, MistWarp opens a private one for you. If your project is saved to MistWarp and you can host its live session, the invite uses that session instead.
-- The friend sees a card with **Join** and **Decline**. **Join** asks them to back up and replaces their editor with your project, as with any other join. Invited friends skip the approval queue, and the invite only works for the person you sent it to.
+- The friend sees a card with **Join** and **Decline**. **Join** explains that their editor will switch to your project, and warns them if it would take them out of a session they are already in. If they have unsaved changes, they can choose **Save and join** to save first (the same save as Ctrl+S) or **Join without saving**. MistWarp also keeps a device backup before the project is replaced. Invited friends skip the approval queue, and the invite only works for the person you sent it to.
 - **Ask to join** appears next to friends who are in a live session. Their host gets a card and can answer with an invite.
 - **Add friend** sends a Rotur friend request by username, and incoming friend requests appear at the top of the section with **Accept** and **Decline**. In a session, **Add friend** also appears next to collaborators who are not your friends yet.
 
