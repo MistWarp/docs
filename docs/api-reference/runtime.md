@@ -141,8 +141,8 @@ These are read by the engine and set through the VM's setters (which also emit c
 
 - `runtime.turboMode`: `true` when loops run without yielding to redraw. Set via
   [`vm.setTurboMode`](/api-reference/vm-api).
-- `runtime.runtimeOptions`: `{maxClones, miscLimits, fencing, caseSensitiveLists,
-  unsafeOptimisations}`. Set via `vm.setRuntimeOptions`.
+- `runtime.runtimeOptions`: `{maxClones, miscLimits, fencing, caseSensitiveLists}`. Set via
+  `vm.setRuntimeOptions`.
 - `runtime.compilerOptions`: `{enabled, warpTimer}`. Set via `vm.setCompilerOptions`. `enabled` is
   the on/off switch for the [JavaScript compiler](/api-reference/threads#compiled-threads);
   `warpTimer` makes warp loops honor the warp timeout even outside warp mode.
