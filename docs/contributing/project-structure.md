@@ -5,11 +5,11 @@ sidebar_position: 2
 
 # Project Structure
 
-MistWarp is a multi-repository workspace. Each package is its own Git checkout, and they are placed as siblings in one parent directory so they can link to each other. The parent directory itself is not a repository.
+MistWarp is a multi-repository workspace. Each package is its own Git repository. scratch-gui builds on its own, and you only clone the other packages next to it when you want to change them. The parent directory itself is not a repository.
 
 ```
 mistwarp/
-├── scratch-gui/       # editor + community site (one webpack build)
+├── scratch-gui/       # editor + community site (one Vite build)
 ├── scratch-vm/        # runtime and compiler; blocks are defined here
 ├── scratch-blocks/    # the block editor (Blockly fork)
 ├── scratch-render/    # WebGL stage renderer
@@ -46,7 +46,7 @@ scratch-gui/src/
 ├── reducers/      # Redux reducers, one file per state slice
 ├── lib/           # the shared service layer, HOCs, themes, persistence
 ├── addons/        # the addon system (settings store, window system, addons)
-├── playground/    # webpack entry points (editor, player, community, embed, ...)
+├── playground/    # page entry points (editor, player, community, embed, ...)
 └── community/     # the community single-page app
 ```
 
@@ -56,18 +56,17 @@ scratch-gui/src/
 - `lib/` is the largest directory: higher-order components under `lib/components/`, the theme engine under `lib/themes/`, project persistence under `lib/persistence/`, plus the MistWarp service layers `lib/community/` and `lib/rotur/` used by both the editor and the community site.
 - `addons/` is the addon framework, ported from Scratch Addons. See [The Addons System](/internals/addons-system).
 
-The build produces several entry points, defined under `src/playground/`: `editor`, `player`, `community`, `fullscreen`, `embed`, `addons`, and `credits`. Routing is handled so that `/editor` serves the editor, `/embed.html` serves the embed player, and client routes such as `/project/*` and `/explore` serve the community app.
+The build produces several pages, whose entry points live in `src/playground/`: `editor`, `player`, `community`, `fullscreen`, `embed`, `addon-settings`, and `credits`. `vite.config.mjs` maps them to HTML files and URLs: `/editor` serves the editor, `/embed.html` the embed player, `/addons` the addon settings, and every other extensionless path, such as `/explore` or `/p/<slug>`, the community app. The community page is only included when `MW_COMMUNITY=true`.
 
 ## How the packages link together
 
-During development the engine packages are not fetched from npm. Instead they are symlinked from the local checkouts so that changes to, for example, scratch-vm show up in the editor without republishing. scratch-gui declares these links in its `pnpm.overrides` and exposes a helper script:
+scratch-gui depends on the engine forks as tarballs of a specific commit on GitHub, so a fresh clone installs them like any other dependency. To work on a fork, clone it next to scratch-gui and link it:
 
 ```bash
 pnpm run link
-# runs: pnpm link ../scratch-vm ../scratch-blocks ../scratch-render ../scratch-paint
 ```
 
-This means your directory layout matters: the engine packages must be siblings of scratch-gui, exactly as shown above.
+This replaces the installed copy in `node_modules` with a symlink to each sibling checkout that exists, so changes to, for example, scratch-vm show up in the editor without publishing anything. `pnpm run unlink` or another `pnpm install` restores the pinned copies. `pnpm run deps:sync` moves the pins to each fork's latest `develop`. See [Building and Running](/contributing/building-running).
 
 ## The MistWarp-only services
 
