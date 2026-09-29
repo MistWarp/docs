@@ -13,7 +13,7 @@ This section is for people who want to work on MistWarp itself: fixing bugs in t
 
 MistWarp is not a single repository. It is a small collection of forked Scratch packages plus a few MistWarp-only services, checked out side by side. The [Project Structure](/contributing/project-structure) page describes the full layout, but the short version is:
 
-- **scratch-gui** is the editor and the community site, built together in one webpack build. This is where you will spend most of your time.
+- **scratch-gui** is the editor and the community site, built together in one Vite build. This is where you will spend most of your time.
 - **scratch-vm** runs projects and contains the compiler. Blocks are defined here.
 - **scratch-render**, **scratch-blocks**, **scratch-paint**, and **scratch-audio** are the other forked engine packages.
 - **packager** turns projects into standalone HTML/executables.
@@ -23,13 +23,13 @@ MistWarp is not a single repository. It is a small collection of forked Scratch 
 ## Before you start
 
 - MistWarp is a large app. Building the editor can use several gigabytes of disk space and memory.
-- You need [Git](https://git-scm.com/) and a recent [Node.js](https://nodejs.org/) (v20 is what we develop against; v18 or later is likely fine).
+- You need [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) 22 (20.19 at minimum).
 - scratch-gui uses [pnpm](https://pnpm.io/) as its package manager, not npm. See [Building and Running](/contributing/building-running).
 
 ## How to read the rest of this section
 
 1. [Project Structure](/contributing/project-structure) explains the multi-repo layout and how the packages link together.
-2. [Building and Running](/contributing/building-running) is the practical setup: clone, install, link, run.
+2. [Building and Running](/contributing/building-running) is the practical setup: clone, install, run, and link the packages you change.
 3. [Testing](/contributing/testing) covers the test suites in scratch-gui and scratch-vm.
 4. [Contributing](/contributing/guidelines) covers the workflow: branches, style rules, and pull requests.
 5. [Deploying](/contributing/deploying) explains how a build is published, in case you run your own instance.
