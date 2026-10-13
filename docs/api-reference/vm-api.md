@@ -147,8 +147,10 @@ The VM does not create its renderer, audio engine, or storage; the host attaches
   `disconnectPeripheral(extensionId)`, `getPeripheralIsConnected(extensionId)`: control hardware
   peripherals for extensions like micro:bit and EV3.
 - `exports`: internal classes exposed for extension authors, including `Sprite`,
-  `RenderedTarget`, `Variable`, `JSZip`, and `exports.compiler.register(...)` for registering
-  compiled-block descriptors. The functions named `these_broke_before_and_will_break_again` and
+  `RenderedTarget`, `Variable`, `JSZip`, `exports.compiler.types`, and
+  `exports.compiler.register(...)` for registering compiled-block descriptors. Extensions can also
+  declare a `compFunc` on a block in `getInfo`, which the compiler registers automatically. The
+  functions named `these_broke_before_and_will_break_again` and
   `i_will_not_ask_for_help_when_these_break` reach into unstable compiler internals; the names
   are the warning.
 

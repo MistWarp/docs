@@ -43,8 +43,8 @@ Scratch.extensions.register(new MyExtension());
 For unsandboxed extensions, `Scratch` is a global. Its always-present members come from
 `scratch-vm/src/extension-support/tw-extension-api-common.js`:
 
-- `Scratch.ArgumentType`, `Scratch.BlockType`, `Scratch.TargetType`, `Scratch.BlockShape`: the
-  enums below.
+- `Scratch.ArgumentType`, `Scratch.BlockType`, `Scratch.TargetType`, `Scratch.BlockShape`,
+  `Scratch.ReturnType`: the enums below.
 - `Scratch.Cast`: the [type coercion helpers](/api-reference/utilities) blocks use to normalize
   their inputs. Use these instead of raw `Number(...)`/`String(...)`.
 
@@ -105,6 +105,22 @@ shows:
 
 In `getInfo`, each argument entry takes `type`, an optional `defaultValue`, and an optional `menu`
 (the name of a menu defined in the extension's `menus`).
+
+## ReturnType
+
+From `compiler/enums.js`, exposed as `Scratch.ReturnType` and as `vm.exports.compiler.types`. A
+compiled block declares its result type with `returnType` in `getInfo`:
+
+| Value | Meaning |
+| --- | --- |
+| `ReturnType.ANY` (`'any'`) | Unknown; safe but least optimised. |
+| `ReturnType.NUMBER` (`'numberOrNaN'`) | A number. A Scratch number can be `NaN`; this is the safe default. |
+| `ReturnType.NUMBER_NEVER_NAN` (`'number'`) | A real number that is never `NaN`. |
+| `ReturnType.STRING` (`'string'`) | A string. |
+| `ReturnType.BOOLEAN` (`'boolean'`) | A boolean. |
+| `ReturnType.COMMAND` (`'command'`) | A stack block that produces no value. |
+
+See [Compiled extensions](/building-extensions/compiled/overview).
 
 ## TargetType
 

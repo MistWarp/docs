@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # The legacy patching approach
 
-Before MistWarp added the [`compiler.register` API](/building-extensions/compiled/structure), compiled extensions worked by **patching the compiler's internal code generators**. This page explains that older approach so you can recognize and maintain existing extensions. For new work, use `compiler.register`; it is shorter, supported, and does not break on compiler rewrites.
+Before MistWarp added its compiled-extension APIs ([`compFunc` and `compiler.register`](/building-extensions/compiled/structure)), compiled extensions worked by **patching the compiler's internal code generators**. This page explains that older approach so you can recognize and maintain existing extensions. For new work, use `compFunc` or `compiler.register`; they are shorter, supported, and do not break on compiler rewrites.
 
 :::warning
 Everything here goes through APIs that MistWarp explicitly labels unsupported. The accessor is literally named `i_will_not_ask_for_help_when_these_break`. The compiler's internals have already been rewritten once (which is why the compatibility shim exists), and they can change again. Do not build new extensions on this.

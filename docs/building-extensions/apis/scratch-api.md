@@ -65,6 +65,10 @@ Sandboxed extensions get a limited `Scratch`; the VM, renderer, and block utilit
 
 `SPRITE` (`'sprite'`) and `STAGE` (`'stage'`), used with a block's `filter`.
 
+### Scratch.ReturnType
+
+`ANY`, `NUMBER`, `NUMBER_NEVER_NAN`, `STRING`, `BOOLEAN`, `COMMAND`. The type a compiled block reports, declared with `returnType` in `getInfo`. `NUMBER` is the safe Scratch number (it may be `NaN`); use `NUMBER_NEVER_NAN` only when the value is guaranteed to be a real number. See [Compiled extensions](/building-extensions/compiled/overview).
+
 ## Scratch.Cast
 
 Scratch-semantic conversions. Full detail on the [Utility APIs page](/building-extensions/apis/utility-apis).
