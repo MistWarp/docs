@@ -7,7 +7,26 @@ sidebar_position: 5
 
 This page covers the parts of the [`compiler.register` API](/building-extensions/compiled/structure) beyond a plain reporter: command blocks, fields, variadic inputs, raw inputs, and reaching runtime state. Everything here is verified against how MistWarp's own built-in operators are compiled.
 
-Keep the mental model front of mind: `compile` runs **once, at compile time**, and returns a **string of JavaScript**. It cannot do runtime work itself; it decides what runtime work the generated code will do. Anything that must react to the running project has to be inside the string you return.
+Keep the mental model front of mind: the compiler function runs **once, at compile time**, and returns **JavaScript source**. It cannot do runtime work itself; it decides what runtime work the generated code will do. Anything that must react to the running project has to be inside the source you return.
+
+## compFunc and register
+
+This page uses the explicit `compiler.register` form because its `compile` context makes the pieces easy to name. Everything here applies equally to a [`compFunc`](/building-extensions/compiled/structure). The mapping is:
+
+| `compiler.register` | `compFunc` |
+|:--|:--|
+| `compile: ({ input }) => ...` | `compFunc(args, { cast })` returning a source string |
+| `type: T.NUMBER` | `returnType: ReturnType.NUMBER` on the block |
+| `input('A')` | `${args.A}` (or `cast.toAny(args.A)`) |
+| `input.number('A')` | `cast.toNumber(args.A)` |
+| `input.numberOrNaN('A')` | `cast.toNumberOrNaN(args.A)` |
+| `input.string('A')` | `cast.toString(args.A)` |
+| `input.boolean('A')` | `cast.toBoolean(args.A)` |
+| `input.raw('A')` | `cast.toRaw(args.A)` |
+| `field('A')` | `${args.A}`, or `args.A` passed to any `cast` helper |
+| `mutation`, `runtime`, `target`, `stage` | the same names on `util` |
+
+The examples below are written with `compile`; translate with this table if you are using `compFunc`.
 
 ## Command blocks
 
@@ -103,12 +122,15 @@ compiler.register('myext', {
 
 `type` is the value the block produces, and the compiler uses it to skip conversions in the blocks that consume your output. Be honest:
 
-- Use `NUMBER` only when the result is always a real number. If it can be `NaN` (a parse that might fail), use `NUMBER_OR_NAN`, or the compiler may assume a valid number and skip a `NaN` guard a caller needed.
+- Use `NUMBER` for anything that returns a number. A Scratch number can be `NaN` (a parse that might fail), and `NUMBER` accounts for that.
+- Use `NUMBER_NEVER_NAN` only when the result is guaranteed to be a real number, so the compiler can skip a `NaN` guard a caller would otherwise need.
 - Use `ANY` when you cannot promise a type, for example a `JSON.parse` result.
 
 ```js
 jsonparse: { type: T.ANY, compile: ({ input: i }) => `JSON.parse(${i.string('A')})` }
 ```
+
+The type must be known before the block is compiled, so it is always static. With `compFunc` the type comes from `returnType` on the block descriptor if present, otherwise from the block type: a `Boolean` block is `BOOLEAN`, a command block is `COMMAND`, and a `reporter` with no `returnType` falls back to `ANY`.
 
 ## Precedence and parentheses
 

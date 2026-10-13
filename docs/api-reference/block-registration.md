@@ -73,11 +73,12 @@ block runs. Placeholders in `text` (like `[INPUT]`) are matched to keys in `argu
 
 ## Compiled blocks
 
-The interpreter path uses the block methods directly. For extensions that want their blocks to
-run through MistWarp's JavaScript compiler, `vm.exports.compiler.register(extensionId, blocks)`
-registers a descriptor per opcode with a `type` (one of `any`, `number`, `numberOrNaN`, `string`,
-`boolean`, `command`) and a `compile` function. See
-[Compiled extensions](/building-extensions/compiled/overview).
+The interpreter path uses the block methods directly. For extensions that want their blocks to run through MistWarp's JavaScript compiler, there are two options:
+
+- Add `compFunc` to the block in `getInfo`. It names a method (or is a function) that returns a JavaScript source string, and the compiler picks it up when the extension loads. Declare the block's result type with `returnType` (a `Scratch.ReturnType` value).
+- Call `vm.exports.compiler.register(extensionId, blocks)` to register a descriptor per opcode with `type` (one of `any`, `number`, `numberOrNaN`, `string`, `boolean`, `command`) and a `compile` function.
+
+See [Compiled extensions](/building-extensions/compiled/overview).
 
 ## See also
 

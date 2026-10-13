@@ -26,12 +26,13 @@ Stick with a [normal extension](/building-extensions/introduction) when the bloc
 - They rely on MistWarp's compiler, so they run in MistWarp and the [packager](/packager/overview), but not in vanilla Scratch.
 - You always provide a normal `func` fallback so the block still works when the compiler is off (for example when a monitor reads a reporter, or if a user disables the compiler).
 
-## Two ways to do it
+## Ways to do it
 
-MistWarp exposes two compiler entry points on `Scratch.vm.exports`:
+MistWarp exposes compiler entry points on `Scratch.vm.exports` plus one on the block itself:
 
-- **`vm.exports.compiler.register(...)`** is the supported, stable way. You register a small `compile` function per block that returns a JavaScript source string. This is what the rest of this section teaches.
-- **`vm.exports.i_will_not_ask_for_help_when_these_break()`** returns a compatibility shim for the *old* TurboWarp-style approach of patching the compiler's internal generators. It exists so older compiled extensions keep working. The name is a literal warning: it is unsupported, undocumented by contract, and can break at any release. Use it only to keep a legacy extension running; write new ones with `compiler.register`. See [Patching the compiler](/building-extensions/compiled/patching).
+- **`compFunc` on a block in `getInfo`** is the recommended way. The compiler function lives next to the block and needs no separate registration. This is what [Extension structure](/building-extensions/compiled/structure) shows first.
+- **`vm.exports.compiler.register(...)`** is the explicit way. You register a small `compile` function per block that returns a JavaScript source string. Use it when you want all compiler entries in one place, or need to register before `getInfo` runs.
+- **`vm.exports.i_will_not_ask_for_help_when_these_break()`** returns a compatibility shim for the *old* TurboWarp-style approach of patching the compiler's internal generators. It exists so older compiled extensions keep working. The name is a literal warning: it is unsupported, undocumented by contract, and can break at any release. Use it only to keep a legacy extension running; write new ones with `compFunc` or `compiler.register`. See [Patching the compiler](/building-extensions/compiled/patching).
 
 ## Getting started
 
