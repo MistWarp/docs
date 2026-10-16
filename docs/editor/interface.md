@@ -13,11 +13,13 @@ The editor is divided into a few fixed regions:
 - **Stage** on one side: the running project, the green flag and stop button, the stage-size controls, and the fullscreen button. See [the stage](/editor/stage).
 - **Sprite pane** below the stage: the list of sprites, the selected sprite's properties (position, size, direction, visibility), and the stage/backdrop selector. See [sprites](/editor/sprites).
 - **Editing area** filling the rest of the window, controlled by three tabs at the top-left:
-  - **Code**: the [blocks palette](/editor/blocks-palette) and the [block workspace](/editor/workspace).
+  - **Scripts**: the [blocks palette](/editor/blocks-palette) and the [block workspace](/editor/workspace).
   - **Costumes** (or **Backdrops** when the stage is selected): the [paint editor](/editor/costumes).
   - **Sounds**: the [sound editor](/editor/sounds).
 
 The three tabs switch what the editing area shows for the currently selected sprite or the stage. The stage, sprite pane, and menu bar stay put while you switch tabs.
+
+The **Blocks** and **Code** buttons in the menu bar switch the editing area between these tabs and the [Code mode](/editor/code-mode/overview) workbench, where the project is a tree of text files.
 
 ## Editor mode versus player mode
 

@@ -10,7 +10,7 @@ This is a map of the MistWarp editor. Each region links to its full reference pa
 The editor is laid out in three columns under a top bar:
 
 - the **menu bar** across the top,
-- the **blocks palette** and **workspace** on the left and center (on the Code tab),
+- the **blocks palette** and **workspace** on the left and center (on the Scripts tab),
 - the **stage** and **sprite pane** on the right.
 
 ## Menu bar
@@ -24,13 +24,13 @@ The bar across the top holds the **File** and **Edit** menus, the project title,
 
 Above the blocks palette are three tabs that switch what the left and center columns show:
 
-- **Code** shows the blocks palette and workspace (described below).
+- **Scripts** shows the blocks palette and workspace (described below).
 - **Costumes** shows the paint editor for the selected sprite's costumes (or **Backdrops** when the stage is selected). See [Costumes](/editor/costumes).
 - **Sounds** shows the sound editor. See [Sounds](/editor/sounds).
 
 ## Blocks palette
 
-On the Code tab, the left column lists every block, grouped by category (Motion, Looks, Sound, Events, Control, Sensing, Operators, Variables, My Blocks) with extensions below. Drag blocks from here into the workspace.
+On the Scripts tab, the left column lists every block, grouped by category (Motion, Looks, Sound, Events, Control, Sensing, Operators, Variables, My Blocks) with extensions below. Drag blocks from here into the workspace.
 
 - The palette itself: [Blocks palette](/editor/blocks-palette)
 - What each category does: [Blocks overview](/blocks/overview)

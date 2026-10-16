@@ -48,9 +48,23 @@ MistWarp has keyboard shortcuts for the common editor actions, and they are rebi
 | Action | Shortcut |
 | --- | --- |
 | Spotlight search | `Ctrl+K` |
-| Code tab | `Ctrl+1` |
+| Scripts tab | `Ctrl+1` |
 | Costumes tab | `Ctrl+2` |
 | Sounds tab | `Ctrl+3` |
+
+**Code mode**
+
+| Action | Shortcut |
+| --- | --- |
+| Switch between Blocks and Code | `Ctrl+Shift+Y` |
+| Toggle explorer | `Ctrl+B` |
+| Toggle panel | `Ctrl+J` |
+| Quick open | `Ctrl+E` |
+| Apply file (in a script or extension tab) | `Ctrl+Enter` |
+| Apply and save (in a script or extension tab) | `Ctrl+S` |
+| Close tab, next tab, previous tab | not bound |
+
+Inside a Code mode tab, `Ctrl+Enter` and `Ctrl+S` apply the file instead of starting the project and saving. The manager shows these as overrides rather than clashes. See [Code mode](/editor/code-mode/overview).
 
 **Libraries**
 
@@ -60,7 +74,7 @@ MistWarp has keyboard shortcuts for the common editor actions, and they are rebi
 | Costume library | `Ctrl+Shift+C` |
 | Sound library | `Ctrl+Shift+M` |
 | Extension library | `Ctrl+.` |
-| Extension manager | `Ctrl+Shift+E` |
+| Show extensions in Code mode | `Ctrl+Shift+E` |
 
 **Sprites and windows**
 
@@ -84,5 +98,6 @@ Your custom bindings are saved to your browser and sync to your account when you
 ## See also
 
 - [The menu bar](/editor/menu-bar)
+- [Code mode](/editor/code-mode/overview)
 - [Settings](/editor/settings)
 - [The find bar](/editor/find-bar) and [bookmarks](/editor/bookmarks)
