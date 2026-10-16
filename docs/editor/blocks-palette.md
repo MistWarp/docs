@@ -3,7 +3,7 @@ title: The blocks palette
 sidebar_position: 8
 ---
 
-The blocks palette is the column on the left of the **Code** tab. It holds every block you can use, grouped into categories. Drag a block from the palette into the [workspace](/editor/workspace) to add it to a script.
+The blocks palette is the column on the left of the **Scripts** tab. It holds every block you can use, grouped into categories. Drag a block from the palette into the [workspace](/editor/workspace) to add it to a script.
 
 ## Categories
 

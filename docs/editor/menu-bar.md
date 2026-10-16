@@ -27,6 +27,7 @@ Keyboard shortcuts shown below use `Ctrl` on Windows/Linux and `⌘` on macOS. T
 
 - **Restore Sprite / Sound / Costume** brings back the last thing you deleted (disabled when there is nothing to restore).
 - **Undo** (`Ctrl+Z`) and **Redo** (`Ctrl+Shift+Z`) act on the block [workspace](/editor/workspace).
+- **Undo code change** and **Redo code change** undo and redo the last apply from [Code mode](/editor/code-mode/applying), for scripts and extensions. They are disabled during collaboration.
 - **Addons** opens [addon settings](/editor/addons).
 - **Desktop settings** (desktop app only) opens app-level options.
 - **Change Username** sets the username reported to projects and cloud variables.
@@ -47,7 +48,13 @@ A **Mode** menu appears only during the editor's occasional April Fools state. I
 - **Live Collaboration** opens [live collaboration](/editor/collaboration).
 - **Debugger** and **Variable Manager** appear when those tools are available, opening the [debugger](/editor/debugger) and [variable manager](/editor/variable-manager).
 - **Add Extension** (`Ctrl+.`) opens the [extension library](/extensions/overview) to add or import an extension.
-- **Manage Extensions** (`Ctrl+Alt+E`) lists the extensions already loaded in the project.
+- **New Extension** creates an extension and opens its code in Code mode. See [Writing extensions in the editor](/building-extensions/in-editor).
+- **Show Extensions in Code Mode** (`Ctrl+Shift+E`) switches to [Code mode](/editor/code-mode/extensions) and opens the project's extensions in the explorer.
+- **Extension Problems** appears when an extension has errors and opens them in the Code mode Problems tab.
+
+## Blocks and Code
+
+The **Blocks** and **Code** buttons next to the menus switch between the block editor and the [Code mode](/editor/code-mode/overview) workbench (`Ctrl+Shift+Y`). Both modes edit the same project.
 
 ## Bookmarks
 
@@ -73,5 +80,6 @@ A **project title** field sits in the middle when you own the project. On projec
 ## See also
 
 - [Keyboard shortcuts](/editor/shortcuts)
+- [Code mode](/editor/code-mode/overview)
 - [Project management](/editor/project-management)
 - [Settings](/editor/settings) and [addons](/editor/addons)

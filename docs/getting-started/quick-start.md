@@ -13,7 +13,7 @@ Go to [mistwarp.org](https://mistwarp.org/). A new project opens with the defaul
 
 ## Add code
 
-The editor opens on the **Code** tab. The [blocks palette](/editor/blocks-palette) is on the left, grouped by category; the [workspace](/editor/workspace) where scripts go is in the middle.
+The editor opens on the **Scripts** tab. The [blocks palette](/editor/blocks-palette) is on the left, grouped by category; the [workspace](/editor/workspace) where scripts go is in the middle.
 
 1. From the **Events** category, drag a `when green flag clicked` block into the workspace. This is a hat block: it starts a script when the project runs.
 2. From **Looks**, drag a `say [Hello!] for (2) seconds` block and snap it under the hat.
