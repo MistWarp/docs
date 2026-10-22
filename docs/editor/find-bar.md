@@ -3,15 +3,15 @@ title: The find bar
 sidebar_position: 13
 ---
 
-The find bar is a search box built into the editor's tab row (next to the Code, Costumes, and Sounds tabs). It jumps you straight to a block, variable, custom block, costume, or sound in the current sprite, which makes navigating large projects far quicker than scrolling.
+The find bar is a search box built into the editor's tab row (next to the Scripts, Costumes, and Sounds tabs). It jumps you straight to a block, variable, custom block, costume, or sound in the current sprite, which makes navigating large projects far quicker than scrolling.
 
 ## Opening it
 
-Press `Ctrl+F` (`Cmd+F` on macOS) to focus the find bar, or click it. On narrow windows it collapses to a magnifier icon that expands when clicked. The find bar is available on the Code, Costumes, and Sounds tabs.
+Press `Ctrl+F` (`Cmd+F` on macOS) to focus the find bar, or click it. On narrow windows it collapses to a magnifier icon that expands when clicked. The find bar is available on the Scripts, Costumes, and Sounds tabs in Blocks mode.
 
 ## What it finds
 
-On the **Code** tab, typing filters a dropdown of matches in the current sprite or stage:
+On the **Scripts** tab, typing filters a dropdown of matches in the current sprite or stage:
 
 - Hat blocks: `when green flag clicked`, `when I receive`, broadcasts, clone starts, and other event hats.
 - Custom block definitions.

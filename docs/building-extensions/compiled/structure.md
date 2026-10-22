@@ -223,6 +223,52 @@ So a reporter that returns a number should say so, or the compiler will fall bac
 
 An explicit `compiler.register` entry for the same opcode takes precedence over `compFunc`.
 
+## C-shaped blocks
+
+`LOOP` and `CONDITIONAL` blocks own their control flow, so their compiler gets two extra helpers:
+
+| Helper | What it does |
+|:--|:--|
+| `branch(n)` | Returns the compiled source for branch `n` (`1` is `SUBSTACK`, `2` is `SUBSTACK2`, and so on). |
+| `yieldLoop()` | Returns the per-iteration yield for the current script: `yield;` normally, `if (isStuck()) yield;` with the warp-timer option, and nothing in warp mode. |
+
+The block's descriptor is still `COMMAND`, because a C block produces no value. Splice the branches into the source you return:
+
+```js
+{
+  opcode: 'repeatTimes',
+  blockType: BlockType.LOOP,
+  text: 'repeat [TIMES] times',
+  arguments: { TIMES: { type: ArgumentType.NUMBER, defaultValue: 10 } },
+  compFunc: 'comp_repeatTimes'
+}
+
+comp_repeatTimes(args, { cast, branch, yieldLoop }) {
+  return `for (let i = 0, n = Math.round(${cast.toNumber(args.TIMES)}); i < n; i++) {
+    ${branch(1)}
+    ${yieldLoop()}
+  }`;
+}
+```
+
+```js
+comp_ifElse(args, { cast, branch }) {
+  return `if (${cast.toBoolean(args.CONDITION)}) {
+    ${branch(1)}
+  } else {
+    ${branch(2)}
+  }`;
+}
+```
+
+Rules for C block compilers:
+
+- Call `branch(n)` once for each place the branch should run. It is a source splice, not a runtime callback; this is what keeps `stop this script` and procedure returns working inside the branch.
+- Every iteration of a loop must include `${yieldLoop()}`. Without it the project hangs outside warp mode.
+- If a non-empty branch is never spliced, the compiler throws a compile error and the script runs interpreted, which is the safe fallback.
+- `branch(n, { isLoop: true })` marks the branch as the loop body for the promise-resume fast path. Use it only when the branch is the last thing before `yieldLoop()`; otherwise a resumed compatibility-layer call can skip the statements after it.
+- The interpreter fallback still needs `util.startBranch(n, isLoop)`, exactly like any other extension loop.
+
 ## Real built-in examples
 
 MistWarp's own operators are registered exactly this way. A few, verbatim from the engine:

@@ -3,7 +3,7 @@ title: The block workspace
 sidebar_position: 7
 ---
 
-The workspace is the large scrolling canvas in the **Code** tab where you assemble scripts by snapping blocks together. It sits to the right of the [blocks palette](/editor/blocks-palette) and shows the scripts of the currently selected sprite or the stage.
+The workspace is the large scrolling canvas in the **Scripts** tab where you assemble scripts by snapping blocks together. It sits to the right of the [blocks palette](/editor/blocks-palette) and shows the scripts of the currently selected sprite or the stage.
 
 ## Working with blocks
 

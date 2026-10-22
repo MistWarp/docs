@@ -48,6 +48,34 @@ compile: ({ input, target }) =>
   `(() => { const n = ${input.number('N')}; ${target}.setXY(n, n); })()`
 ```
 
+## C-shaped blocks
+
+A loop or conditional block is still a `COMMAND` descriptor, but its `compile` context also gets `branch(n)` and, for loops, `yieldLoop()`. Return the control flow yourself and splice each arm:
+
+```js
+repeatUntil: {
+  type: T.COMMAND,
+  compile: ({ input: i, branch, yieldLoop }) => `
+    while (!${i.boolean('CONDITION')}) {
+      ${branch(1)}
+      ${yieldLoop()}
+    }
+  `
+}
+```
+
+`yieldLoop()` is not optional in a loop: it emits the correct yield for warp mode and the warp-timer option, and without it a non-warp loop hangs. `branch(n)` is a compile-time splice; call it where the branch should run, and do not wrap it in a callback. A compiler that leaves a non-empty branch out fails to compile and the script runs interpreted.
+
+The interpreter fallback is the usual branch protocol:
+
+```js
+repeatUntil (args, util) {
+  if (!Scratch.Cast.toBoolean(args.CONDITION)) util.startBranch(1, true);
+}
+```
+
+If the loop's condition or header needs to wait on a promise, leave the block on the compatibility layer; a compiled header is a plain expression.
+
 ## Reaching runtime, target, and stage
 
 The context gives you the variable names that refer to engine objects in the generated scope. Interpolate them into your source:

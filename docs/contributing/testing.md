@@ -9,52 +9,69 @@ MistWarp inherits Scratch's test setup: [Jest](https://jestjs.io/) in scratch-gu
 
 ## scratch-gui
 
-scratch-gui defines its test scripts in `package.json`. The full run chains linting, unit tests, a build, and integration tests:
+### What CI runs
+
+Every pull request to scratch-gui runs these checks. Run them locally to reproduce CI:
 
 ```bash
-pnpm test
+pnpm run deps:check
+pnpm run i18n:community:check
+pnpm run i18n:editor:check
+pnpm run test:unit:ci
+MW_COMMUNITY=true pnpm run build
+node scripts/validate-deploy.mjs build
 ```
 
-That is rarely what you want during development. The individual pieces are more useful.
+- `deps:check` fails when a fork in `package.json` is not pinned to a commit, has a `link:` override, or disagrees with `pnpm-lock.yaml`. It only warns when a pin is behind the fork's `develop`. Fix either with `pnpm run deps:sync`.
+- `i18n:editor:check` fails when an editor `defaultMessage` changed without an update to `src/lib/tw-translations/default-messages.json`. Fix it with `pnpm run i18n:editor:extract` and commit the result.
+- `i18n:community:check` fails when a community string is missing from `src/community/translations/en.json`, or a translation has placeholders that do not match. `pnpm run i18n:community:extract` adds new strings.
+- `validate-deploy.mjs` checks that every script and stylesheet the built HTML references exists.
+
+A community build may need `NODE_OPTIONS=--max-old-space-size=7168`.
 
 ### Linting
 
 ```bash
-pnpm run test:lint   # eslint . --ext .js,.jsx
+pnpm run lint              # eslint .
+npx eslint <files>         # just the files you changed
+pnpm run check:community-css
 ```
+
+`check:community-css` checks that community CSS uses the shared tokens in `src/community/styles/tokens.module.css`. Run it after editing CSS under `src/community`.
 
 ### Unit tests
 
-The unit tests live under `test/unit/`. They run with Jest and Enzyme (React 16). Two suites are defined:
+The unit tests live under `test/unit/`. They run with Jest and Enzyme (React 16) in jsdom.
 
 ```bash
-pnpm run test:unit     # the addon test suite (test/unit/addons)
-pnpm run test:collab   # the collaboration engine tests (test/unit/collaboration)
+pnpm run test:unit          # every suite under test/unit
+pnpm run test:unit:watch    # the same, rerunning as files change
+pnpm run test:unit:addons   # test/unit/addons only
+pnpm run test:collab        # test/unit/collaboration only
+npx jest test/unit/<path>   # one file or folder
 ```
 
-`pnpm run test:collab` covers the collaboration sequencer engine under `src/lib/collaboration/` and is the suite to run when working on live collaboration. You can run a single Jest file directly:
-
-```bash
-npx jest test/unit/collaboration/<file>.test.js
-```
+`pnpm run test:collab` covers the collaboration engine under `src/lib/collaboration/` and is the suite to run when working on live collaboration.
 
 ### Integration tests
 
-Integration tests under `test/integration/` drive a headless browser (Selenium with chromedriver) against a real build. They require a build first:
+Integration tests under `test/integration/` drive Chrome through Selenium against a production build. `pnpm run test:integration` serves `build/` with Vite's preview server and runs them:
 
 ```bash
 pnpm run build
 pnpm run test:integration
 ```
 
-You can run a single integration file, and watch the browser instead of running headless:
+To run one file, serve the build with `pnpm run preview` in another terminal, then run Jest directly. The tests use `http://localhost:8601` unless `TEST_BASE_URL` says otherwise.
 
 ```bash
 npx jest --runInBand test/integration/backpack.test.js
-USE_HEADLESS=no npx jest --runInBand test/integration/backpack.test.js
+USE_HEADLESS=no npx jest --runInBand test/integration/backpack.test.js   # watch the browser
 ```
 
-If chromedriver is incompatible with your installed Chrome, install a matching version with `pnpm add -D chromedriver@<version>`.
+The tests need a Chrome and a `chromedriver` of the same major version. `CHROME_BIN` and `CHROMEDRIVER_BIN` point the tests at a specific Chrome or chromedriver, such as a Chrome for Testing download.
+
+`pnpm test` runs the unit tests, a build, and the integration tests in one go.
 
 ## scratch-vm
 

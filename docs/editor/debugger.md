@@ -21,7 +21,7 @@ You can also pause from the stage: the [settings](/editor/settings) **Show Pause
 
 **Logs** shows every message, newest activity in view:
 
-- Each entry has a timestamp, a severity icon (log, warn, or error), the message, and a link to the block and sprite that produced it. **Clicking the link jumps to that block**: it switches to the sprite, opens the Code tab, and scrolls the block into view.
+- Each entry has a timestamp, a severity icon (log, warn, or error), the message, and a link to the block and sprite that produced it. **Clicking the link jumps to that block**: it switches to the sprite, opens the Scripts tab, and scrolls the block into view.
 - Filter the log with a search box, the **log / warn / error** severity toggles, and a per-sprite dropdown.
 - **Export** downloads the log as a text file, and **Clear** empties it.
 - Optional automatic logs (green flag clicks, broadcasts, clone creation, and hitting the clone limit) can be turned on in the debugger [settings](/editor/settings).

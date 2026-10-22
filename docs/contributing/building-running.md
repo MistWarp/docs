@@ -5,76 +5,86 @@ sidebar_position: 3
 
 # Building and Running
 
-This page walks through setting up a local MistWarp editor build. The examples use scratch-gui because that is where most development happens, but the same clone-and-link pattern applies to the other engine packages.
+This page walks through running the MistWarp editor and community site locally. Most development happens in scratch-gui, so that is where it starts. The engine packages come after.
 
 ## Prerequisites
 
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/) v20 (v18 or later is likely fine, but v20 is what we develop against)
-- [pnpm](https://pnpm.io/), the package manager scratch-gui uses
+- [Node.js](https://nodejs.org/) 22, the version in scratch-gui's `.nvmrc`. 20.19 is the minimum.
+- [pnpm](https://pnpm.io/) 10. scratch-gui pins the exact version in `package.json`, so the easiest way to get it is `corepack enable`, which ships with Node.
 
-Building the editor can use several gigabytes of disk space and memory, so give it room.
+The first install and the first start need an internet connection.
 
-## Clone the packages side by side
-
-The engine packages link to each other by relative path, so they must be siblings in one parent directory.
+## Run scratch-gui
 
 ```bash
-mkdir mistwarp
-cd mistwarp
 git clone https://github.com/MistWarp/scratch-gui
-git clone https://github.com/MistWarp/scratch-vm
-git clone https://github.com/MistWarp/scratch-blocks
-git clone https://github.com/MistWarp/scratch-render
-git clone https://github.com/MistWarp/scratch-paint
-```
-
-You only need the packages you intend to change. If you are just modifying the editor UI, scratch-gui alone is enough; its dependencies fall back to the versions pinned in `package.json`.
-
-## Install and link
-
-From `scratch-gui`:
-
-```bash
 cd scratch-gui
 pnpm install
-pnpm run link
-```
-
-`pnpm run link` symlinks the sibling checkouts into scratch-gui:
-
-```
-pnpm link ../scratch-vm ../scratch-blocks ../scratch-render ../scratch-paint
-```
-
-After linking, changes you make in those packages are picked up by the scratch-gui build. If installing after linking ever resets the links, just run `pnpm run link` again. There is also a `pnpm run reinstall` script that wipes `node_modules` and the lockfile, reinstalls, and re-links in one step.
-
-## Run the development server
-
-```bash
+cp .env.example .env
 pnpm start
 ```
 
-This starts webpack-dev-server. Open [http://localhost:8601/](http://localhost:8601/). The dev server also mirrors the production routing, so `/editor` is the editor, `/embed.html` is the embed player, and the community client routes are served too.
+`pnpm start` runs the [Vite](https://vite.dev/) dev server on port 8601. `.env.example` sets `MW_COMMUNITY=true`, which turns on the community site:
+
+- [http://localhost:8601/](http://localhost:8601/) is the community site.
+- [http://localhost:8601/editor](http://localhost:8601/editor) is the editor.
+
+Without a `.env`, the editor is served at `/` and the community pages are left out. Set `PORT` to use another port.
+
+The dev server mirrors the production routes, so `/embed.html`, `/fullscreen`, `/addons`, `/credits`, and the community client routes work too. The community site talks to the live API at `https://api.mistwarp.org/v1`, so real projects and profiles load without running a backend.
+
+On its first start, Vite writes generated sources into `src/generated/` (locales, scratch-blocks, and the micro:bit firmware URL) and downloads the micro:bit HEX file into `static/microbit/`. Later starts work offline. React components and CSS reload as you edit them.
 
 ## Production build
 
 ```bash
-NODE_ENV=production pnpm run build
+pnpm run build
+pnpm run preview
 ```
 
-`pnpm run build` cleans the `build/` and `dist/` directories and runs webpack. Setting `NODE_ENV=production` produces a minified, deployable build under `build/`.
+`pnpm run build` writes the site to `build/`. `pnpm run preview` serves that folder on port 8601. The pages are ES modules, so open them through a server, not as `file://` URLs.
+
+A community build needs more memory than Node's default heap. If it runs out, raise the limit:
+
+```bash
+MW_COMMUNITY=true NODE_OPTIONS=--max-old-space-size=7168 pnpm run build
+```
+
+Other build scripts:
+
+- `pnpm run build:editor` builds only the editor, as one bundle.
+- `pnpm run build:community` builds only the community site.
+- `pnpm run build:library` builds the GUI as a library into `dist/`. `pnpm run build:all` builds the site and the library.
+- `pnpm run build:stats` and `pnpm run build:report` report bundle sizes.
+
+The scratch-gui README lists the environment variables the build reads.
 
 ## Linting and formatting
 
 ```bash
-pnpm run lint   # eslint check
-pnpm run fmt    # eslint --fix
+pnpm run lint   # eslint .
+pnpm run fmt    # eslint --fix .
 ```
 
-Linting must pass before a pull request is merged. See [Contributing](/contributing/guidelines) for the style rules that are not caught automatically (no code comments, no emdashes).
+For a quick check, lint just the files you changed with `npx eslint <files>`. See [Contributing](/contributing/guidelines) for the style rules the linter does not catch.
 
-## Other packages
+## Working on the engine packages
+
+scratch-gui depends on MistWarp forks of scratch-vm, scratch-blocks, scratch-render, scratch-paint, and scratch-audio. `package.json` pins each one to a commit, so scratch-gui builds on its own with no other checkouts.
+
+To change one of them, clone it next to scratch-gui and link it:
+
+```bash
+cd ..
+git clone https://github.com/MistWarp/scratch-vm
+cd scratch-gui
+pnpm run link
+```
+
+`pnpm run link` symlinks each fork that is checked out next to scratch-gui into `node_modules` and skips the ones that are not. It does not edit `package.json`. Restart `pnpm start` after linking. `pnpm run unlink`, or another `pnpm install`, goes back to the pinned copies. `pnpm run reinstall` forces a fresh install and links again.
+
+Once a fork change is merged into that fork's `develop`, `pnpm run deps:sync` moves scratch-gui's pins to the latest `develop` of every fork, and `pnpm run deps:check` reports pins that are behind.
 
 ### scratch-vm
 
@@ -91,7 +101,7 @@ npx tap test/unit/<file>.js   # a single file
 
 ### scratch-blocks
 
-Edits under scratch-blocks `core/` are compiled with Google Closure, so a plain rebuild is not enough. With `node_modules/.bin` on your `PATH`, run:
+scratch-blocks commits its compiled Closure output. Edits under `core/` need a Closure recompile, which needs Java and Python. With `node_modules/.bin` on your `PATH`, run:
 
 ```bash
 node universal-python.js build.py
@@ -105,10 +115,11 @@ The community backend is an OSL service. With the OSL interpreter installed:
 
 ```bash
 cd mistwarp-api
-osl run main.osl   # listens on port 5610
+cp .env.example .env
+osl run main.osl   # listens on PORT, 5627 by default
 ```
 
-It stores data as flat JSON under `data/` and falls back to a local `data/blobs/` directory for project files with no additional configuration, so you can run it without any cloud setup.
+It stores data as flat JSON under `data/` and keeps project files in a local `data/blobs/` directory when no R2 bucket is configured. scratch-gui always talks to `https://api.mistwarp.org/v1` (`API_BASE` in `src/lib/community/api.js`), so change that constant locally to use your own backend.
 
 ## See also
 
