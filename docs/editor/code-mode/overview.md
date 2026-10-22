@@ -75,8 +75,7 @@ Drop a costume or sound from the explorer into a script to insert its name.
 | Toggle the explorer | `Ctrl+B` |
 | Toggle the panel | `Ctrl+J` |
 | Quick open | `Ctrl+E` |
-| Apply the file | `Ctrl+Enter` |
-| Apply and save | `Ctrl+S` |
+| Apply the file | `Ctrl+Enter`, `Ctrl+S` |
 | Show extensions in Code mode | `Ctrl+Shift+E` |
 | Go to definition | `F12` |
 | Find references | `Shift+F12` |

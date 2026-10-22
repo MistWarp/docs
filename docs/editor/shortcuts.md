@@ -60,11 +60,10 @@ MistWarp has keyboard shortcuts for the common editor actions, and they are rebi
 | Toggle explorer | `Ctrl+B` |
 | Toggle panel | `Ctrl+J` |
 | Quick open | `Ctrl+E` |
-| Apply file (in a script or extension tab) | `Ctrl+Enter` |
-| Apply and save (in a script or extension tab) | `Ctrl+S` |
+| Apply file (in a script or extension tab) | `Ctrl+Enter`, `Ctrl+S` |
 | Close tab, next tab, previous tab | not bound |
 
-Inside a Code mode tab, `Ctrl+Enter` and `Ctrl+S` apply the file instead of starting the project and saving. The manager shows these as overrides rather than clashes. See [Code mode](/editor/code-mode/overview).
+Inside a Code mode tab, `Ctrl+Enter` and `Ctrl+S` apply the file instead of starting the project or saving. The manager shows these as overrides rather than clashes. See [Code mode](/editor/code-mode/overview).
 
 **Libraries**
 

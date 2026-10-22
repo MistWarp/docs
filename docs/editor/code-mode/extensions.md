@@ -17,13 +17,13 @@ How to write an extension, step by step, is in [writing extensions in the editor
 
 ## Applying an extension
 
-Press `Ctrl+Enter` or click **Apply** in the extension tab. An extension apply is checked like a script apply:
+Press `Ctrl+Enter` or `Ctrl+S`, or click **Apply** in the extension tab. An extension apply is checked like a script apply:
 
 - a syntax error blocks the apply
 - if the new code fails to load or `getInfo` throws, the previous version keeps running and the error is listed in **Problems**
 - if the new code removes a block the project uses, or renames or reorders its inputs, a dialog lists the blocks and sprites affected before anything changes
 
-**Apply as I type** applies on its own when the code has no errors. Every applied version goes into code change history, so **Edit**, **Undo code change** brings back the previous code.
+Every applied version goes into code change history, so **Edit**, **Undo code change** brings back the previous code.
 
 ## Problems and output
 

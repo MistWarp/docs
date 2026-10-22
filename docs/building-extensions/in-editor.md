@@ -18,8 +18,7 @@ You can also paste code into **Add Extension**, **Custom Extension**, **Text**, 
 
 The editor has completion for the `Scratch` API and for `getInfo` (block types, argument types, and every block field), with a short description of each item. Hover over a `Scratch.` member to read it again.
 
-- **Apply** (or Ctrl+Enter, Cmd+Enter on a Mac) runs your code in the project. Scripts that are already running keep going and use the new code from their next block. Ctrl+S applies and then saves the project.
-- **Apply as I type** applies on its own when you stop typing and the code has no errors. It skips files that change the editor itself.
+- **Apply** (or Ctrl+Enter, or Ctrl+S) runs your code in the project. Scripts that are already running keep going and use the new code from their next block.
 - If the new code fails to load, it is not applied. The previous version keeps running and the **Problems** tab shows why, with the line and column.
 - If the new code removes a block the project uses, or changes its inputs, a dialog lists the affected blocks and sprites first.
 - **Edit**, **Undo code change** brings back the previous version.

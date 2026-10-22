@@ -8,8 +8,8 @@ Typing in a script tab never changes the project on its own. Your text reaches t
 ## Apply a file
 
 - Press `Ctrl+Enter` (`⌘+Enter` on macOS) or click **Apply** in the strip above the text.
-- Press `Ctrl+S` in a script tab to apply and then save the project. If the apply is refused, the strip offers **Save without applying**. In a clean tab `Ctrl+S` just saves.
-- Turn on **Apply as I type** from the tab's right-click menu to apply a short moment after you stop typing. It only applies changes that have no errors, add or remove nothing, and need no confirmation; anything else waits for an explicit apply.
+- Press `Ctrl+S` in a script tab to apply the file without saving the project.
+- Text is applied only when you ask for it. Nothing is applied while you type.
 
 A dot on the tab and in the explorer marks text that is not applied yet. Saving the project always saves the applied project, never unapplied text. Leaving the page or loading another project with unapplied text asks first.
 
