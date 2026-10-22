@@ -10,7 +10,7 @@ You can control how MistWarp loads and runs a project by adding parameters to th
 Parameters use standard query-string syntax: a `?` after the URL, then `name=value` pairs joined with `&`. Parameters that are just switches take no value:
 
 ```
-https://mistwarp.org/123456789?turbo&fps=60&username=alice
+https://editor.mistwarp.org/123456789?turbo&fps=60&username=alice
 ```
 
 :::note
@@ -21,7 +21,7 @@ MistWarp already stores common settings (turbo mode, FPS, high quality pen, stag
 
 | Parameter | Value | What it does |
 |-----------|-------|--------------|
-| (path) | project ID | `mistwarp.org/123456789` loads that project |
+| (path) | project ID | `editor.mistwarp.org/123456789` loads that project |
 | `project_url` | direct URL | Loads a `.sb3` (or `project.json`) from any CORS-enabled URL. Do not combine with a project ID. |
 | `clone` | git repo URL | Clones a project from a MistWarp git repository (see [Git integration](/editor/git)). |
 

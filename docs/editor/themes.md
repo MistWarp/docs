@@ -23,25 +23,25 @@ For finer control over individual category colours, **Customize in Addon Setting
 
 ## Custom themes
 
-Custom themes bundle a whole look (accent, light or dark mode, block colours, wallpaper, and fonts) under a name so you can switch between them or share them. The custom themes manager lets you:
+Custom themes bundle a whole look (accent, light or dark mode, block colours, wallpaper, and fonts) under a name so you can switch between them or share them. Open **Settings → Custom themes** in the editor, or **Settings → Theme → Custom** on the community site.
 
-- **Create from your current look**: snapshot everything you have set into a named theme.
-- **Build a gradient theme**: design a gradient accent in the gradient builder (below).
-- **Import and export**: load themes from a JSON file, or export your whole library as one file.
-- **Browse the marketplace**: open the WarpTheme community theme collection and add themes to your library.
+Your themes appear as a grid of previews that show each theme's menu bar, interface colours and block colours. Click a preview to use that theme; the one in use is marked **Active**. Hover a theme (or tab to it) to edit, download, or delete it.
 
-Each saved theme can be applied, edited, exported on its own, or deleted.
+- **Save current look**: snapshot everything you have set into a named theme.
+- **New gradient**: design a gradient accent in the gradient builder (below).
+- **Import** and **Export all**: load themes from a MistWarp or NitroBolt JSON file, or download your whole library as one file. Themes whose names you already have are skipped on import.
+- **Browse community themes**: open the community theme gallery and add themes to your library.
 
 ## The gradient builder
 
-The gradient builder designs a gradient accent for a custom theme:
+The gradient builder designs a gradient accent for a custom theme, with a live preview beside it:
 
-- **Colour stops**: drag stops along the preview bar to reposition them, pick each stop's colour, and add or remove stops (two to eight).
-- **Direction**: set the gradient angle with a slider or one of eight preset arrows.
-- **Quick presets**: start from a ready-made gradient.
-- **Primary colour**: the solid colour derived from the gradient, used for UI accents.
+- **Colors**: drag the stops along the bar (or focus one and use the arrow keys) to reposition them, pick each stop's colour, and add or remove stops (two to eight).
+- **Presets**: start from a ready-made gradient.
+- **Direction**: pick one of eight arrows or set an exact angle with the slider.
+- **Accent color**: the solid colour used for buttons, tabs and highlights.
 
-**Preview** applies the gradient live so you can see it before saving, and toggling preview off restores your previous theme.
+**Try it on** applies the theme everywhere while you edit it and follows your changes. Turning it off, cancelling, or leaving the page restores your previous theme.
 
 ## Bundling a theme with a project
 
