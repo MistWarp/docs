@@ -91,13 +91,14 @@ Drop a costume or sound from the explorer into a script to insert its name.
 | Toggle the panel | `Ctrl+J` |
 | Quick open | `Ctrl+E` |
 | Apply the file | `Ctrl+Enter`, `Ctrl+S` |
+| Apply every file with unapplied text | `Ctrl+Shift+Enter` |
 | Show extensions in Code mode | `Ctrl+Shift+E` |
 | Go to definition | `F12` |
 | Find references | `Shift+F12` |
 | Rename | `F2` |
 | Close tab, next tab, previous tab | not bound |
 
-`Ctrl+Enter` and `Ctrl+S` apply only inside a script or extension tab. Elsewhere they run the green flag and save as usual. Every shortcut can be changed in the [shortcut manager](/editor/shortcuts).
+`Ctrl+Enter` and `Ctrl+S` apply the open file and `Ctrl+Shift+Enter` applies every script file, but only inside a script or extension tab. Elsewhere they run the green flag, save and stop the project as usual. Every shortcut can be changed in the [shortcut manager](/editor/shortcuts).
 
 ## Limits
 
