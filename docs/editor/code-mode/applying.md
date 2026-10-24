@@ -36,7 +36,11 @@ A dot on the tab and in the explorer marks text that is not applied yet. Saving 
 
 If the project changes while an apply is running, for example because a script moved in Blocks mode, the apply is refused with **The project changed while applying, try again**.
 
-After an apply the text is rewritten in its canonical form, unless you kept typing during the apply. Then only the parts you did not touch are updated.
+After an apply your text stays exactly as you typed it, with your blank lines, indentation, spacing, comments and order. If you kept typing during the apply, your newer text stays too.
+
+When blocks change somewhere else, for example in Blocks mode, through [fractch live reload](#fractch-live-reload) or with **Undo code change**, only the scripts, declarations and comments that changed are rewritten in their canonical form. Everything else keeps your formatting. If a script moves into or out of a region, or an import or monitor line changes, the file follows the canonical order again, but the scripts that did not change still keep their formatting.
+
+Formatting is not yet kept when the project is reloaded. Opening or reloading a project shows its text in the canonical form.
 
 ## Rename a Stage variable
 
