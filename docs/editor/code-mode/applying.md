@@ -36,7 +36,33 @@ A dot on the tab and in the explorer marks text that is not applied yet. Saving 
 
 If the project changes while an apply is running, for example because a script moved in Blocks mode, the apply is refused with **The project changed while applying, try again**.
 
-After an apply the text is rewritten in its canonical form, unless you kept typing during the apply. Then only the parts you did not touch are updated.
+After an apply your text stays exactly as you typed it, with your blank lines, indentation, spacing, comments and order. If you kept typing during the apply, your newer text stays too.
+
+When blocks change somewhere else, for example in Blocks mode, through [fractch live reload](#fractch-live-reload) or with **Undo code change**, only the scripts, declarations and comments that changed are rewritten in their canonical form. Everything else keeps your formatting. If a script moves into or out of a region, or an import or monitor line changes, the file follows the canonical order again, but the scripts that did not change still keep their formatting.
+
+Formatting is not yet kept when the project is reloaded. Opening or reloading a project shows its text in the canonical form. Unapplied text that comes back after a reload keeps its formatting, but it is compared with that canonical text, so a script you only reformatted counts as edited if blocks change it later.
+
+If the lines outside your scripts, such as `watch`, `import` or `use` lines, no longer match the project after an apply, those lines are rewritten from the project while your scripts keep their formatting.
+
+## Rename a Stage variable
+
+A Stage variable is global, so renaming it touches the Stage and every sprite that uses it. Edit them together and apply them together:
+
+1. In the Stage file, change `var score` to the new name, for example `var total`.
+2. In each sprite file, change the uses of `score` to `total`.
+3. Click **Apply all**.
+
+The Stage creates `total`, the sprites switch to it, and `score` is deleted. Applying one of these files on its own is refused:
+
+- Applying the Stage first fails with **score is used by Sprite1**, because the sprites' blocks still use `score`.
+- Applying a sprite first fails because assigning `total` there would make a new variable only that sprite can see, while the Stage text you have not applied yet declares `total`.
+
+Both messages suggest **Apply all**. A file is only counted as using a Stage variable when its code reads or sets it. A name in a string, a comment, a `local` of the same name, or `sprites["Sprite1"].vars["score"]` does not count, and neither does using a Stage list of the same name, so you can turn `var score` into `var score = []` in one Apply all when the sprites switch to list blocks.
+
+Two changes can't be done in one Apply all, and are refused before anything changes:
+
+- **Moving a Stage variable into one sprite.** Removing `var score` from the Stage while a sprite adds its own `var score` is refused, because the sprite's variable would share a name with the Stage variable that is still there. First apply the sprite with a different name for its variable, then apply the Stage without `score`, then rename the sprite's variable back and apply again.
+- **Making a used Stage variable a cloud variable, or the other way round.** Changing `var score` to `cloud score` while sprites use `score` is refused. Remove the uses of `score` and apply all without it first, then add `cloud score` and the uses back and apply all again.
 
 ## Rename a Stage variable
 
