@@ -32,7 +32,9 @@ Right-click a row for its actions:
 
 With the tree focused, the arrow keys move the selection, `Enter` opens, `F2` renames and `Delete` deletes.
 
-Drag files from your computer onto the tree to add them: images onto a sprite or its Costumes become costumes, audio onto Sounds becomes sounds, a `.sprite3` or an image onto the root adds a sprite, and a `.js` file onto Extensions loads it sandboxed. Drag a costume or sound onto another sprite to copy it, or within its folder to reorder it.
+Drag files from your computer onto the tree to add them: images onto a sprite or its Costumes become costumes, audio onto Sounds becomes sounds, a `.sprite3` or an image onto the root adds a sprite, and a `.js` file onto Extensions loads it sandboxed. Drag a costume or sound onto another sprite to copy it, or within its folder to reorder it. Drag a sprite onto another sprite to reorder the sprites.
+
+Clicking a sprite or the Stage makes it the current sprite, the same as clicking it in the sprite pane in Blocks mode.
 
 **Properties**, under the tree, edits the selected sprite: its name, x and y, size, direction and rotation style, and whether it is shown. Click the heading to collapse it. It is hidden while the Stage is selected.
 
@@ -99,7 +101,7 @@ Drop a costume or sound from the explorer into a script to insert its name.
 
 ## Limits
 
-Costume, sound and sprite properties are not text (sprite properties are edited in **Properties**), the editor shows one file at a time, and onion skinning, folders, hide flyout and compact editor are only available in Blocks mode.
+Costume, sound and sprite properties are not text (sprite properties are edited in **Properties**), the editor shows one file at a time, and onion skinning, folders, sprite search, the surprise backdrop button, hide flyout and compact editor are only available in Blocks mode.
 
 ## See also
 
