@@ -25,7 +25,7 @@ MistWarp includes additional blocks and extensions beyond TurboWarp's set. Brows
 
 ## Version history
 
-MistWarp creates version history when you save a project to your account. Later saves ask for a short description, and the project page lets you browse or restore old versions. Advanced users can add branches and repository connections under **Tools, Version history**. See [Version history](/editor/git).
+MistWarp creates version history when you save a project to your account. Later saves ask for a short description, and the project page lets you browse or restore old versions. **Project, Project history** in the editor shows every commit and what changed in it, and advanced users can add branches and repository connections there. See [Version history](/editor/git).
 
 ## Live collaboration
 

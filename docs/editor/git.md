@@ -11,13 +11,27 @@ Version control suits larger or longer-lived projects, and it is the foundation 
 
 ## Opening version control
 
-Open the **Tools** menu and choose **Version history**. Its sidebar has **History**, **Branches**, and **Connections**.
+Open the **Project** menu and choose **Project history**. Its sidebar has **History**, **Branches**, and **Connections**. The window opens large; drag its edges to resize it or use the button in its title bar to fill the screen.
 
-MistWarp initializes history automatically for account projects and forks. If you deliberately open a standalone project in the advanced Version history window, you can also initialize it there or clone an existing project by URL.
+MistWarp initializes history automatically for account projects and forks. If you deliberately open a standalone project in the Project history window, you can also initialize it there or clone an existing project by URL.
 
 ## History
 
-**History** lists saved versions with their note, date, author, and a colour-coded branch graph. Separate lanes show where branches split and merge. Project owners can choose **Restore this version** on the web project page. Restoring adds a new version with the old contents, so it does not delete anything that came later.
+**History** lists your commits, newest first, with their note, author and how long ago they were made, beside a coloured graph whose lanes show where branches split and merge. Branch names mark the newest commit on each branch, and **Current** marks the commit the project is at. **Load older commits** shows more.
+
+If the project has changes that are not committed yet, **Uncommitted changes** sits at the top of the list.
+
+Select a commit, or the uncommitted changes, to see what changed on the right:
+
+- Changes are grouped by sprite, with the Stage under **Global**.
+- Changed scripts are drawn as blocks, with removed blocks in red and added blocks in green, and short summaries list new or removed variables, costumes, sounds and extensions.
+- **Costumes** and **Sounds** show the old and new versions side by side.
+- Every changed fractch file can be opened as a line diff with a few lines of context.
+- The first commit has no earlier version, so everything in it is shown as new.
+
+**Compare with** picks which commit the selected one is compared against. It starts at the previous commit, and choosing an older commit shows everything that changed since then.
+
+**Restore this commit** replaces the project in the editor with the selected commit; the commits after it stay in the history. The download button saves that commit as a `.sb3`. Project owners can also choose **Restore this version** on the web project page, which adds a new version with the old contents, so it does not delete anything that came later.
 
 ## Branches and merging
 
