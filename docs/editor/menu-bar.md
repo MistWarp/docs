@@ -26,7 +26,7 @@ Keyboard shortcuts shown below use `Ctrl` on Windows/Linux and `⌘` on macOS. T
 ## Edit
 
 - **Restore Sprite / Sound / Costume** brings back the last thing you deleted (disabled when there is nothing to restore).
-- **Undo** (`Ctrl+Z`) and **Redo** (`Ctrl+Shift+Z`) undo whatever you did last where you are: block edits on the Scripts tab, typing in a Code mode script tab, or the last apply from [Code mode](/editor/code-mode/applying) for scripts and extensions. The item names what it will undo, for example **Undo apply to Sprite1**. Undoing applies is unavailable during collaboration.
+- **Undo** (`Ctrl+Z`) and **Redo** (`Ctrl+Shift+Z`) undo whatever you did last where you are: block edits on the Scripts tab, typing in a Code mode script tab, a deleted sprite, costume or sound, or the last apply from [Code mode](/editor/code-mode/applying) for scripts and extensions. The item names what it will undo, for example **Undo apply to Sprite1**. Undoing applies is unavailable during collaboration.
 - **Addons** opens [addon settings](/editor/addons).
 - **Desktop settings** (desktop app only) opens app-level options.
 - **Change Username** sets the username reported to projects and cloud variables.

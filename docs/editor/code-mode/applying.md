@@ -73,11 +73,12 @@ If blocks change while a tab has unapplied text, for example in Blocks mode or t
 There is one **Undo** and one **Redo**, in the **Edit** menu and on `Ctrl+Z` and `Ctrl+Shift+Z`. They undo whatever you did last where you are, and the menu says what that is:
 
 - In a script tab, they undo and redo your typing first. Once there is no typing left to undo, the next undo reverts the last apply to that file, shown as **Undo apply to Sprite1**. Typing undo never goes back past an apply.
-- With the explorer or panel focused in Code mode, they undo and redo the last apply of any file.
-- In Blocks mode, they undo block edits on the Scripts tab first, then applies made in Code mode for the selected sprite.
+- With the explorer or panel focused in Code mode, they undo and redo the last apply of any file. If you deleted a sprite, costume or sound more recently than that apply, undo restores it first.
+- In Blocks mode, undo takes whichever came last: a block edit on the Scripts tab, a deleted sprite, costume or sound, or an apply made in Code mode for the selected sprite.
 
 An **Apply all** is one entry, shown as **Undo apply to 3 files**, so one undo reverts every file it changed and removes the Stage variables it created. Cloud variables and variables with a monitor showing on the stage are kept.
-- An apply can only be undone while the scripts it changed are still as it left them. For an **Apply all**, that means every file it changed. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
+
+An apply can only be undone while the scripts it changed are still as it left them. For an **Apply all**, that means every file it changed. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
 
 Code change history is cleared when a project loads.
 
