@@ -40,7 +40,9 @@ After an apply your text stays exactly as you typed it, with your blank lines, i
 
 When blocks change somewhere else, for example in Blocks mode, through [fractch live reload](#fractch-live-reload) or with **Undo code change**, only the scripts, declarations and comments that changed are rewritten in their canonical form. Everything else keeps your formatting. If a script moves into or out of a region, or an import or monitor line changes, the file follows the canonical order again, but the scripts that did not change still keep their formatting.
 
-Formatting is not yet kept when the project is reloaded. Opening or reloading a project shows its text in the canonical form.
+Formatting is not yet kept when the project is reloaded. Opening or reloading a project shows its text in the canonical form. Unapplied text that comes back after a reload keeps its formatting, but it is compared with that canonical text, so a script you only reformatted counts as edited if blocks change it later.
+
+If the lines outside your scripts, such as `watch`, `import` or `use` lines, no longer match the project after an apply, those lines are rewritten from the project while your scripts keep their formatting.
 
 ## Rename a Stage variable
 
