@@ -44,7 +44,7 @@ A **Mode** menu appears only during the editor's occasional April Fools state. I
 
 - **Project metadata** shows the open project's author, dates, and contents.
 
-- **Version history** opens saved versions, branches, and repository connections.
+- **Project history** opens the project's commits and what changed in each, branches, and repository connections. See [Version history](/editor/git).
 - **Live Collaboration** opens [live collaboration](/editor/collaboration).
 - **Debugger** and **Variable Manager** appear when those tools are available, opening the [debugger](/editor/debugger) and [variable manager](/editor/variable-manager).
 - **Add Extension** (`Ctrl+.`) opens the [extension library](/extensions/overview) to add or import an extension.
