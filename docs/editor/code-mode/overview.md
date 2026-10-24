@@ -17,8 +17,8 @@ Some commands switch to Code mode for you: **Project**, **Show Extensions in Cod
 
 The explorer on the left lists the project as a tree. Toggle it with `Ctrl+B`.
 
-- **Stage** holds `scripts.fractch`, **Backdrops** and **Sounds**.
-- Each sprite, in sprite pane order, holds `scripts.fractch`, **Costumes** and **Sounds**.
+- **Stage** holds `scripts.fractch`, any other fractch files, **Backdrops** and **Sounds**.
+- Each sprite, in sprite pane order, holds `scripts.fractch`, any other fractch files, **Costumes** and **Sounds**.
 - **Extensions** holds one `.js` file per extension. Built-in extensions are listed without source.
 
 Rows show the current costume of each sprite and the current backdrop of the Stage, a thumbnail for costumes and backdrops, the length of each sound, and a problem count on scripts and extensions.
@@ -26,13 +26,34 @@ Rows show the current costume of each sprite and the current backdrop of the Sta
 Right-click a row for its actions:
 
 - the root: **Add sprite** (paint, upload, choose, or surprise)
-- a sprite or the Stage: **Rename**, **Duplicate**, **Delete**, **Export** (the Stage has none of these). On narrow screens, where the sprite pane is shown, there is also **Reveal in sprite pane**.
-- a file: **Open**, **Rename**, **Duplicate**, **Delete**, **Export**
-- a folder: new costume, backdrop or sound (paint, record, upload, choose), **New extension** and **Add extension**
+- a sprite or the Stage: **New file**, **Rename**, **Duplicate**, **Delete**, **Export** (the Stage has only **New file**). On narrow screens, where the sprite pane is shown, there is also **Reveal in sprite pane**.
+- `scripts.fractch`: **Open**, **New file**, **Export**
+- another fractch file: **Open**, **New file**, **Rename**, **Delete**, **Export**
+- a costume or sound: **Open**, **Rename**, **Duplicate**, **Delete**, **Export**
+- a folder: new costume, backdrop or sound (paint, record, upload, choose), **New extension** and **Add extension**, or **New file** in a folder of fractch files
 
 With the tree focused, the arrow keys move the selection, `Enter` opens, `F2` renames and `Delete` deletes.
 
 Drag files from your computer onto the tree to add them: images onto a sprite or its Costumes become costumes, audio onto Sounds becomes sounds, a `.sprite3` or an image onto the root adds a sprite, and a `.js` file onto Extensions loads it sandboxed. Drag a costume or sound onto another sprite to copy it, or within its folder to reorder it. Drag a sprite onto another sprite to reorder the sprites.
+
+### Several files in one sprite
+
+A sprite can split its scripts across several fractch files. `scripts.fractch` is always listed first, then the other files in alphabetical order, with folders shown as folders.
+
+- **New file** asks for a name and opens the new, empty file. Use a slash to put it in a folder, for example `enemies/boss`. Names cannot be empty, start with a dot, end with a dot, contain control characters or any of `< > : " | ? *`, or be `main`, `index` or a name Windows reserves such as `con`, `nul`, `com1` or `lpt1`. Each name can be used once per sprite, ignoring case, and a folder keeps the capitalisation it already has.
+- **Rename** changes the file name in place. The tab of an open file follows the new name.
+- **Delete** removes the file and everything in it from the text. A file with any text in it asks first, and **Undo** in the strip above the text brings the file back until you type again. Apply to remove its scripts from the project. A file with scripts that cannot be shown as text cannot be deleted here.
+- To move a script to another file, cut it from one file and paste it into the other, then apply.
+
+Variables, lists, cloud variables, monitors, imports, costumes and sprite settings always stay in `scripts.fractch`. Only whole scripts go in the other files.
+
+A comment is saved with the script below it. A comment with no script below it, such as a note at the end of a file or in a file with no scripts, moves to `scripts.fractch` when you apply. A file with no scripts stays in the explorer after you apply, but it is not saved with the project, so it is gone after the project is reloaded.
+
+In the text, each file is a `region "name" { ... }` block, with the header and the closing brace on lines of their own. A block you type in `scripts.fractch` becomes a file once you type outside it, switch tabs or apply.
+
+All the files of a sprite are applied together, so **Apply** in any of them applies the whole sprite. Each tab shows a dot only when its own file has unapplied text, the sprite shows a dot in the explorer when any of its files does, and a tab whose own text is unchanged says when another file of the sprite will be applied with it. Problems are listed per file with line numbers in that file.
+
+When the project is committed or saved as a `.mwp`, each file becomes its own `.fractch` file in the sprite's folder, for example `Sprite1/enemies/boss.fractch`, and loading the project lists the files again.
 
 Clicking a sprite or the Stage makes it the current sprite, the same as clicking it in the sprite pane in Blocks mode.
 
@@ -102,7 +123,7 @@ Drop a costume or sound from the explorer into a script to insert its name.
 
 ## Limits
 
-Costume, sound and sprite properties are not text (sprite properties are edited in **Properties**), the editor shows one file at a time, and onion skinning, folders, sprite search, the surprise backdrop button, hide flyout and compact editor are only available in Blocks mode.
+Costume, sound and sprite properties are not text (sprite properties are edited in **Properties**), each editor tab shows one file, and onion skinning, folders, sprite search, the surprise backdrop button, hide flyout and compact editor are only available in Blocks mode.
 
 ## See also
 
