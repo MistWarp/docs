@@ -3,7 +3,7 @@ title: Code mode
 sidebar_position: 1
 ---
 
-The editor has two modes. **Blocks** mode is the classic editor with the Scripts, Costumes and Sounds tabs. **Code** mode replaces the left side of the editor with a workbench where the whole project is a tree of files: every sprite's scripts as [fractch](https://github.com/Mistium/FRACTCH) text, its costumes and sounds, and the project's extensions as JavaScript. The stage and the sprite pane stay on the right in both modes.
+The editor has two modes. **Blocks** mode is the classic editor with the Scripts, Costumes and Sounds tabs. **Code** mode replaces the left side of the editor with a workbench where the whole project is a tree of files: every sprite's scripts as [fractch](https://github.com/Mistium/FRACTCH) text, its costumes and sounds, and the project's extensions as JavaScript. In Code mode the stage floats over the workbench instead of sitting in a panel on the right, so the code gets the full width.
 
 Nothing is lost when you switch. Both modes edit the same project, and scripts you do not touch in Code mode keep their exact blocks.
 
@@ -21,18 +21,33 @@ The explorer on the left lists the project as a tree. Toggle it with `Ctrl+B`.
 - Each sprite, in sprite pane order, holds `scripts.fractch`, **Costumes** and **Sounds**.
 - **Extensions** holds one `.js` file per extension. Built-in extensions are listed without source.
 
-Rows show a thumbnail for costumes and backdrops, the length of each sound, and a problem count on scripts and extensions.
+Rows show the current costume of each sprite and the current backdrop of the Stage, a thumbnail for costumes and backdrops, the length of each sound, and a problem count on scripts and extensions.
 
 Right-click a row for its actions:
 
 - the root: **Add sprite** (paint, upload, choose, or surprise)
-- a sprite or the Stage: **Rename**, **Duplicate**, **Delete**, **Export**, **Reveal in sprite pane** (the Stage has no rename, duplicate or delete)
+- a sprite or the Stage: **Rename**, **Duplicate**, **Delete**, **Export** (the Stage has none of these). On narrow screens, where the sprite pane is shown, there is also **Reveal in sprite pane**.
 - a file: **Open**, **Rename**, **Duplicate**, **Delete**, **Export**
 - a folder: new costume, backdrop or sound (paint, record, upload, choose), **New extension** and **Add extension**
 
 With the tree focused, the arrow keys move the selection, `Enter` opens, `F2` renames and `Delete` deletes.
 
-Drag files from your computer onto the tree to add them: images onto a sprite or its Costumes become costumes, audio onto Sounds becomes sounds, a `.sprite3` or an image onto the root adds a sprite, and a `.js` file onto Extensions loads it sandboxed. Drag a costume or sound onto another sprite to copy it, or within its folder to reorder it.
+Drag files from your computer onto the tree to add them: images onto a sprite or its Costumes become costumes, audio onto Sounds becomes sounds, a `.sprite3` or an image onto the root adds a sprite, and a `.js` file onto Extensions loads it sandboxed. Drag a costume or sound onto another sprite to copy it, or within its folder to reorder it. Drag a sprite onto another sprite to reorder the sprites.
+
+Clicking a sprite or the Stage makes it the current sprite, the same as clicking it in the sprite pane in Blocks mode.
+
+**Properties**, under the tree, edits the selected sprite: its name, x and y, size, direction and rotation style, and whether it is shown. Click the heading to collapse it. It is hidden while the Stage is selected.
+
+## The stage
+
+The stage floats over the workbench in a window with the green flag, pause and stop on its title bar, along with the variable manager, screenshot, full screen and **Hide stage**.
+
+- Drag the grip at the left of the title bar, or any empty part of it, to move the stage. When you let go it settles against the nearest corner and keeps that distance when the editor is resized. Dropping it close to an edge snaps it to the corner.
+- Drag the small handle on the corner facing away from the screen edge to resize it. The stage keeps its proportions.
+- **Hide stage** shrinks the window to its title bar, so the controls stay available. **Show stage** brings it back.
+- With the grip focused, the arrow keys move the stage to another corner. With the resize handle focused, the arrow keys make it larger or smaller.
+
+The position, size and hidden state are remembered between sessions. On narrow screens Code mode keeps the stage and sprite pane in their own views, the same as Blocks mode.
 
 ## Editor tabs
 
@@ -43,7 +58,7 @@ Files open as tabs in the middle of the workbench.
 - Middle-click or the close button closes a tab. Right-click a tab for **Close**, **Close others**, **Next tab** and **Previous tab**.
 - **Quick open** (`Ctrl+E`) searches every file in the project.
 
-Scripts open as fractch text, extensions as JavaScript, costumes in the paint editor and sounds in the sound editor. Opening a file of another sprite selects that sprite in the sprite pane, and selecting a sprite reveals it in the explorer.
+Scripts open as fractch text, extensions as JavaScript, costumes in the paint editor and sounds in the sound editor. Opening a file of another sprite selects that sprite, and selecting a sprite reveals it in the explorer.
 
 Each script tab has a strip across the top with one status message on the left and **Apply**, **Run all** and **Stop** on the right. See [applying code](/editor/code-mode/applying) and [running and debugging](/editor/code-mode/debugging).
 
@@ -86,7 +101,7 @@ Drop a costume or sound from the explorer into a script to insert its name.
 
 ## Limits
 
-Costume, sound and sprite properties are not text, the editor shows one file at a time, and onion skinning, folders, hide flyout and compact editor are only available in Blocks mode.
+Costume, sound and sprite properties are not text (sprite properties are edited in **Properties**), the editor shows one file at a time, and onion skinning, folders, sprite search, the surprise backdrop button, hide flyout and compact editor are only available in Blocks mode.
 
 ## See also
 
