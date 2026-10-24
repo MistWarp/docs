@@ -11,6 +11,18 @@ Typing in a script tab never changes the project on its own. Your text reaches t
 - Press `Ctrl+S` in a script tab to apply the file without saving the project.
 - Text is applied only when you ask for it. Nothing is applied while you type.
 
+## Apply every file at once
+
+When more than one script file has unapplied text, **Apply all** appears next to **Apply** in the strip. Click it, press `Ctrl+Shift+Enter` (`⌘+Shift+Enter` on macOS) in a script or extension tab, or choose **Edit**, **Apply all code changes**.
+
+Apply all checks every file first. If any file has an error, nothing is applied, the errors are listed in **Problems**, and the other files say which files need fixing. Otherwise the files are applied as one change:
+
+1. The Stage, with its new variables and scripts. Variables you removed from the Stage stay for now.
+2. Each sprite, in the order of the sprite list. Sprites see the Stage's new variables, so a name the Stage now declares refers to the Stage variable.
+3. The Stage variables you removed are deleted last. If a sprite still uses one, nothing is applied.
+
+If anything removes scripts or variables, one dialog lists the changes for every file. If a file fails partway, every file already applied is put back, nothing changes, and the file that failed shows why. One **Undo code change** reverts the whole Apply all.
+
 A dot on the tab and in the explorer marks text that is not applied yet. Saving the project always saves the applied project, never unapplied text. Leaving the page or loading another project with unapplied text asks first.
 
 ## What happens when you apply
@@ -26,6 +38,21 @@ If the project changes while an apply is running, for example because a script m
 
 After an apply the text is rewritten in its canonical form, unless you kept typing during the apply. Then only the parts you did not touch are updated.
 
+## Rename a Stage variable
+
+A Stage variable is global, so renaming it touches the Stage and every sprite that uses it. Edit them together and apply them together:
+
+1. In the Stage file, change `var score` to the new name, for example `var total`.
+2. In each sprite file, change the uses of `score` to `total`.
+3. Click **Apply all**.
+
+The Stage creates `total`, the sprites switch to it, and `score` is deleted. Applying one of these files on its own is refused:
+
+- Applying the Stage first fails with **score is used by Sprite1**, because the sprites' blocks still use `score`.
+- Applying a sprite first fails because assigning `total` there would make a new variable only that sprite can see, while the Stage text you have not applied yet declares `total`.
+
+Both messages suggest **Apply all**. A file is only counted as using a Stage variable when its code reads or sets it. A name in a string, a comment, a `local` of the same name, a sprite's own `var` of the same name, or `sprites["Sprite1"].vars["score"]` does not count.
+
 ## Locked scripts
 
 A few scripts cannot be shown as text and converted back exactly, for example ones using a block fractch cannot represent the same way. These scripts are **locked**: a lock icon sits in the gutter, their lines are read-only, and hovering the icon shows the reason and a **Show block** button. The strip says how many scripts are locked.
@@ -39,8 +66,8 @@ If blocks change while a tab has unapplied text, for example in Blocks mode or t
 ## Undo and redo
 
 - Inside a script tab, `Ctrl+Z` and `Ctrl+Shift+Z` undo and redo typing.
-- **Edit**, **Undo code change** and **Redo code change** undo and redo whole applies. With the explorer or panel focused, `Ctrl+Z` undoes the most recent apply or deletion.
-- An apply can only be undone while the scripts it changed are still as it left them. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
+- **Edit**, **Undo code change** and **Redo code change** undo and redo whole applies. An **Apply all** is one entry, so one undo reverts every file it changed, including the Stage variables it created. With the explorer or panel focused, `Ctrl+Z` undoes the most recent apply or deletion.
+- An apply can only be undone while the scripts it changed are still as it left them. For an **Apply all**, that means every file it changed. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
 
 Code change history is cleared when a project loads.
 
