@@ -21,7 +21,7 @@ The editor has completion for the `Scratch` API and for `getInfo` (block types, 
 - **Apply** (or Ctrl+Enter, or Ctrl+S) runs your code in the project. Scripts that are already running keep going and use the new code from their next block.
 - If the new code fails to load, it is not applied. The previous version keeps running and the **Problems** tab shows why, with the line and column.
 - If the new code removes a block the project uses, or changes its inputs, a dialog lists the affected blocks and sprites first.
-- **Edit**, **Undo code change** brings back the previous version.
+- **Edit**, **Undo** (shown as **Undo change to** and the extension's name) brings back the previous version.
 
 Extensions that came with a project open read-only. Click **Edit** to change one.
 

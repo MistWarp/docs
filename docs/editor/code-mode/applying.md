@@ -21,7 +21,7 @@ Apply all checks every file first. If any file has an error, nothing is applied,
 2. Each sprite, in the order of the sprite list. Sprites see the Stage's new variables, so a name the Stage now declares refers to the Stage variable.
 3. The Stage variables you removed are deleted last. If a sprite still uses one, nothing is applied.
 
-If anything removes scripts or variables, one dialog lists the changes for every file. If a file fails partway, every file already applied is put back, nothing changes, and the file that failed shows why. One **Undo code change** reverts the whole Apply all.
+If anything removes scripts or variables, one dialog lists the changes for every file. If a file fails partway, every file already applied is put back, nothing changes, and the file that failed shows why. One undo reverts the whole Apply all.
 
 A dot on the tab and in the explorer marks text that is not applied yet. Saving the project always saves the applied project, never unapplied text. Leaving the page or loading another project with unapplied text asks first.
 
@@ -96,9 +96,15 @@ If blocks change while a tab has unapplied text, for example in Blocks mode or t
 
 ## Undo and redo
 
-- Inside a script tab, `Ctrl+Z` and `Ctrl+Shift+Z` undo and redo typing.
-- **Edit**, **Undo code change** and **Redo code change** undo and redo whole applies. An **Apply all** is one entry, so one undo reverts every file it changed and removes the Stage variables it created. Cloud variables and variables with a monitor showing on the stage are kept. With the explorer or panel focused, `Ctrl+Z` undoes the most recent apply or deletion.
-- An apply can only be undone while the scripts it changed are still as it left them. For an **Apply all**, that means every file it changed. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
+There is one **Undo** and one **Redo**, in the **Edit** menu and on `Ctrl+Z` and `Ctrl+Shift+Z`. They undo whatever you did last where you are, and the menu says what that is:
+
+- In a script tab, they undo and redo your typing first. Once there is no typing left to undo, the next undo reverts the last apply to that file, shown as **Undo apply to Sprite1**. Typing undo never goes back past an apply. While the file has unapplied text that typing undo can't reach, such as a restored draft, Undo stays disabled and says to apply or discard your unapplied changes first.
+- With the explorer or panel focused in Code mode, they undo and redo the last apply of any file. If you deleted a sprite, costume or sound more recently than that apply, undo restores it first.
+- In Blocks mode, undo takes whichever came last: a block edit on the Scripts tab, a deleted sprite, costume or sound, or an apply made in Code mode for the selected sprite.
+
+An **Apply all** is one entry, shown as **Undo apply to 3 files**, so one undo reverts every file it changed and removes the Stage variables it created. Cloud variables and variables with a monitor showing on the stage are kept.
+
+An apply can only be undone while the scripts it changed are still as it left them. For an **Apply all**, that means every file it changed. If blocks changed since, a dialog explains why and offers **Show changes** and **Open restore points**.
 
 Code change history is cleared when a project loads.
 
@@ -114,7 +120,7 @@ During a [live collaboration](/editor/collaboration) session script text and ext
 
 `fractch run <folder>` serves a fractch project from your computer and opens it in the editor with live reload. When you save a `.fractch` file, the change is applied to the open project like an apply from Code mode:
 
-- it goes through the same checks, makes a restore point before the first change, and adds an entry per sprite to code change history, so **Undo code change** reverts it
+- it goes through the same checks, makes a restore point before the first change, and adds an entry per sprite to code change history, so **Undo** reverts it
 - scripts you edited in the editor since the last reload are kept, and a script changed both in the file and in the editor opens in Code mode as a conflict for you to resolve
 - a change that adds, removes or renames sprites, or changes costumes, sounds, extensions or monitors, asks before reloading the whole project
 - errors are listed in **Problems**

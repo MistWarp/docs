@@ -23,7 +23,7 @@ Press `Ctrl+Enter` or `Ctrl+S`, or click **Apply** in the extension tab. An exte
 - if the new code fails to load or `getInfo` throws, the previous version keeps running and the error is listed in **Problems**
 - if the new code removes a block the project uses, or renames or reorders its inputs, a dialog lists the blocks and sprites affected before anything changes
 
-Every applied version goes into code change history, so **Edit**, **Undo code change** brings back the previous code.
+Every applied version goes into code change history, so **Edit**, **Undo** brings back the previous code. The menu item names the extension it will change back.
 
 ## Problems and output
 
