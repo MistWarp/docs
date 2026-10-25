@@ -49,7 +49,9 @@ Variables, lists, cloud variables, monitors, imports, costumes and sprite settin
 
 A comment is saved with the script below it. A comment with no script below it, such as a note at the end of a file or in a file with no scripts, moves to `scripts.fractch` when you apply. A file with no scripts stays in the explorer after you apply, but it is not saved with the project, so it is gone after the project is reloaded.
 
-In the text, each file is a `region "name" { ... }` block, with the header and the closing brace on lines of their own. A block you type in `scripts.fractch` becomes a file once you type outside it, switch tabs or apply.
+In the text, each file is a `region "name" { ... }` block. Only a header line that is exactly `region "name" {` and a closing line that is exactly `}`, both starting at the beginning of the line, make a file. A block with anything else on those lines, such as `region "a" { // enemies` or `} // end`, stays in `scripts.fractch` as text, and so does a block inside a comment or a `"""` string, a block whose name cannot be a file name, and a second block with the name of an existing file.
+
+A block you type in `scripts.fractch` becomes a file once the cursor leaves it, you switch tabs or you apply. Undo straight after brings it back into `scripts.fractch`.
 
 All the files of a sprite are applied together, so **Apply** in any of them applies the whole sprite. Each tab shows a dot only when its own file has unapplied text, the sprite shows a dot in the explorer when any of its files does, and a tab whose own text is unchanged says when another file of the sprite will be applied with it. Problems are listed per file with line numbers in that file.
 
