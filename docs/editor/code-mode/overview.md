@@ -115,6 +115,8 @@ Write a comment with `//` for one line or `/* ... */` for several lines. Both be
 
 A comment that has been resized or minimized in Blocks mode is written as `comment "text" size 320x90;` so its size is kept.
 
+Text inside `/* ... */` used to be left out of the project. It is now saved as a comment, so anyone who sees the project's blocks can read it, and this includes code you wrap in `/* */` to switch it off. An unfinished `/*` with no `*/` is an error, and Apply refuses until you close it.
+
 ## Keyboard shortcuts
 
 | Action | Shortcut |
