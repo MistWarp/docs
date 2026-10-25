@@ -51,7 +51,7 @@ A comment is saved with the script below it. A comment with no script below it, 
 
 In the text, each file is a `region "name" { ... }` block. Only a header line that is exactly `region "name" {` and a closing line that is exactly `}`, both starting at the beginning of the line, make a file. A block with anything else on those lines, such as `region "a" { // enemies` or `} // end`, stays in `scripts.fractch` as text, and so does a block inside a comment or a `"""` string, a block whose name cannot be a file name, and a second block with the name of an existing file.
 
-A block you type in `scripts.fractch` becomes a file once the cursor leaves it, you switch tabs or you apply. Undo straight after brings it back into `scripts.fractch`.
+A block you type in `scripts.fractch` becomes a file once the cursor leaves it with nothing selected, you switch tabs or you apply. Undo in `scripts.fractch` does not reach back past that point. To undo making the file, delete it, then use **Undo** in the strip if you want it back.
 
 All the files of a sprite are applied together, so **Apply** in any of them applies the whole sprite. Each tab shows a dot only when its own file has unapplied text, the sprite shows a dot in the explorer when any of its files does, and a tab whose own text is unchanged says when another file of the sprite will be applied with it. Problems are listed per file with line numbers in that file.
 
