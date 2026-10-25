@@ -47,7 +47,7 @@ A sprite can split its scripts across several fractch files. `scripts.fractch` i
 
 Variables, lists, cloud variables, monitors, imports, costumes and sprite settings always stay in `scripts.fractch`. Only whole scripts go in the other files.
 
-A comment is saved with the script below it. A comment with no script below it, such as a note at the end of a file or in a file with no scripts, moves to `scripts.fractch` when you apply. A file with no scripts stays in the explorer after you apply, but it is not saved with the project, so it is gone after the project is reloaded.
+Comments stay in the file and the place where you wrote them, including a note at the end of a file or in a file that holds only comments (see [Comments](#comments)). A file with nothing in it at all stays in the explorer after you apply, but it is not saved with the project, so it is gone after the project is reloaded.
 
 In the text, each file is a `region "name" { ... }` block. Only a header line that is exactly `region "name" {` and a closing line that is exactly `}`, both starting at the beginning of the line, make a file. A block with anything else on those lines, such as `region "a" { // enemies` or `} // end`, stays in `scripts.fractch` as text, and so does a block inside a comment or a `"""` string, a block whose name cannot be a file name, and a second block with the name of an existing file.
 
@@ -104,6 +104,16 @@ The text editor knows the fractch language and the project:
 - **Rename** (`F2`) for custom blocks, variables and broadcasts
 
 Drop a costume or sound from the explorer into a script to insert its name.
+
+### Comments
+
+Write a comment with `//` for one line or `/* ... */` for several lines. Both become Scratch comments when you apply.
+
+- A comment directly above a script or a block, with no blank line between them, is attached to it, like a comment on a block in Blocks mode.
+- A comment followed by a blank line, or with nothing after it, is a workspace comment. It stays in its file and in its place among the scripts after you apply and after the project is reloaded.
+- Moving a comment in Blocks mode doesn't change the text. Its position is saved with the project, including in [version history](/editor/git).
+
+A comment that has been resized or minimized in Blocks mode is written as `comment "text" size 320x90;` so its size is kept.
 
 ## Keyboard shortcuts
 
