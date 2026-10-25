@@ -10,12 +10,13 @@ Typing in a script tab never changes the project on its own. Your text reaches t
 - Press `Ctrl+Enter` (`⌘+Enter` on macOS) or click **Apply** in the strip above the text.
 - Press `Ctrl+S` in a script tab to apply the file without saving the project.
 - Text is applied only when you ask for it. Nothing is applied while you type.
+- A sprite with several fractch files applies all of them together, whichever of its files you apply from.
 
 ## Apply every file at once
 
-When more than one script file has unapplied text, **Apply all** appears next to **Apply** in the strip. Click it, press `Ctrl+Shift+Enter` (`⌘+Shift+Enter` on macOS) in a script or extension tab, or choose **Edit**, **Apply all code changes**.
+When more than one sprite or the Stage has unapplied text, **Apply all** appears next to **Apply** in the strip. Click it, press `Ctrl+Shift+Enter` (`⌘+Shift+Enter` on macOS) in a script or extension tab, or choose **Edit**, **Apply all code changes**.
 
-Apply all checks every file first. If any file has an error, nothing is applied, the errors are listed in **Problems**, and the other files say which files need fixing. Otherwise the files are applied as one change:
+Apply all checks every sprite first. If any file has an error, nothing is applied, the errors are listed in **Problems**, and the other files say which files need fixing. Otherwise the files are applied as one change:
 
 1. The Stage, with its new variables and scripts. Variables you removed from the Stage stay for now.
 2. Each sprite, in the order of the sprite list. Sprites see the Stage's new variables, so a name the Stage now declares refers to the Stage variable.
