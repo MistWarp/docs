@@ -72,7 +72,7 @@ If blocks change while a tab has unapplied text, for example in Blocks mode or t
 
 There is one **Undo** and one **Redo**, in the **Edit** menu and on `Ctrl+Z` and `Ctrl+Shift+Z`. They undo whatever you did last where you are, and the menu says what that is:
 
-- In a script tab, they undo and redo your typing first. Once there is no typing left to undo, the next undo reverts the last apply to that file, shown as **Undo apply to Sprite1**. Typing undo never goes back past an apply.
+- In a script tab, they undo and redo your typing first. Once there is no typing left to undo, the next undo reverts the last apply to that file, shown as **Undo apply to Sprite1**. Typing undo never goes back past an apply. While the file has unapplied text that typing undo can't reach, such as a restored draft, Undo stays disabled and says to apply or discard your unapplied changes first.
 - With the explorer or panel focused in Code mode, they undo and redo the last apply of any file. If you deleted a sprite, costume or sound more recently than that apply, undo restores it first.
 - In Blocks mode, undo takes whichever came last: a block edit on the Scripts tab, a deleted sprite, costume or sound, or an apply made in Code mode for the selected sprite.
 
