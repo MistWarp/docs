@@ -7,6 +7,8 @@ MistWarp keeps version history in the background. Your first **Save to MistWarp*
 
 You can use **File, Export, Scratch project (.sb3)** to make a standard copy for Scratch or TurboWarp. The project itself is preserved, but the exported `.sb3` does not include its Git history.
 
+Before a save adds a version, MistWarp reads the project back from the files it is about to store and compares it with the editor. If anything would come back different, such as a script, a variable or a costume, the save window lists those parts and asks before saving. **Save this version anyway** stores it as it is. Saves that do not add a version are not checked.
+
 Version control suits larger or longer-lived projects, and it is the foundation for MistWarp's remix-and-pull-request workflow.
 
 ## Opening version control
