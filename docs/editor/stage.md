@@ -17,7 +17,19 @@ Above the stage are the run controls:
 - **Green flag** starts the project. It broadcasts the "when green flag clicked" event to every sprite.
 - **Stop** (the red octagon) halts every running script.
 
-Next to them is the **turbo mode** indicator. Turbo mode runs scripts without the usual per-frame pause; it is toggled in [settings](/editor/settings). MistWarp's [custom FPS](/advanced/custom-fps) and [interpolation](/advanced/interpolation) settings also change how the stage updates.
+When [turbo mode](#turbo-mode) is on, a **Turbo Mode** label appears next to them. MistWarp's [custom FPS](/advanced/custom-fps) and [interpolation](/advanced/interpolation) settings also change how the stage updates.
+
+## Turbo mode
+
+Turbo mode makes scripts run as fast as possible. Normally a loop that moves a sprite or draws with the pen pauses after each pass so the stage can redraw. In turbo mode MistWarp runs as many passes as it can before each redraw, so heavy projects such as pen renderers, simulations and list processing finish much sooner.
+
+Turn it on or off in any of these ways:
+
+- **Shift-click the green flag.**
+- Choose **Turn on Turbo Mode** (or **Turn off Turbo Mode**) in the **Edit** menu of the [menu bar](/editor/menu-bar).
+- Add `?turbo` to the project URL (see [URL parameters](/advanced/url-parameters)).
+
+Turbo mode is not saved in the project. Projects that rely on frame timing, such as most games, can run too fast with it on. To make a single custom block finish in one frame instead, use **Run without screen refresh** on [My Blocks](/blocks/my-blocks).
 
 ## Stage size controls
 
