@@ -5,7 +5,11 @@ module.exports = {
   url: 'https://mistwarp.org',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
   favicon: 'favicon.ico',
   organizationName: 'MistWarp',
   projectName: 'docs',
