@@ -23,7 +23,7 @@ This page uses the explicit `compiler.register` form because its `compile` conte
 | `input.boolean('A')` | `cast.toBoolean(args.A)` |
 | `input.raw('A')` | `cast.toRaw(args.A)` |
 | `field('A')` | `${args.A}`, or `args.A` passed to any `cast` helper |
-| `mutation`, `runtime`, `target`, `stage` | the same names on `util` |
+| `mutation`, `runtime`, `target`, `stage`, `branch`, `yieldLoop`, `rethrowRetire` | the same names on `util` |
 
 The examples below are written with `compile`; translate with this table if you are using `compFunc`.
 
@@ -65,7 +65,19 @@ repeatUntil: {
 
 `yieldLoop()` is not optional in a loop: it emits the correct yield for warp mode and the warp-timer option, and without it a non-warp loop hangs. `branch(n)` is a compile-time splice; call it where the branch should run, and do not wrap it in a callback. A compiler that leaves a non-empty branch out fails to compile and the script runs interpreted.
 
-Compiled scripts stop for `stop all` and `delete this clone` by throwing a signal that only the thread runner catches. If your compiled source puts a `try`/`catch` around a branch or an input, pass the caught value to `rethrowRetire` so that signal still reaches the runner. Without it, the script keeps running after it was stopped:
+The interpreter fallback is the usual branch protocol:
+
+```js
+repeatUntil (args, util) {
+  if (!Scratch.Cast.toBoolean(args.CONDITION)) util.startBranch(1, true);
+}
+```
+
+If the loop's condition or header needs to wait on a promise, leave the block on the compatibility layer; a compiled header is a plain expression.
+
+### Catching errors around a branch
+
+When `stop all` or `delete this clone` runs inside a custom block, compiled code throws a signal that only the thread runner should catch. If your source wraps a branch or an input that might call a custom block in `try`/`catch`, splice `rethrowRetire` into the `catch`. It takes the name of the caught variable as a string and returns a statement that rethrows the signal and nothing else:
 
 ```js
 attempt: {
@@ -80,17 +92,9 @@ attempt: {
 }
 ```
 
-`rethrowRetire` is available in every `compile` and `compFunc` context, not only for C-shaped blocks.
+Without it, the thread is already stopped or the clone already deleted, but the code after your `catch` keeps running until the next yield. In warp mode that can be the rest of the script. Other errors still reach your `catch` as before.
 
-The interpreter fallback is the usual branch protocol:
-
-```js
-repeatUntil (args, util) {
-  if (!Scratch.Cast.toBoolean(args.CONDITION)) util.startBranch(1, true);
-}
-```
-
-If the loop's condition or header needs to wait on a promise, leave the block on the compatibility layer; a compiled header is a plain expression.
+`rethrowRetire` is in every `compile` context, and on `util` for a `compFunc`.
 
 ## Reaching runtime, target, and stage
 
