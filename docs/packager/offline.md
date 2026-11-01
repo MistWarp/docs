@@ -1,6 +1,5 @@
 ---
-title: Offline Packager
-sidebar_position: 6
+title: Offline packager
 slug: /packager/offline
 ---
 

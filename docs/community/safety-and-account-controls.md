@@ -1,6 +1,5 @@
 ---
 title: Safety and account controls
-sidebar_position: 3
 ---
 
 Rotur provides MistWarp accounts and sign-in. Your Rotur username identifies you on MistWarp, but Rotur manages your credentials and account recovery.

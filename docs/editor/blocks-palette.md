@@ -1,6 +1,5 @@
 ---
 title: The blocks palette
-sidebar_position: 8
 ---
 
 The blocks palette is the column on the left of the **Scripts** tab. It holds every block you can use, grouped into categories. Drag a block from the palette into the [workspace](/editor/workspace) to add it to a script.
@@ -15,7 +14,7 @@ The palette is divided into categories, each with its own colour. The standard c
 
 A strip of coloured dots down the far left is a table of contents: click one to scroll the palette straight to that category. See [the blocks overview](/blocks/overview) for what each category does.
 
-The **Variables** category also holds the **Make a Variable** and **Make a List** buttons (see [variables and lists](/editor/variables)), and **My Blocks** holds **Make a Block** for [custom blocks](/editor/custom-blocks).
+The **Variables** category also holds the **Make a Variable** and **Make a List** buttons (see [variables and lists](/editor/variables)), and **My Blocks** holds **Make a Block** for [custom blocks](/blocks/my-blocks).
 
 ## Searching
 
@@ -39,5 +38,5 @@ You can drag the border between the palette and the workspace to make the palett
 
 - [Blocks overview](/blocks/overview)
 - [The block workspace](/editor/workspace)
-- [Custom blocks](/editor/custom-blocks) and [variables](/editor/variables)
+- [Custom blocks](/blocks/my-blocks) and [variables](/editor/variables)
 - [Extensions overview](/extensions/overview)

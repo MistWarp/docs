@@ -1,6 +1,9 @@
 name: Validate
 
-on: pull_request
+on:
+  pull_request:
+  push:
+    branches: [master]
 
 jobs:
   build:
@@ -10,6 +13,16 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
+        cache: npm
     - run: npm ci
     - run: npm run build
+    - name: Check out scratch-gui for its docs links
+      uses: actions/checkout@v4
+      with:
+        repository: MistWarp/scratch-gui
+        path: scratch-gui
+        sparse-checkout: src
+    - run: npm run check
+      env:
+        SCRATCH_GUI_DIR: scratch-gui

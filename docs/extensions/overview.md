@@ -1,9 +1,9 @@
 ---
-title: Extensions Overview
-sidebar_position: 1
+title: Extensions overview
+sidebar_label: Overview
 ---
 
-# Extensions Overview
+# Extensions overview
 
 Extensions add extra blocks to the palette that are not part of the core block categories. An extension can add a whole new instrument set, drive a physical robot over Bluetooth, read a webcam, or inject raw JavaScript into your compiled project. Once loaded, its blocks appear as a new category at the bottom of the blocks palette.
 

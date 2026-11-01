@@ -1,6 +1,5 @@
 ---
 title: Deploying
-sidebar_position: 6
 ---
 
 # Deploying
@@ -19,7 +18,7 @@ mistwarp.org is a [Cloudflare Pages](https://developers.cloudflare.com/pages/) p
 The build runs `pnpm run build` with `MW_COMMUNITY=true` and publishes `build/`. When `scripts/build.mjs` sees Cloudflare's `CF_PAGES` variable, it also:
 
 - moves every engine fork to the latest commit on its `develop` branch and reinstalls, so a deploy ships the newest scratch-vm, scratch-blocks, and so on. Set `MW_PINNED_FORKS=1` to keep the commits pinned in `package.json` instead.
-- clones and builds this docs site (MistWarp/docs `master`) and copies it to `/docs`.
+- copies this docs site into `/docs`. It downloads `docs-build.tar.gz` from the docs deployment at docs.warp.mistium.com when that build matches MistWarp/docs `master` (checked through `docs-build.json`), and otherwise clones `master` and runs `npm run build` itself.
 
 Merging into a fork or into the docs repo does not redeploy by itself. The change goes live with the next scratch-gui deploy, or when a Cloudflare build is retried.
 

@@ -1,9 +1,8 @@
 ---
 title: Containers
-sidebar_position: 4
 ---
 
-# The Container Pattern
+# The container pattern
 
 Containers are the layer that connects presentation [Components](/internals/components) to the Redux store and to the virtual machine. A container selects the state a component needs, binds the action creators it should dispatch, and renders the component with those as props. This page describes the pattern and shows how a real container is written.
 

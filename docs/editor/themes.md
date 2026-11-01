@@ -1,6 +1,5 @@
 ---
 title: Themes
-sidebar_position: 18
 ---
 
 MistWarp's appearance is themeable: a light or dark editor, an accent colour, the colours of the blocks, and fully custom themes you can build and share. This page explains where each of these lives.

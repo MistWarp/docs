@@ -1,6 +1,5 @@
 ---
 title: The block workspace
-sidebar_position: 7
 ---
 
 The workspace is the large scrolling canvas in the **Scripts** tab where you assemble scripts by snapping blocks together. It sits to the right of the [blocks palette](/editor/blocks-palette) and shows the scripts of the currently selected sprite or the stage.
@@ -36,5 +35,5 @@ To move quickly around a big project, use the [find bar](/editor/find-bar) to ju
 
 - [The blocks palette](/editor/blocks-palette)
 - [Find bar](/editor/find-bar) and [bookmarks](/editor/bookmarks)
-- [Custom blocks](/editor/custom-blocks)
+- [Custom blocks](/blocks/my-blocks)
 - [Keyboard shortcuts](/editor/shortcuts)

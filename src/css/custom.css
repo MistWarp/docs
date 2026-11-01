@@ -1,231 +1,539 @@
-/*
- * The Help window renders these docs in a same-origin iframe inside the editor and
- * copies the editor's live theme custom properties (--ui-*, --looks-*, --menu-bar-*,
- * --theme-font, ...) onto this document's root, so the docs match whatever MistWarp
- * theme the user has set. The var() fallbacks below are the standalone-site colors
- * (used when opened directly, outside the editor), split light/dark.
- */
-
 :root {
-  --ifm-background-color: var(--ui-modal-background, #ffffff);
-  --ifm-background-surface-color: var(--ui-primary, #e5f0ff);
-  --ifm-font-color-base: var(--text-primary, #12181f);
-  --ifm-font-family-base: var(--theme-font, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  --mw-bg: var(--ui-modal-background, #ffffff);
+  --mw-text: var(--text-primary, #1f2230);
+  --mw-accent: var(--looks-secondary, #6f45d0);
+  --mw-accent-text: var(--mw-accent);
+  --mw-muted: color-mix(in srgb, var(--mw-text) 74%, var(--mw-bg));
+  --mw-surface: color-mix(in srgb, var(--mw-text) 4%, var(--mw-bg));
+  --mw-surface-strong: color-mix(in srgb, var(--mw-text) 8%, var(--mw-bg));
+  --mw-divider: color-mix(in srgb, var(--mw-text) 12%, var(--mw-bg));
+  --mw-code-bg: color-mix(in srgb, var(--mw-text) 5%, var(--mw-bg));
+  --mw-info: var(--status-info, #2f7bd8);
+  --mw-success: var(--status-success, #2f9e63);
+  --mw-warning: var(--status-warning, #c98a12);
+  --mw-danger: var(--status-danger, #d64545);
+  --mw-content-width: 46rem;
+  --mw-radius: 10px;
 
-  --mw-accent: var(--looks-secondary, #855cd6);
-  --ifm-color-primary: var(--mw-accent);
-  --ifm-color-primary-dark: color-mix(in srgb, var(--mw-accent) 90%, black);
-  --ifm-color-primary-darker: color-mix(in srgb, var(--mw-accent) 85%, black);
-  --ifm-color-primary-darkest: color-mix(in srgb, var(--mw-accent) 70%, black);
-  --ifm-color-primary-light: color-mix(in srgb, var(--mw-accent) 90%, white);
-  --ifm-color-primary-lighter: color-mix(in srgb, var(--mw-accent) 85%, white);
-  --ifm-color-primary-lightest: color-mix(in srgb, var(--mw-accent) 70%, white);
+  --ifm-background-color: var(--mw-bg);
+  --ifm-background-surface-color: var(--mw-bg);
+  --ifm-font-color-base: var(--mw-text);
+  --ifm-font-color-secondary: var(--mw-muted);
+  --ifm-heading-color: color-mix(in srgb, var(--mw-text) 92%, #000000);
+  --ifm-font-family-base: var(--theme-font, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif);
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-font-family-monospace: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --ifm-font-size-base: 100%;
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-font-weight: 600;
+  --ifm-heading-line-height: 1.25;
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.5rem;
+  --ifm-h3-font-size: 1.2rem;
+  --ifm-h4-font-size: 1.05rem;
+  --ifm-h5-font-size: 1rem;
+  --ifm-h6-font-size: 1rem;
 
-  --ifm-link-color: var(--mw-accent);
-  --ifm-link-hover-color: color-mix(in srgb, var(--mw-accent) 80%, black);
+  --ifm-color-primary: var(--mw-accent-text);
+  --ifm-color-primary-dark: color-mix(in srgb, var(--mw-accent) 90%, #000000);
+  --ifm-color-primary-darker: color-mix(in srgb, var(--mw-accent) 85%, #000000);
+  --ifm-color-primary-darkest: color-mix(in srgb, var(--mw-accent) 70%, #000000);
+  --ifm-color-primary-light: color-mix(in srgb, var(--mw-accent) 90%, #ffffff);
+  --ifm-color-primary-lighter: color-mix(in srgb, var(--mw-accent) 85%, #ffffff);
+  --ifm-color-primary-lightest: color-mix(in srgb, var(--mw-accent) 70%, #ffffff);
+  --ifm-link-color: var(--mw-accent-text);
+  --ifm-link-hover-color: var(--mw-accent-text);
+  --ifm-link-hover-decoration: underline;
 
-  --ifm-navbar-height: 0px;
-  --ifm-navbar-background-color: var(--ui-modal-background, #ffffff);
-  --ifm-navbar-link-color: var(--text-primary, #12181f);
-  --ifm-navbar-link-hover-color: var(--mw-accent);
+  --ifm-navbar-height: 3.5rem;
+  --ifm-navbar-background-color: var(--mw-bg);
+  --ifm-navbar-shadow: none;
+  --ifm-navbar-link-color: var(--mw-text);
+  --ifm-navbar-link-hover-color: var(--mw-accent-text);
+  --ifm-navbar-padding-horizontal: 1.25rem;
 
-  --ifm-menu-color: color-mix(in srgb, var(--ifm-font-color-base) 72%, transparent);
-  --ifm-menu-color-active: var(--mw-accent);
-  --ifm-menu-color-background-active: color-mix(in srgb, var(--ifm-font-color-base) 10%, transparent);
-  --ifm-menu-color-background-hover: color-mix(in srgb, var(--ifm-font-color-base) 6%, transparent);
+  --ifm-menu-color: var(--mw-muted);
+  --ifm-menu-color-active: var(--mw-accent-text);
+  --ifm-menu-color-background-active: color-mix(in srgb, var(--mw-accent) 10%, var(--mw-bg));
+  --ifm-menu-color-background-hover: var(--mw-surface-strong);
+  --ifm-menu-link-padding-vertical: 0.4rem;
+  --ifm-menu-link-padding-horizontal: 0.75rem;
 
-  --ifm-code-background: var(--ui-primary, #eef3fb);
-  --ifm-pre-background: var(--ui-primary, #eef3fb);
-  --ifm-color-emphasis-200: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
-  --ifm-color-emphasis-300: var(--ui-tertiary, rgba(0, 0, 0, 0.16));
-  --ifm-toc-border-color: var(--ui-black-transparent, rgba(0, 0, 0, 0.12));
-  --ifm-table-border-color: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
-  --ifm-table-stripe-background: var(--ui-black-transparent, rgba(0, 0, 0, 0.03));
-  --ifm-hr-background-color: var(--ui-tertiary, rgba(0, 0, 0, 0.12));
-  --ifm-blockquote-border-color: var(--mw-accent);
-  --ifm-blockquote-color: color-mix(in srgb, var(--ifm-font-color-base) 78%, transparent);
+  --ifm-code-background: var(--mw-surface-strong);
+  --ifm-code-font-size: 0.875em;
+  --ifm-code-border-radius: 5px;
+  --ifm-code-padding-horizontal: 0.35em;
+  --ifm-code-padding-vertical: 0.1em;
+  --ifm-pre-background: var(--mw-code-bg);
+  --ifm-pre-line-height: 1.6;
+  --ifm-pre-padding: 1rem 1.15rem;
+  --ifm-global-shadow-lw: none;
+  --ifm-global-shadow-md: 0 8px 28px rgba(0, 0, 0, 0.18);
+  --ifm-global-radius: var(--mw-radius);
 
-  --ifm-container-width: 800px;
-  --ifm-container-width-xl: 1000px;
-  --docusaurus-highlighted-code-line-bg: color-mix(in srgb, var(--mw-accent) 15%, transparent);
+  --ifm-color-emphasis-100: var(--mw-surface);
+  --ifm-color-emphasis-200: var(--mw-surface-strong);
+  --ifm-color-emphasis-300: var(--mw-divider);
+  --ifm-color-emphasis-600: var(--mw-muted);
+  --ifm-color-emphasis-700: var(--mw-muted);
+  --ifm-color-emphasis-800: var(--mw-text);
+  --ifm-toc-border-color: var(--mw-divider);
+  --ifm-hr-background-color: var(--mw-divider);
+  --ifm-hr-height: 1px;
+  --ifm-table-border-color: var(--mw-divider);
+  --ifm-table-border-width: 0;
+  --ifm-table-stripe-background: transparent;
+  --ifm-table-head-background: var(--mw-surface);
+  --ifm-table-cell-padding: 0.55rem 0.85rem;
+  --ifm-blockquote-border-color: var(--mw-divider);
+  --ifm-blockquote-color: var(--mw-muted);
+
+  --ifm-alert-border-width: 0;
+  --ifm-alert-border-left-width: 0;
+  --ifm-alert-border-radius: var(--mw-radius);
+  --ifm-alert-shadow: none;
+  --ifm-alert-padding-horizontal: 1.1rem;
+  --ifm-alert-padding-vertical: 0.9rem;
+
+  --ifm-container-width-xl: 1400px;
+  --doc-sidebar-width: 290px;
+  --docusaurus-highlighted-code-line-bg: color-mix(in srgb, var(--mw-accent) 14%, transparent);
 }
 
 html[data-theme='dark'] {
-  --ifm-background-color: var(--ui-modal-background, #1a1726);
-  --ifm-background-surface-color: var(--ui-primary, #241f33);
-  --ifm-font-color-base: var(--text-primary, #e9e6f2);
-
-  --mw-accent: var(--looks-secondary, #b39ae6);
-
-  --ifm-code-background: var(--ui-primary, #241f33);
-  --ifm-pre-background: var(--ui-primary, #201c2e);
-  --ifm-color-emphasis-200: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
-  --ifm-color-emphasis-300: var(--ui-tertiary, rgba(255, 255, 255, 0.2));
-  --ifm-toc-border-color: var(--ui-black-transparent, rgba(255, 255, 255, 0.14));
-  --ifm-table-border-color: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
-  --ifm-table-stripe-background: var(--ui-black-transparent, rgba(255, 255, 255, 0.04));
-  --ifm-hr-background-color: var(--ui-tertiary, rgba(255, 255, 255, 0.14));
+  --mw-bg: var(--ui-modal-background, #17161c);
+  --mw-text: var(--text-primary, #e4e2ea);
+  --mw-accent: var(--looks-secondary, #b49cf0);
+  --mw-surface: color-mix(in srgb, var(--mw-text) 5%, var(--mw-bg));
+  --mw-surface-strong: color-mix(in srgb, var(--mw-text) 10%, var(--mw-bg));
+  --mw-divider: color-mix(in srgb, var(--mw-text) 14%, var(--mw-bg));
+  --mw-code-bg: color-mix(in srgb, var(--mw-text) 6%, var(--mw-bg));
+  --mw-info: var(--status-info, #6db9f2);
+  --mw-success: var(--status-success, #58c78b);
+  --mw-warning: var(--status-warning, #f0b653);
+  --mw-danger: var(--status-danger, #ef6a6a);
+  --ifm-heading-color: color-mix(in srgb, var(--mw-text) 92%, #ffffff);
+  --ifm-global-shadow-md: 0 8px 28px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
 }
 
-.navbar {
-  display: none;
+html[data-embedded] {
+  --mw-muted: color-mix(in srgb, var(--mw-text) 94%, var(--mw-bg));
 }
 
-/* No navbar means no hamburger, so a floating button opens the sidebar as a
-   drawer on narrow screens. Hidden where the sidebar is always visible. */
-.mw-sidebar-toggle {
-  display: none;
-}
-
-@media (max-width: 996.98px) {
-  .mw-sidebar-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 12px;
-    top: 12px;
-    z-index: 340;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    background: var(--ui-modal-background, var(--ifm-background-color));
-    color: var(--text-primary, var(--ifm-font-color-base));
-    cursor: pointer;
+@supports (color: oklch(from red l c h)) {
+  :root {
+    --mw-accent-text: oklch(from var(--mw-accent) min(l, 0.5) c h);
   }
 
-  body.mw-sidebar-open::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 350;
-    background: rgba(0, 0, 0, 0.4);
-  }
-
-  body.mw-sidebar-open .theme-doc-sidebar-container {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: min(300px, 82vw);
-    margin: 0;
-    z-index: 360;
-    overflow-y: auto;
-    background: var(--ui-modal-background, var(--ifm-background-color));
-    box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
+  html[data-theme='dark'] {
+    --mw-accent-text: oklch(from var(--mw-accent) max(l, 0.76) c h);
   }
 }
 
-/* No rubber-band / bounce when scrolling the docs inside the Help window. */
 html,
 body {
   overscroll-behavior: none;
 }
 
-/* Left sidebar reads like the Settings window's category nav: blended panel, thin divider. */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--mw-accent) 28%, transparent);
+}
+
+.navbar {
+  border-bottom: 1px solid var(--mw-divider);
+}
+
+.navbar__title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.navbar__link {
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.navbar__link--active {
+  color: var(--mw-accent-text);
+}
+
+.navbar__items--right {
+  gap: 0.25rem;
+}
+
+html[data-embedded] .mw-color-toggle,
+html[data-embedded] .mw-navbar-github {
+  display: none;
+}
+
 .theme-doc-sidebar-container {
-  background: transparent;
-  border-right: 1px solid var(--ui-black-transparent, var(--ifm-toc-border-color));
+  border-right: 1px solid var(--mw-divider) !important;
 }
 
-.menu {
-  background: transparent;
+.theme-doc-sidebar-menu {
+  font-size: 0.9375rem;
+  padding-bottom: 2rem;
 }
 
-/* Search button styled after the editor's find bar. */
-.DocSearch-Button {
-  height: 2.2rem;
-  min-width: 220px;
-  margin: 0;
-  padding: 0 0.6rem 0 0.75rem;
-  border-radius: 10px;
-  background: var(--ui-tertiary, #e6f3ff);
-  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
-  color: color-mix(in srgb, var(--ifm-font-color-base) 60%, transparent);
-  box-shadow: none;
-  transition: all 0.2s ease;
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link,
+.theme-doc-sidebar-item-category-level-1 > .menu__link {
+  color: var(--mw-text);
+  font-weight: 600;
 }
 
-.DocSearch-Button:hover {
-  background: var(--ui-tertiary, #e6f3ff);
-  border-color: var(--looks-secondary, #855cd6);
-  box-shadow: none;
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link--active {
+  color: var(--mw-accent-text);
 }
 
-.DocSearch-Button:focus,
-.DocSearch-Button:active {
-  background: var(--ui-white, #ffffff);
-  border-color: var(--looks-secondary, #855cd6);
-  box-shadow: 0 0 0 2px var(--looks-transparent, rgba(133, 92, 214, 0.25));
-  outline: none;
+.theme-doc-sidebar-item-category-level-1 + .theme-doc-sidebar-item-category-level-1,
+.theme-doc-sidebar-item-link-level-1 + .theme-doc-sidebar-item-category-level-1 {
+  margin-top: 0.35rem;
 }
 
-.DocSearch-Button .DocSearch-Search-Icon {
-  width: 1rem;
-  height: 1rem;
+.menu__link {
+  border-radius: 7px;
+  line-height: 1.35;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  font-weight: 500;
+}
+
+.menu__list .menu__list {
+  margin-top: 0.15rem;
+  padding-left: 0.6rem;
+}
+
+.theme-doc-breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.breadcrumbs__link {
+  font-size: 0.8125rem;
+  color: var(--mw-muted);
+  background: none;
+  padding: 0.15rem 0.35rem;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--mw-text);
+  background: none;
+}
+
+.theme-doc-markdown,
+.theme-doc-breadcrumbs,
+.theme-doc-footer,
+.theme-doc-toc-mobile,
+.pagination-nav {
+  max-width: var(--mw-content-width);
+}
+
+.markdown {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+
+.markdown > h1:first-child,
+.markdown > header > h1 {
+  --ifm-h1-font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.5rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.2rem;
+}
+
+.markdown h2 {
+  margin-top: 2.75rem;
+  margin-bottom: 0.9rem;
+  letter-spacing: -0.01em;
+}
+
+.markdown h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+.markdown h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1.1rem;
+}
+
+.markdown li + li {
+  margin-top: 0.3rem;
+}
+
+.markdown a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--mw-accent) 40%, transparent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.markdown a:hover {
+  text-decoration-color: currentColor;
+}
+
+.markdown a.hash-link {
+  text-decoration: none;
+}
+
+.markdown strong {
+  font-weight: 600;
+}
+
+.markdown code {
+  border: none;
+  overflow-wrap: anywhere;
+}
+
+.markdown a code {
   color: inherit;
 }
 
-.DocSearch-Button-Placeholder {
-  font-size: 0.75rem;
-  padding: 0 0.6rem;
+.markdown table {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
 }
 
-/* Find bar shows its shortcut in the placeholder, not as separate key badges. */
-.DocSearch-Button-Keys {
-  display: none;
+.markdown table thead tr {
+  border-bottom: 0;
 }
 
-/* The Algolia search modal follows the editor theme and MistWarp window styling. */
-:root {
-  --docsearch-primary-color: var(--looks-secondary, #855cd6);
-  --docsearch-text-color: var(--ifm-font-color-base);
-  --docsearch-muted-color: color-mix(in srgb, var(--ifm-font-color-base) 55%, transparent);
-  --docsearch-container-background: color-mix(in srgb, #0f121c 42%, transparent);
-  --docsearch-modal-background: var(--ui-modal-background, #ffffff);
-  --docsearch-modal-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --docsearch-searchbox-background: var(--ui-tertiary, #e6f3ff);
-  --docsearch-searchbox-focus-background: var(--ui-white, #ffffff);
-  --docsearch-searchbox-shadow: inset 0 0 0 1px var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
-  --docsearch-hit-background: var(--ui-primary, #ffffff);
-  --docsearch-hit-color: var(--ifm-font-color-base);
-  --docsearch-hit-shadow: none;
-  --docsearch-hit-active-color: #ffffff;
-  --docsearch-footer-background: var(--ui-secondary, var(--ui-modal-background, #ffffff));
-  --docsearch-footer-shadow: 0 -1px 0 var(--ui-black-transparent, rgba(0, 0, 0, 0.12));
-  --docsearch-key-gradient: var(--ui-primary, #ffffff);
-  --docsearch-key-shadow: none;
-  --docsearch-key-pressed-shadow: none;
+.markdown table th {
+  background: var(--mw-surface-strong);
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.DocSearch-Modal {
-  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
-  border-radius: 10px;
-  margin: min(12vh, 84px) auto auto;
+.markdown table th:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
-.DocSearch-Form {
-  border-radius: 10px;
+.markdown table th:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-.DocSearch-Hit a {
-  border-radius: 8px;
+.markdown table tr {
+  background: none;
+  border-top: 0;
 }
 
-.DocSearch-Commands-Key,
-.DocSearch-Hit-Container .DocSearch-Hit-action-button {
+.markdown table tbody tr {
+  border-bottom: 1px solid var(--mw-divider);
+}
+
+.markdown table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.markdown table td {
+  vertical-align: top;
+}
+
+.markdown table td:first-child code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.markdown blockquote {
+  border-left: 0;
+  padding: 0.75rem 1.1rem;
+  background: var(--mw-surface);
+  border-radius: var(--mw-radius);
+}
+
+.theme-code-block {
+  --prism-background-color: var(--mw-code-bg) !important;
+  border-radius: var(--mw-radius);
   box-shadow: none;
-  border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.15));
+  font-size: 0.875rem;
 }
 
-h1 {
-  font-size: 2.5em !important;
+.theme-code-block pre {
+  background: var(--mw-code-bg) !important;
+}
+
+[class*='codeBlockTitle'] {
+  border-bottom: 1px solid var(--mw-divider) !important;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.theme-admonition {
+  --mw-tint: var(--mw-muted);
+  background: color-mix(in srgb, var(--mw-tint) 9%, var(--mw-bg));
+  color: var(--mw-text);
+  font-size: 0.98rem;
+  margin-bottom: 1.4rem;
+}
+
+.theme-admonition-tip {
+  --mw-tint: var(--mw-success);
+}
+
+.theme-admonition-info {
+  --mw-tint: var(--mw-info);
+}
+
+.theme-admonition-warning,
+.theme-admonition-caution {
+  --mw-tint: var(--mw-warning);
+}
+
+.theme-admonition-danger {
+  --mw-tint: var(--mw-danger);
+}
+
+.theme-admonition [class*='admonitionHeading'] {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-transform: none;
+  margin-bottom: 0.35rem;
+  color: var(--mw-text);
+}
+
+.theme-admonition [class*='admonitionIcon'] svg {
+  fill: var(--mw-tint);
+}
+
+.theme-admonition a {
+  color: var(--mw-accent-text);
+  text-decoration-color: color-mix(in srgb, var(--mw-accent) 40%, transparent);
+}
+
+.theme-admonition code {
+  background: color-mix(in srgb, var(--mw-text) 9%, transparent);
+}
+
+.table-of-contents {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.table-of-contents__left-border {
+  border-left: 0;
+}
+
+.theme-doc-toc-desktop {
+  padding-top: 0.25rem;
+}
+
+.theme-doc-toc-desktop::before {
+  content: 'On this page';
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--mw-text);
+  padding: 0 var(--ifm-toc-padding-horizontal);
+  margin-bottom: 0.5rem;
+}
+
+.table-of-contents__link {
+  color: var(--mw-muted);
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--mw-accent-text);
+}
+
+.theme-doc-toc-mobile {
+  background: var(--mw-surface);
+  border-radius: var(--mw-radius);
+  margin-bottom: 1.5rem;
+}
+
+.theme-doc-footer {
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  color: var(--mw-muted);
+}
+
+.theme-doc-footer a {
+  color: var(--mw-muted);
+}
+
+.theme-last-updated {
+  font-style: normal;
+  font-weight: 400;
 }
 
 .pagination-nav {
-  display: none;
+  margin-top: 2rem;
+  gap: 0.75rem;
+}
+
+.pagination-nav__link {
+  border: 0;
+  background: var(--mw-surface);
+  border-radius: var(--mw-radius);
+  padding: 0.85rem 1rem;
+  transition: background-color 0.15s ease;
+}
+
+.pagination-nav__link:hover {
+  background: var(--mw-surface-strong);
+}
+
+.pagination-nav__sublabel {
+  font-size: 0.8125rem;
+  color: var(--mw-muted);
+  font-weight: 400;
+}
+
+.pagination-nav__label {
+  font-size: 0.975rem;
+  font-weight: 600;
+  color: var(--mw-text);
+}
+
+.pagination-nav__link--next .pagination-nav__label::after,
+.pagination-nav__link--prev .pagination-nav__label::before {
+  content: none;
+}
+
+@media (max-width: 996px) {
+  .markdown {
+    font-size: 1rem;
+  }
+
+  .markdown > h1:first-child,
+  .markdown > header > h1 {
+    --ifm-h1-font-size: 1.9rem;
+  }
+
+  .markdown > h2 {
+    --ifm-h2-font-size: 1.35rem;
+    margin-top: 2.25rem;
+  }
+
+  .navbar {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }

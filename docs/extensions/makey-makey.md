@@ -1,6 +1,5 @@
 ---
 title: Makey Makey
-sidebar_position: 11
 ---
 
 # Makey Makey

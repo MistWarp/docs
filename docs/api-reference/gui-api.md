@@ -1,6 +1,5 @@
 ---
 title: GUI API
-sidebar_position: 3
 ---
 
 `scratch-gui` is the React application that renders the MistWarp editor and player (and also

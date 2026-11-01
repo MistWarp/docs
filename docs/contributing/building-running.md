@@ -1,9 +1,8 @@
 ---
-title: Building and Running
-sidebar_position: 3
+title: Building and running
 ---
 
-# Building and Running
+# Building and running
 
 This page walks through running the MistWarp editor and community site locally. Most development happens in scratch-gui, so that is where it starts. The engine packages come after.
 

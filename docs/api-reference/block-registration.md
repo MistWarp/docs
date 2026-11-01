@@ -1,6 +1,5 @@
 ---
 title: Block registration
-sidebar_position: 5
 ---
 
 Blocks reach the palette in two ways: the built-in categories are registered as internal block

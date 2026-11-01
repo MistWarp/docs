@@ -1,6 +1,5 @@
 ---
 title: Your first compiled extension
-sidebar_position: 4
 ---
 
 # Your first compiled extension

@@ -1,6 +1,5 @@
 ---
 title: Custom C blocks
-sidebar_position: 9
 ---
 
 # Custom C blocks

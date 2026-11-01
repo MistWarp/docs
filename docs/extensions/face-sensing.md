@@ -1,9 +1,8 @@
 ---
-title: Face Sensing
-sidebar_position: 8
+title: Face sensing
 ---
 
-# Face Sensing
+# Face sensing
 
 The **Face Sensing** extension detects a face in your webcam and reports where its features are, so a sprite can follow your nose, sit on your head, or react when you tilt. It is a remote extension, not bundled with the editor.
 

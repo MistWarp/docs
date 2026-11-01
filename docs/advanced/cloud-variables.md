@@ -1,9 +1,8 @@
 ---
-title: Cloud Variables
-sidebar_position: 1
+title: Cloud variables
 ---
 
-# Cloud Variables
+# Cloud variables
 
 Cloud variables are variables whose value is shared, in real time, between everyone who has the same project open. A variable is a cloud variable when its name starts with a cloud symbol (`☁`). You create one by checking "Cloud variable" in the "Make a Variable" dialog, exactly like in Scratch.
 

@@ -1,6 +1,5 @@
 ---
 title: Extension structure
-sidebar_position: 2
 ---
 
 # Extension structure

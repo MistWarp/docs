@@ -1,9 +1,8 @@
 ---
-title: Payments and Webhooks
-sidebar_position: 5
+title: Payments and webhooks
 ---
 
-# Payments and Webhooks
+# Payments and webhooks
 
 Every payment is a Rotur payment request that the person approves on rotur.dev. Rotur tells mistwarp-api about payments, account changes and privacy requests through a signed webhook.
 

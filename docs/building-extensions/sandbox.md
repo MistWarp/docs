@@ -1,6 +1,5 @@
 ---
 title: What the sandbox is
-sidebar_position: 5
 ---
 
 # What the sandbox is

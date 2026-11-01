@@ -1,6 +1,5 @@
 ---
 title: Runtime API
-sidebar_position: 5.5
 ---
 
 `Runtime` (`scratch-vm/src/engine/runtime.js`) is the engine that actually runs a project. The

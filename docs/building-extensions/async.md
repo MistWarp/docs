@@ -1,6 +1,5 @@
 ---
 title: Waiting for things that aren't instant
-sidebar_position: 4
 ---
 
 # Waiting for things that aren't instant

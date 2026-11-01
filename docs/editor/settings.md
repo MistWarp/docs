@@ -1,6 +1,5 @@
 ---
 title: Settings
-sidebar_position: 16
 ---
 
 The **Settings** button in the [menu bar](/editor/menu-bar) opens the settings window. It controls how the editor looks and how your projects run. Settings are organised into a sidebar of pages, grouped into General, Appearance, Tools, and Advanced. Every row has a **?** button that reveals a short explanation, and many link out to fuller documentation.

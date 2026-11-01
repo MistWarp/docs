@@ -1,6 +1,5 @@
 ---
 title: Sharing your extension
-sidebar_position: 13
 ---
 
 # Sharing your extension

@@ -1,9 +1,8 @@
 ---
-title: Custom Stage Size
-sidebar_position: 8
+title: Custom stage size
 ---
 
-# Custom Stage Size
+# Custom stage size
 
 MistWarp can change the stage from Scratch's default 480x360 (4:3) to any other size, from the [editor settings](/editor/settings) or the [`size` URL parameter](/advanced/url-parameters) (`size=640x360`).
 

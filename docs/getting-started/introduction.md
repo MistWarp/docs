@@ -1,6 +1,6 @@
 ---
 title: Introduction
-sidebar_position: 1
+sidebar_label: Introduction
 ---
 
 # Introduction
@@ -17,11 +17,11 @@ The editor and the community site are one application. You can open the editor a
 - **Themes**, including dark mode and fully custom color schemes. See [Themes](/editor/themes).
 - A **debugger** for stepping through and inspecting a running project. See [Debugger](/editor/debugger).
 - **Restore points** and autosave so you do not lose work. See [Restore points](/editor/restore-points).
-- **Git version control** and **live collaboration** for working on projects over time and with other people. See [Git](/editor/git) and [Collaboration](/editor/collaboration).
+- **Git version control** and **live collaboration** for working on projects over time and with other people. See [version history](/editor/git) and [live collaboration](/editor/collaboration).
 - A **packager** that turns a project into a standalone app or web page. See the [Packager](/packager/overview).
 - A **community platform** with accounts, where you publish projects, follow people, and comment. Accounts are handled through Rotur; see [Migrating from TurboWarp](/getting-started/migrating-from-turbowarp) for how the community side fits together.
 - **Spaces and challenges** for collecting projects, running events, and organizing personal collections. See [Discovery and spaces](/community/discovery-and-spaces).
-- **Releases, draft previews, tracked feedback, and player diagnostics** for maintaining published projects. See [Releases, previews, and feedback](/community/releases-and-feedback).
+- **Releases, draft previews, tracked feedback, and player diagnostics** for maintaining published projects. See [releases, previews and diagnostics](/community/releases-and-feedback).
 
 ## Who this is for
 
@@ -38,10 +38,9 @@ New MistWarp projects start with **Misty**, MistWarp's own default sprite, in pl
 
 - [Installation](/getting-started/installation): use MistWarp on the web, as a desktop app, or via the packager.
 - [Quick start](/getting-started/quick-start): build a first project.
-- [Editor tour](/getting-started/editor-tour): learn where everything is.
+- [The editor interface](/editor/interface): learn where everything is.
 
 ## See also
 
-- [Editor interface](/editor/interface)
 - [Migrating from Scratch](/getting-started/migrating-from-scratch)
 - [Migrating from TurboWarp](/getting-started/migrating-from-turbowarp)

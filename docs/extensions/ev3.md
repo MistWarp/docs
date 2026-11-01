@@ -1,6 +1,5 @@
 ---
 title: LEGO MINDSTORMS EV3
-sidebar_position: 13
 ---
 
 # LEGO MINDSTORMS EV3

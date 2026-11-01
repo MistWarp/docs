@@ -1,9 +1,8 @@
 ---
-title: Video Sensing
-sidebar_position: 7
+title: Video sensing
 ---
 
-# Video Sensing
+# Video sensing
 
 The **Video Sensing** extension shows your webcam on the stage and measures motion in it, so sprites can react to you waving your hand or moving in front of the camera. It is built in and compatible with Scratch.
 

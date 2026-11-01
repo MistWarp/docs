@@ -1,6 +1,5 @@
 ---
 title: Live collaboration
-sidebar_position: 23
 ---
 
 Live collaboration lets several people edit the same project at once, in real time. Everyone works in their own editor, and changes to blocks, sprites, costumes, and sounds sync between all of you, with live cursors showing who is working where.

@@ -1,6 +1,5 @@
 ---
 title: Advanced block customization
-sidebar_position: 10
 ---
 
 # Advanced block customization
