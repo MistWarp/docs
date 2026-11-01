@@ -1,6 +1,5 @@
 ---
 title: Go Direct Force and Acceleration
-sidebar_position: 16
 ---
 
 # Go Direct Force and Acceleration

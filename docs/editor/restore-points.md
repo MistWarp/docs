@@ -1,6 +1,5 @@
 ---
 title: Restore points and autosave
-sidebar_position: 21
 ---
 
 MistWarp keeps safety nets so a crash, a mistake, or a forgotten save does not cost you your work. There are two separate features: **restore points**, which snapshot the whole project into your browser, and **autosave**, which re-saves the project file on a timer.

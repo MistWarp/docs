@@ -1,6 +1,5 @@
 ---
 title: The find bar
-sidebar_position: 13
 ---
 
 The find bar is a search box built into the editor's tab row (next to the Scripts, Costumes, and Sounds tabs). It jumps you straight to a block, variable, custom block, costume, or sound in the current sprite, which makes navigating large projects far quicker than scrolling.

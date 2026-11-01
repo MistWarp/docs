@@ -1,9 +1,8 @@
 ---
-title: MistWarp Blocks
-sidebar_position: 2
+title: MistWarp blocks
 ---
 
-# MistWarp Blocks
+# MistWarp blocks
 
 The **MistWarp Blocks** extension (internal id `tw`) adds a small set of extra input blocks that vanilla Scratch does not have. It is built in, loads instantly, and is marked as incompatible with Scratch, so projects that use it will not run on scratch.mit.edu.
 

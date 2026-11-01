@@ -1,6 +1,5 @@
 ---
 title: Translate
-sidebar_position: 10
 ---
 
 # Translate

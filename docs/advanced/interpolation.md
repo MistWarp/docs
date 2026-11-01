@@ -1,6 +1,5 @@
 ---
 title: Interpolation
-sidebar_position: 10
 ---
 
 # Interpolation

@@ -1,6 +1,5 @@
 ---
-title: Special Cloud Behaviors
-sidebar_position: 5
+title: Special cloud behaviors
 slug: /packager/special-cloud-behaviors
 ---
 

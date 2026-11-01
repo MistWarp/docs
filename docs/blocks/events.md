@@ -1,6 +1,5 @@
 ---
 title: Events blocks
-sidebar_position: 5
 ---
 
 Events blocks start scripts. Most of them are hat blocks that sit at the top of a stack and run it when something happens. Broadcasts let one script trigger scripts anywhere else in the project, including on other sprites.

@@ -1,6 +1,5 @@
 ---
 title: The legacy patching approach
-sidebar_position: 3
 ---
 
 # The legacy patching approach

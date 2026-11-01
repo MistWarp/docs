@@ -1,6 +1,5 @@
 ---
 title: The backpack
-sidebar_position: 12
 ---
 
 The backpack is a collapsible bar along the bottom of the editor that stores scripts and assets so you can carry them between sprites and between projects. It is the easiest way to move a block stack from one sprite to another, or reuse a costume in a different project.

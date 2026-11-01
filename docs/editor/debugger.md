@@ -1,6 +1,5 @@
 ---
 title: The debugger
-sidebar_position: 19
 ---
 
 The debugger is a tool window for inspecting a running project: logging messages, pausing and stepping the runtime, watching threads, and keeping an eye on performance and memory. It is aimed at anyone tracking down why a project misbehaves.

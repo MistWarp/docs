@@ -1,9 +1,8 @@
 ---
-title: Remove Miscellaneous Limits
-sidebar_position: 11
+title: Remove miscellaneous limits
 ---
 
-# Remove Miscellaneous Limits
+# Remove miscellaneous limits
 
 This option lifts a handful of small Scratch limits that are not big enough to each get their own setting. Enable it in the [editor settings](/editor/settings) or with the [`limitless` URL parameter](/advanced/url-parameters).
 

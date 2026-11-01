@@ -1,9 +1,8 @@
 ---
-title: JavaScript and the Compiler
-sidebar_position: 2
+title: JavaScript and the compiler
 ---
 
-# JavaScript and the Compiler
+# JavaScript and the compiler
 
 JavaScript shows up in MistWarp in three ways: a **compiler** that turns your blocks into JavaScript automatically for speed, the **Patching extension** that gives you `js (...)` blocks to run your own JavaScript from inside a project, and the **extension system** for writing full blocks of your own in JavaScript. This page covers all three.
 

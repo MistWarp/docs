@@ -1,6 +1,5 @@
 ---
 title: Addon API
-sidebar_position: 7
 ---
 
 Addons are userscripts and userstyles that modify the editor and player. Each addon is a folder

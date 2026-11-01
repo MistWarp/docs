@@ -1,6 +1,6 @@
 ---
 title: API Reference overview
-sidebar_position: 1
+sidebar_label: Overview
 ---
 
 MistWarp is built from a set of JavaScript packages: `scratch-vm` (the engine that runs

@@ -1,6 +1,5 @@
 ---
 title: Dealing with inputs
-sidebar_position: 3
 ---
 
 # Dealing with inputs

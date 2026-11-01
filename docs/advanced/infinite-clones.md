@@ -1,9 +1,8 @@
 ---
-title: Infinite Clones
-sidebar_position: 13
+title: Infinite clones
 ---
 
-# Infinite Clones
+# Infinite clones
 
 Scratch limits a project to 300 clones at once. This option removes that cap so you can create as many clones as you like. Enable it in the [editor settings](/editor/settings), or set an explicit maximum with the [`clones` URL parameter](/advanced/url-parameters) (`clones=1000`).
 

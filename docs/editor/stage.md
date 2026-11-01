@@ -1,6 +1,5 @@
 ---
 title: The stage
-sidebar_position: 3
 ---
 
 The stage is where your project runs. Sprites move, draw, and respond to input on it. It sits on one side of the editor with its controls above it and the [sprite pane](/editor/sprites) below.

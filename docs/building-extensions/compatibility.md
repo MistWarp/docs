@@ -1,6 +1,5 @@
 ---
 title: Maintaining compatibility
-sidebar_position: 8
 ---
 
 # Maintaining compatibility

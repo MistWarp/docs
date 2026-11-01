@@ -1,9 +1,8 @@
 ---
-title: Warp Timer
-sidebar_position: 12
+title: Warp timer
 ---
 
-# Warp Timer
+# Warp timer
 
 The Warp Timer makes scripts check whether they are stuck in a long or infinite loop and drop to a low frame rate instead of freezing the whole project until the loop finishes. This prevents most "the project hung" crashes, but it has a real performance cost, so it is only on by default in the editor, not in the player. Toggle it in the [editor settings](/editor/settings) or with the [`stuck` URL parameter](/advanced/url-parameters) (also accepted as `warp_timer`).
 

@@ -1,7 +1,10 @@
 ---
-title: Extension API
-sidebar_position: 4
+title: Extension API (the Scratch object)
+sidebar_label: Extension API
+description: The global Scratch object that extensions use, with every BlockType, ArgumentType, ReturnType, permission helper and the block utility.
 ---
+
+# Extension API
 
 An extension adds a category of blocks to the palette. This page is the reference for the
 author-facing runtime API: the global `Scratch` object, the `BlockType` and `ArgumentType`
@@ -46,7 +49,11 @@ For unsandboxed extensions, `Scratch` is a global. Its always-present members co
 - `Scratch.ArgumentType`, `Scratch.BlockType`, `Scratch.TargetType`, `Scratch.BlockShape`,
   `Scratch.ReturnType`: the enums below.
 - `Scratch.Cast`: the [type coercion helpers](/api-reference/utilities) blocks use to normalize
-  their inputs. Use these instead of raw `Number(...)`/`String(...)`.
+  their inputs. Use these instead of raw `Number(...)` or `String(...)`.
+
+Sandboxed extensions get a limited `Scratch`. `Scratch.vm`, `Scratch.renderer`, the block utility
+and the permission helpers are unsandboxed only. Check `Scratch.extensions.unsandboxed` before
+using any of them.
 
 Unsandboxed extensions get more, added per extension when the script runs
 (`tw-unsandboxed-extension-runner.js`):
@@ -54,7 +61,7 @@ Unsandboxed extensions get more, added per extension when the script runs
 - `Scratch.extensions.register(extensionObject)`: register your extension. `Scratch.extensions.unsandboxed`
   is `true` in this environment.
 - `Scratch.vm`: the live [`VirtualMachine`](/api-reference/vm-api).
-- `Scratch.renderer`: the attached renderer.
+- `Scratch.renderer`: the attached [renderer](/api-reference/renderer-api).
 - `Scratch.translate`: format-message helper for localized strings.
 - Permission checks (each returns a `Promise<boolean>`): `Scratch.canFetch(url)`,
   `Scratch.canOpenWindow(url)`, `Scratch.canRedirect(url)`, `Scratch.canDownload(url, name)`,
@@ -133,16 +140,88 @@ Each block's `opcode` maps to a method on the extension instance. It receives `(
 
 - `args`: an object keyed by argument name, holding the current input values (coerce with
   `Scratch.Cast`).
-- `util`: block utilities, including `util.target` (the running target), `util.thread`, and
-  `util.startBranch(n, isLoop)` for C-blocks. See [Threads](/api-reference/threads) and
-  [Custom C blocks](/building-extensions/custom-c-blocks).
+- `util`: the block utility, described below.
 
 A reporter returns its value. A command returns nothing. Returning a `Promise` makes the block
-asynchronous. See [Asynchronicity](/building-extensions/async).
+asynchronous. See [waiting for things that aren't instant](/building-extensions/async).
+
+## The block utility
+
+Unsandboxed block functions receive `util` as their second parameter. It is only valid while the
+block runs, so do not store it. See [unsandboxed extensions](/building-extensions/unsandboxed).
+
+```js
+myBlock (args, util) {
+    const target = util.target;     // the sprite running the block
+    const runtime = util.runtime;   // the runtime
+    const thread = util.thread;     // the running thread
+    const frame = util.stackFrame;  // scratch space for this block invocation
+}
+```
+
+Common uses:
+
+```js
+util.target.x; util.target.y; util.target.direction; util.target.size;
+util.target.setXY(100, 50);
+util.target.setDirection(90);
+
+const score = util.target.lookupVariableByNameAndType('score', '');
+if (score) score.value = 100;
+
+util.startHats('event_whenbroadcastreceived', {BROADCAST_OPTION: 'go'});
+
+util.startBranch(1, true);
+```
+
+`lookupVariableByNameAndType` takes `''` for a variable and `'list'` for a list. `startHats` is
+covered in [events and hats](/building-extensions/hats), and `startBranch` in
+[custom C blocks](/building-extensions/custom-c-blocks). [Threads](/api-reference/threads)
+explains what `util.thread` holds.
+
+## Permissions
+
+Unsandboxed extensions must ask before reaching the network or the outside world:
+
+```js
+if (await Scratch.canFetch(url)) {
+    const socket = new WebSocket(url);
+}
+const response = await Scratch.fetch(url);
+
+await Scratch.openWindow(url);
+await Scratch.redirect(url);
+
+await Scratch.canRecordAudio();
+await Scratch.canRecordVideo();
+await Scratch.canReadClipboard();
+await Scratch.canNotify();
+await Scratch.canGeolocate();
+```
+
+Use `Scratch.fetch` instead of `fetch`, and check `Scratch.canFetch` before opening a WebSocket
+or loading an image from a URL the project chose.
+
+## Translation
+
+`Scratch.translate` marks strings for translation and fills in placeholders:
+
+```js
+const message = Scratch.translate({
+    id: 'myextension.hello',
+    default: 'Hello {name}!',
+    description: 'Greeting'
+}, {name: args.NAME});
+```
+
+## Editing Blockly directly
+
+For deep editor customization you can reach the global `ScratchBlocks` object. See the
+[GUI API](/api-reference/gui-api) for details.
 
 ## See also
 
-- [Building Extensions: hello world](/building-extensions/hello-world)
+- [Hello, world!](/building-extensions/hello-world) for a step-by-step start
 - [Block registration](/api-reference/block-registration) for how `getInfo` becomes real blocks
+- [VM API](/api-reference/vm-api), [Renderer API](/api-reference/renderer-api) and [Audio API](/api-reference/audio-api)
 - [Utilities](/api-reference/utilities) for `Cast` and friends
-- [Scratch API for extensions](/building-extensions/apis/scratch-api)

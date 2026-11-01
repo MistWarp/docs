@@ -1,9 +1,8 @@
 ---
-title: Safety and Moderation
-sidebar_position: 4
+title: Safety and moderation
 ---
 
-# Safety and Moderation
+# Safety and moderation
 
 How mistwarp-api works with Rotur's safety features, handles reports, and keeps error reports anonymous.
 

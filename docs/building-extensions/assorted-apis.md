@@ -1,6 +1,5 @@
 ---
 title: Assorted APIs
-sidebar_position: 12
 ---
 
 # Assorted APIs
@@ -62,7 +61,7 @@ compare({A, B}) {
 }
 ```
 
-The full reference is on the [Utility APIs page](/building-extensions/apis/utility-apis).
+The full reference is on the [Utility APIs page](/api-reference/utilities).
 
 ## hideFromPalette
 
@@ -115,4 +114,4 @@ blocks: [
 
 ## Next steps
 
-Next, [event and hat blocks](/building-extensions/hats) (if you skipped ahead), or the [API reference pages](/building-extensions/apis/scratch-api) for the full surface of the `Scratch` object, VM, renderer, and audio engine.
+Next, [event and hat blocks](/building-extensions/hats) (if you skipped ahead), or the [API reference pages](/api-reference/extension-api) for the full surface of the `Scratch` object, VM, renderer, and audio engine.

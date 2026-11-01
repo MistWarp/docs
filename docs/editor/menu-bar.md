@@ -1,6 +1,5 @@
 ---
 title: The menu bar
-sidebar_position: 2
 ---
 
 The menu bar runs across the top of the editor. It holds the dropdown menus (File, Edit, Project, Bookmarks), the Settings button, the project title, and, on the right, your save status and account. This page lists every menu and item.

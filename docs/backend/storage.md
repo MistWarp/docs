@@ -1,9 +1,8 @@
 ---
-title: Projects and Storage
-sidebar_position: 6
+title: Projects and storage
 ---
 
-# Projects and Storage
+# Projects and storage
 
 How projects are uploaded, stored and versioned, how storage limits are counted, and how the backpack syncs.
 

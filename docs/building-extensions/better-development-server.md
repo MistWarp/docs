@@ -1,6 +1,5 @@
 ---
 title: A better development server
-sidebar_position: 11
 ---
 
 # A better development server

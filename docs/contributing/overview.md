@@ -1,6 +1,6 @@
 ---
-title: Contributing Overview
-sidebar_position: 1
+title: Contributing to MistWarp
+sidebar_label: Overview
 ---
 
 # Contributing to MistWarp

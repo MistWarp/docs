@@ -1,6 +1,5 @@
 ---
 title: Motion blocks
-sidebar_position: 2
 ---
 
 Motion blocks move and rotate sprites on the [stage](/editor/stage). They have no effect on the stage itself, so the palette shows a reduced set when the stage is selected. Positions use Scratch coordinates: x runs left (negative) to right (positive), y runs down (negative) to up (positive), and 0,0 is the centre.

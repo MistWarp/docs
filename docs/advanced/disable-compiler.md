@@ -1,9 +1,8 @@
 ---
-title: Disable Compiler
-sidebar_position: 15
+title: Disable compiler
 ---
 
-# Disable Compiler
+# Disable compiler
 
 MistWarp's [compiler](/advanced/javascript) turns your blocks into JavaScript so they run much faster than in vanilla Scratch. This option turns it off, falling back to interpreting blocks one at a time like Scratch does. Toggle it in the [editor settings](/editor/settings) or with the [`nocompile` URL parameter](/advanced/url-parameters).
 

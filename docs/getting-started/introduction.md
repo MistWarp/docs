@@ -1,6 +1,6 @@
 ---
 title: Introduction
-sidebar_position: 1
+sidebar_label: Introduction
 ---
 
 # Introduction
@@ -38,7 +38,7 @@ New MistWarp projects start with **Misty**, MistWarp's own default sprite, in pl
 
 - [Installation](/getting-started/installation): use MistWarp on the web, as a desktop app, or via the packager.
 - [Quick start](/getting-started/quick-start): build a first project.
-- [Editor tour](/getting-started/editor-tour): learn where everything is.
+- [The editor interface](/editor/interface): learn where everything is.
 
 ## See also
 

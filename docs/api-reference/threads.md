@@ -1,6 +1,5 @@
 ---
 title: Threads
-sidebar_position: 6
 ---
 
 A project is a set of scripts, and each running script is a thread. The runtime steps every
@@ -93,6 +92,18 @@ MistWarp's compiler turns a script into a JavaScript generator function. When a 
 blocks. The thread model above (status, warp, starting and stopping) is unchanged; only the
 per-block execution is faster. The compiler is on by default and can be turned off from
 [project settings](/advanced/disable-compiler).
+
+## From inside a block
+
+Inside a block function, `util` (the block utility) is your handle on the current thread, rather
+than reaching into `runtime.threads`:
+
+- `util.thread` is the `Thread` running the block.
+- `util.yield()` yields the current thread for this frame. Returning a `Promise` from the block is
+  the usual way to wait, and `util.yield()` is the manual equivalent.
+- `util.yieldTick()` yields until the next tick.
+- `util.startBranch(index, isLoop)` runs a C block branch (see
+  [custom C blocks](/building-extensions/custom-c-blocks)).
 
 ## See also
 

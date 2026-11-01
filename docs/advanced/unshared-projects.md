@@ -1,9 +1,8 @@
 ---
-title: Unshared Projects
-sidebar_position: 5
+title: Unshared projects
 ---
 
-# Unshared Projects
+# Unshared projects
 
 Unshared projects on Scratch cannot be opened in MistWarp, the packager, or any other third-party site. This is a Scratch restriction, not a MistWarp one, and there is no way around it that keeps your account safe.
 

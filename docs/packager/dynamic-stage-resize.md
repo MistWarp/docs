@@ -1,6 +1,5 @@
 ---
-title: Dynamic Stage Resize
-sidebar_position: 4
+title: Dynamic stage resize
 slug: /packager/dynamic-stage-resize
 ---
 

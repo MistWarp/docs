@@ -1,9 +1,8 @@
 ---
-title: Custom Extensions
-sidebar_position: 4
+title: Custom extensions
 ---
 
-# Custom Extensions
+# Custom extensions
 
 The **Custom Extension** library item loads an extension that is not in the built-in list. You can point it at a URL, upload a local file, or paste JavaScript source code directly.
 

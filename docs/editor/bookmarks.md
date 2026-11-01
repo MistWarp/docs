@@ -1,6 +1,5 @@
 ---
 title: Workspace bookmarks
-sidebar_position: 14
 ---
 
 Workspace bookmarks save a spot in the block [workspace](/editor/workspace) so you can jump back to it instantly. A bookmark records where you were looking (which sprite, the zoom level, and the scroll position), which makes moving around a big project much faster than scrolling to find a script again.

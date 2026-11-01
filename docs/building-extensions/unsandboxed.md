@@ -1,6 +1,5 @@
 ---
 title: Unsandboxed extensions
-sidebar_position: 6
 ---
 
 # Unsandboxed extensions
@@ -229,7 +228,7 @@ const win = await Scratch.openWindow(url, 'width=400,height=400');
 
 Use `Scratch.redirect(url)` instead of `location.href = url`, or gate on `await Scratch.canRedirect(url)`.
 
-Other permission checks exist for device access: `Scratch.canRecordAudio()`, `canRecordVideo()`, `canReadClipboard()`, `canNotify()`, `canGeolocate()`, `canEmbed()`, `canDownload()`. See the [Scratch API reference](/building-extensions/apis/scratch-api).
+Other permission checks exist for device access: `Scratch.canRecordAudio()`, `canRecordVideo()`, `canReadClipboard()`, `canNotify()`, `canGeolocate()`, `canEmbed()`, `canDownload()`. See the [Scratch API reference](/api-reference/extension-api).
 
 ## Exercises
 

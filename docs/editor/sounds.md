@@ -1,6 +1,5 @@
 ---
 title: Sounds and the sound editor
-sidebar_position: 6
 ---
 
 Every sprite and the stage can hold **sounds**: audio clips you play with [Sound blocks](/blocks/sound). The **Sounds** tab lists them and opens the built-in sound editor, where you can record, trim, and apply effects without leaving MistWarp.
