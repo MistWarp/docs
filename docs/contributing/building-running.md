@@ -93,9 +93,9 @@ scratch-vm uses npm and its own scripts:
 cd scratch-vm
 npm install
 npm run lint
-npm run tap          # all tests
-npm run tap:unit     # unit tests only
-npx tap test/unit/<file>.js   # a single file
+npm run test:node    # all tests
+npm run test:unit    # unit tests only
+node --test test/unit/<file>.js   # a single file
 ```
 
 ### scratch-blocks
