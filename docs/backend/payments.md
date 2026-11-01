@@ -35,10 +35,12 @@ Tests: `python3 -m unittest scripts/test_refund_project_sales.py`, and with a co
 
 Set the MistWarp Rotur App's webhook to `https://api.mistwarp.org/v1/rotur/webhook` on rotur.dev/me/developer, with privacy requests on, and put its signing secret in `ROTUR_WEBHOOK_SECRET`.
 
-- `user.deleted`, `user.left` and `user.banned` erase everything MistWarp holds about that person, the same as deleting their data from Settings.
+- `user.deleted`, `user.left` and `user.banned` erase everything MistWarp holds about that person, the same as deleting their data from Settings (see [Erasing an account](/backend/accounts#erasing-an-account)). Rotur requires that within 30 days, and MistWarp does it straight away.
 - A `privacy.request` for `erasure` does the same. One for `access` sends them a MistWarp notification pointing to the download in Settings.
 - `payment.completed` finishes the purchase it names (see Payments).
 
-Deliveries are checked against `Rotur-Signature` and refused if their timestamp is more than five minutes out. Each is saved to `data/rotur-webhooks.json`, answered, then handled in the background, and a retried delivery is only handled once. Anything not yet handled when the server stops is handled when it starts.
+Each delivery carries `Rotur-Webhook-Id`, `Rotur-Webhook-Timestamp` (Unix seconds) and `Rotur-Signature`. The signature is `v1=` and the hex HMAC-SHA256 of `<id>.<timestamp>.<raw body>`, keyed with the whole signing secret, `whsec_` prefix included. A delivery with a bad signature, or a timestamp more than five minutes out, answers 401, and one whose body `id` doesn't match the header answers 400.
+
+Rotur waits 10 seconds for an answer, and erasing someone can take longer. So each delivery is saved to `data/rotur-webhooks.json`, answered, then handled by a worker, one event at a time. Handled events are kept for at least 7 days, longer than Rotur's 36 minutes of retries, so a retried delivery is only handled once. Anything not yet handled when the server stops is handled when it starts.
 
 Rotur only sends these for people who have used MistWarp through Sign in with Rotur, or whose account was made on MistWarp. The five-minute check of `/accounts/deleted_check` stays for everyone else.
