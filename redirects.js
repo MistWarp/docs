@@ -7,7 +7,8 @@ const moved = {
     '/building-extensions/apis/vm-api': '/api-reference/vm-api',
     '/building-extensions/apis/audio-api': '/api-reference/audio-api',
     '/building-extensions/apis/renderer-api': '/api-reference/renderer-api',
-    '/internals/themes': '/internals/theming'
+    '/internals/themes': '/internals/theming',
+    '/search': '/'
 };
 
 const sectionRoots = {
