@@ -119,7 +119,7 @@ cp .env.example .env
 osl run main.osl   # listens on PORT, 5627 by default
 ```
 
-It stores data as flat JSON under `data/` and keeps project files in a local `data/blobs/` directory when no R2 bucket is configured. scratch-gui always talks to `https://api.mistwarp.org/v1` (`API_BASE` in `src/lib/community/api.js`), so change that constant locally to use your own backend.
+It keeps community data in SQLite at `data/community.db`, other state as JSON under `data/`, and project files in a local `data/blobs/` directory when no R2 bucket is configured. See the [Backend](/backend/overview) section for how it is built. scratch-gui always talks to `https://api.mistwarp.org/v1` (`API_BASE` in `src/lib/community/api.js`), so change that constant locally to use your own backend.
 
 ## See also
 
