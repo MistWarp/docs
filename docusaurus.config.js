@@ -23,7 +23,6 @@ const embeddedFlag = () => ({
   })
 });
 
-/** @type {import('@docusaurus/types').Config} */
 module.exports = {
   title: 'MistWarp Docs',
   tagline: 'Guides and reference for the MistWarp editor, extensions, packager and backend.',
