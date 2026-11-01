@@ -12,11 +12,14 @@ const isEditable = target => target instanceof HTMLElement &&
 const useShortcutHint = () => {
     const [hint, setHint] = useState(null);
     useEffect(() => {
-        if (document.documentElement.hasAttribute('data-embedded')) setHint('/');
+        if (window.matchMedia('(hover: none), (pointer: coarse), (max-width: 600px)').matches) setHint(null);
+        else if (document.documentElement.hasAttribute('data-embedded')) setHint('/');
         else setHint(/mac|iphone|ipad/i.test(navigator.platform) ? '⌘ K' : 'Ctrl K');
     }, []);
     return hint;
 };
+
+export const openSearch = (query = '') => window.dispatchEvent(new CustomEvent(OPEN_EVENT, {detail: {query}}));
 
 export function SearchLauncher({className}) {
     const hint = useShortcutHint();
@@ -24,7 +27,7 @@ export function SearchLauncher({className}) {
         <button
             type="button"
             className={clsx(styles.launcher, className)}
-            onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
+            onClick={() => openSearch()}
         >
             <SearchIcon className={styles.launcherIcon} />
             <span className={styles.launcherText}>Search the docs</span>
@@ -34,21 +37,21 @@ export function SearchLauncher({className}) {
 }
 
 export default function SearchBar() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(null);
     const hint = useShortcutHint();
     const returnFocus = useRef(null);
     const isOpen = useRef(false);
 
-    const show = useCallback(() => {
+    const show = useCallback(event => {
         if (isOpen.current) return;
         isOpen.current = true;
         returnFocus.current = document.activeElement;
-        setOpen(true);
+        setOpen({query: (event && event.detail && event.detail.query) || ''});
     }, []);
 
     const hide = useCallback(() => {
         isOpen.current = false;
-        setOpen(false);
+        setOpen(null);
         const target = returnFocus.current;
         if (target && typeof target.focus === 'function') target.focus();
     }, []);
@@ -74,12 +77,12 @@ export default function SearchBar() {
 
     return (
         <>
-            <button type="button" className={styles.button} onClick={show} aria-label="Search the docs">
+            <button type="button" className={styles.button} onClick={() => show()} aria-label="Search the docs">
                 <SearchIcon className={styles.buttonIcon} />
                 <span className={styles.buttonText}>Search</span>
                 {hint && <kbd className={styles.hint}>{hint}</kbd>}
             </button>
-            {open && <SearchModal onClose={hide} />}
+            {open && <SearchModal initialQuery={open.query} onClose={hide} />}
         </>
     );
 }

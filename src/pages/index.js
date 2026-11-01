@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import {SearchLauncher} from '@theme/SearchBar';
+import {SearchLauncher, openSearch} from '@theme/SearchBar';
 import styles from './index.module.css';
 
 const sections = [
@@ -69,6 +69,11 @@ const popular = [
 ];
 
 export default function Home() {
+    useEffect(() => {
+        const query = new URLSearchParams(window.location.search).get('q');
+        if (query) openSearch(query);
+    }, []);
+
     return (
         <Layout
             title="MistWarp documentation"

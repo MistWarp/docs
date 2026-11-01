@@ -56,3 +56,20 @@ export const toResult = data => {
         subResults
     };
 };
+
+export const shorterQueries = term => {
+    const words = term.toLowerCase().split(/\s+/).filter(Boolean);
+    const queries = [];
+    let current = words;
+    while (current.some(word => word.length > 4)) {
+        current = current.map(word => (word.length > 4 ? word.slice(0, -1) : word));
+        queries.push(current.join(' '));
+    }
+    return queries;
+};
+
+export const containsTerm = (data, term) => {
+    const text = `${data.meta.title || ''} ${data.content || ''}`.toLowerCase();
+    return term.toLowerCase().split(/\s+/).filter(Boolean)
+        .every(word => text.includes(word.slice(0, Math.max(4, word.length - 2))));
+};
