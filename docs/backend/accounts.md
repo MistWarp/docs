@@ -22,7 +22,7 @@ Perks follow the person's Rotur plan. mistwarp-api asks the apps API (`GET /v2/a
 
 ### Vanity project URLs
 
-A vanity project URL (`/p/<slug>`, resolved by `GET /v1/vanity/:slug`) needs a plan that includes one, which today is Rotur Pro. Once the owner's plan stops including it, the URL stops working but stays reserved for them for 30 days, so resubscribing brings it straight back. After that it's released for anyone to claim. The owner still sees it as `vanityReserved` with `vanityLapsed: true`, so they can keep it or clear it.
+A vanity project URL (`/p/<slug>`, resolved by `GET /v1/vanity/:slug`) needs a plan that includes one, which today is Rotur Pro. Once the owner's plan stops including it, the URL stops working but stays reserved for them for 30 days, so resubscribing brings it straight back. After that it's released for anyone to claim. While it's reserved, the owner sees it as `vanityReserved` with `vanityLapsed: true`, so they can keep it or clear it.
 
 The 30 days only start when Rotur says the plan no longer includes it. While Rotur can't be reached nothing changes: a working URL keeps working, the clock doesn't start, and a lapsed URL isn't released. A loop checks every 15 minutes, so URLs are released on time even if nobody visits them.
 
@@ -34,6 +34,6 @@ Every five minutes MistWarp reads the app's bans. Bans made or lifted on rotur.d
 
 ## Erasing an account
 
-Someone deleting their data from Settings, a Rotur erasure request, and Rotur saying the account was deleted, left MistWarp or was banned (see [Rotur webhooks](/backend/payments#rotur-webhooks)) all erase everything MistWarp holds about the person. That includes their projects and trash, backpack, game data, sessions and community records, and frees everything they counted against their Rotur storage.
+Someone deleting their data from Settings, a Rotur erasure request, Rotur saying the account was deleted, left MistWarp or was banned (see [Rotur webhooks](/backend/payments#rotur-webhooks)), and the five-minute `/accounts/deleted_check` reconcile finding a deleted account all erase everything MistWarp holds about the person. That includes their projects and trash, backpack, game data, sessions and community records, and frees everything they counted against their Rotur storage. Reports they filed are kept, with the reporter shown as "Deleted User".
 
-When a teacher is erased, each class they owned passes to its first remaining co-teacher, who gets a notification and an audit record of the transfer. A class with no co-teacher is deleted with its students. The teacher leaves every class they co-taught, and their school. When that leaves the school without an admin, its first remaining teacher becomes school admin.
+When a teacher is erased, each class they owned passes to its first remaining co-teacher, who gets a notification. The transfer is recorded in the class's audit log. A class with no co-teacher is deleted with its students. The teacher leaves every class they co-taught, and their school. When that leaves the school without an admin, its first remaining teacher becomes school admin.
