@@ -65,6 +65,23 @@ repeatUntil: {
 
 `yieldLoop()` is not optional in a loop: it emits the correct yield for warp mode and the warp-timer option, and without it a non-warp loop hangs. `branch(n)` is a compile-time splice; call it where the branch should run, and do not wrap it in a callback. A compiler that leaves a non-empty branch out fails to compile and the script runs interpreted.
 
+Compiled scripts stop for `stop all` and `delete this clone` by throwing a signal that only the thread runner catches. If your compiled source puts a `try`/`catch` around a branch or an input, pass the caught value to `rethrowRetire` so that signal still reaches the runner. Without it, the script keeps running after it was stopped:
+
+```js
+attempt: {
+  type: T.COMMAND,
+  compile: ({ branch, rethrowRetire }) => `
+    try {
+      ${branch(1)}
+    } catch (e) {
+      ${rethrowRetire('e')}
+    }
+  `
+}
+```
+
+`rethrowRetire` is available in every `compile` and `compFunc` context, not only for C-shaped blocks.
+
 The interpreter fallback is the usual branch protocol:
 
 ```js
