@@ -23,7 +23,7 @@ This page uses the explicit `compiler.register` form because its `compile` conte
 | `input.boolean('A')` | `cast.toBoolean(args.A)` |
 | `input.raw('A')` | `cast.toRaw(args.A)` |
 | `field('A')` | `${args.A}`, or `args.A` passed to any `cast` helper |
-| `mutation`, `runtime`, `target`, `stage` | the same names on `util` |
+| `mutation`, `runtime`, `target`, `stage`, `branch`, `yieldLoop`, `rethrowRetire` | the same names on `util` |
 
 The examples below are written with `compile`; translate with this table if you are using `compFunc`.
 
@@ -74,6 +74,27 @@ repeatUntil (args, util) {
 ```
 
 If the loop's condition or header needs to wait on a promise, leave the block on the compatibility layer; a compiled header is a plain expression.
+
+### Catching errors around a branch
+
+When `stop all` or `delete this clone` runs inside a custom block, compiled code throws a signal that only the thread runner should catch. If your source wraps a branch or an input that might call a custom block in `try`/`catch`, splice `rethrowRetire` into the `catch`. It takes the name of the caught variable as a string and returns a statement that rethrows the signal and nothing else:
+
+```js
+attempt: {
+  type: T.COMMAND,
+  compile: ({ branch, rethrowRetire }) => `
+    try {
+      ${branch(1)}
+    } catch (e) {
+      ${rethrowRetire('e')}
+    }
+  `
+}
+```
+
+Without it, the thread is already stopped or the clone already deleted, but the code after your `catch` keeps running until the next yield. In warp mode that can be the rest of the script. Other errors still reach your `catch` as before.
+
+`rethrowRetire` is in every `compile` context, and on `util` for a `compFunc`.
 
 ## Reaching runtime, target, and stage
 
