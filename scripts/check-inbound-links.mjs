@@ -26,8 +26,10 @@ const sourceFiles = dir => fs.readdirSync(dir, {recursive: true, withFileTypes: 
     .filter(file => !/[\\/](addons|packager)[\\/]/.test(path.relative(dir, file)));
 
 const normalize = link => {
-    const bare = link.split(/[?#]/)[0].replace(/^\/docs(?=\/|$)/, '').replace(/^\/?/, '/');
-    return bare.endsWith('/') ? bare : `${bare}/`;
+    const [, pathPart, anchor] = link.match(/^([^?#]*)(?:\?[^#]*)?(?:#(.*))?$/);
+    const bare = pathPart.replace(/^\/docs(?=\/|$)/, '').replace(/^\/?/, '/');
+    const page = bare.endsWith('/') ? bare : `${bare}/`;
+    return anchor ? `${page}#${anchor}` : page;
 };
 
 const extract = gui => {
@@ -42,9 +44,9 @@ const extract = gui => {
     const pages = fs.readFileSync(docsLink, 'utf8').match(/DOCS_PAGES\s*=\s*\{([^}]*)\}/);
     if (pages) for (const [, page] of pages[1].matchAll(/:\s*'([^']+)'/g)) add(page, docsLink);
     const patterns = [
-        /\$\{DOCS_BASE\}(\/[\w\-/]*)/g,
-        /mistwarp\.org\/docs(\/[\w\-/]*)/g,
-        /['"`](\/docs(?:\/[\w\-/]*)?)['"`]/g
+        /\$\{DOCS_BASE\}(\/[\w\-/#]*)/g,
+        /mistwarp\.org\/docs(\/[\w\-/#]*)/g,
+        /['"`](\/docs(?:\/[\w\-/#]*)?)['"`]/g
     ];
     for (const file of sourceFiles(path.join(gui, 'src'))) {
         const text = fs.readFileSync(file, 'utf8');
@@ -53,14 +55,21 @@ const extract = gui => {
     return found;
 };
 
+const pageFile = page => path.join(build, page, 'index.html');
+
 const target = link => {
-    const file = path.join(build, link, 'index.html');
-    if (!fs.existsSync(file)) return {ok: false, reason: 'no page'};
-    const redirect = fs.readFileSync(file, 'utf8').match(/http-equiv="refresh" content="0; url=([^"]+)"/);
-    if (!redirect) return {ok: true};
-    const next = normalize(redirect[1]);
-    const ok = fs.existsSync(path.join(build, next, 'index.html'));
-    return {ok, reason: ok ? `redirects to ${next}` : `redirects to missing ${next}`, redirect: next};
+    const [page, anchor] = link.split('#');
+    if (!fs.existsSync(pageFile(page))) return {ok: false, reason: 'no page'};
+    let html = fs.readFileSync(pageFile(page), 'utf8');
+    const redirect = html.match(/http-equiv="refresh" content="0; url=([^"]+)"/);
+    let final = page;
+    if (redirect) {
+        final = normalize(redirect[1]).split('#')[0];
+        if (!fs.existsSync(pageFile(final))) return {ok: false, reason: `redirects to missing ${final}`};
+        html = fs.readFileSync(pageFile(final), 'utf8');
+    }
+    if (anchor && !html.includes(`id="${anchor}"`)) return {ok: false, reason: `${final} has no #${anchor}`};
+    return {ok: true, redirect: redirect ? final : null};
 };
 
 if (!fs.existsSync(path.join(build, 'index.html'))) {

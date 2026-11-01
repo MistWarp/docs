@@ -1,5 +1,5 @@
 {
-  "about": "Docs paths that other sites link to: every page the site had before the October 2026 restructure, the mistwarp-api README, and the links found in scratch-gui. npm run check verifies each one still resolves.",
+  "about": "Docs paths that other sites link to: every page the site had before the October 2026 restructure, the mistwarp-api README, the links found in scratch-gui, and a few anchors. npm run check verifies each one still resolves.",
   "links": [
     "/",
     "/advanced/cloud-variables/",
@@ -92,6 +92,7 @@
     "/editor/collaboration/",
     "/editor/costumes/",
     "/editor/custom-blocks/",
+    "/editor/custom-blocks/#run-without-screen-refresh",
     "/editor/debugger/",
     "/editor/find-bar/",
     "/editor/git/",
@@ -105,6 +106,7 @@
     "/editor/sounds/",
     "/editor/sprites/",
     "/editor/stage/",
+    "/editor/stage/#turbo-mode",
     "/editor/themes/",
     "/editor/variable-manager/",
     "/editor/variables/",

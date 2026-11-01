@@ -1,6 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+const loader = /src[\\/]theme[\\/]SearchBar[\\/]pagefind\.js$/;
+const unusedBundles = /^pagefind-(ui|component-ui|modular-ui|highlight)\./;
+
 const docPages = outDir => fs.readdirSync(outDir, {recursive: true})
     .filter(file => file.endsWith('index.html') && !file.startsWith('pagefind'))
     .map(file => ({file, content: fs.readFileSync(path.join(outDir, file), 'utf8')}))
@@ -14,7 +17,7 @@ module.exports = function searchIndex() {
     return {
         name: 'mw-search-index',
         configureWebpack(config, isServer) {
-            return isServer ? {module: {parser: {javascript: {exprContextCritical: false}}}} : {};
+            return isServer ? {module: {rules: [{test: loader, parser: {exprContextCritical: false}}]}} : {};
         },
         async postBuild({outDir}) {
             const pagefind = await import('pagefind');
@@ -32,6 +35,9 @@ module.exports = function searchIndex() {
             const written = await index.writeFiles({outputPath: path.join(outDir, 'pagefind')});
             if (written.errors.length) throw new Error(`Pagefind could not write the index: ${written.errors.join(', ')}`);
             await pagefind.close();
+            for (const file of fs.readdirSync(written.outputPath)) {
+                if (unusedBundles.test(file)) fs.rmSync(path.join(written.outputPath, file));
+            }
             console.log(`[search] Indexed ${pages.length} pages into ${path.relative(process.cwd(), written.outputPath)}`);
         }
     };
