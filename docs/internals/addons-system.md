@@ -1,9 +1,8 @@
 ---
-title: The Addons System
-sidebar_position: 7
+title: The addons system
 ---
 
-# The Addons System
+# The addons system
 
 Addons are small features that modify the editor: editor tweaks, extra tools, cosmetic changes. MistWarp's addon framework is inherited from the [Scratch Addons](https://scratchaddons.com/) browser extension, adapted to run inside the editor build. This page describes the two pieces you are most likely to work with: the settings store and the window system.
 

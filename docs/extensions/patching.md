@@ -1,6 +1,5 @@
 ---
 title: Patching
-sidebar_position: 3
 ---
 
 # Patching

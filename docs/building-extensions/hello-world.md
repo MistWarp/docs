@@ -1,6 +1,5 @@
 ---
 title: Hello, world!
-sidebar_position: 2
 ---
 
 # Hello, world!

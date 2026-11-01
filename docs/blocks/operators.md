@@ -1,6 +1,5 @@
 ---
 title: Operators blocks
-sidebar_position: 8
 ---
 
 Operators do maths, compare values, combine logic, and manipulate text. They are all reporters or booleans, so they plug into the slots of other blocks rather than standing on their own.

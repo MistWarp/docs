@@ -1,6 +1,5 @@
 ---
 title: Events and hats
-sidebar_position: 7
 ---
 
 # Events and hats

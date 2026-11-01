@@ -1,6 +1,5 @@
 ---
 title: Music
-sidebar_position: 5
 ---
 
 # Music

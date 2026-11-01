@@ -1,6 +1,5 @@
 ---
 title: Events
-sidebar_position: 8
 ---
 
 `VirtualMachine` extends Node's `EventEmitter`. The editor and player listen to these events to

@@ -1,6 +1,5 @@
 ---
 title: LEGO BOOST
-sidebar_position: 14
 ---
 
 # LEGO BOOST

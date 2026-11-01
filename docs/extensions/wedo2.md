@@ -1,6 +1,5 @@
 ---
 title: LEGO Education WeDo 2.0
-sidebar_position: 15
 ---
 
 # LEGO Education WeDo 2.0

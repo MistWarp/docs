@@ -1,6 +1,5 @@
 ---
-title: Releases, previews, and diagnostics
-sidebar_position: 2
+title: Releases, previews and diagnostics
 ---
 
 ## Releases

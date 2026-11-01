@@ -1,6 +1,6 @@
 ---
 title: Compiled extensions overview
-sidebar_position: 1
+sidebar_label: Overview
 ---
 
 # Compiled extensions

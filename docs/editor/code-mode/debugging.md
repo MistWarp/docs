@@ -1,6 +1,5 @@
 ---
 title: Running and debugging
-sidebar_position: 4
 ---
 
 You can run, stop and debug scripts without leaving Code mode.

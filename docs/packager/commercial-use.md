@@ -1,6 +1,5 @@
 ---
-title: Commercial Use
-sidebar_position: 3
+title: Commercial use
 slug: /packager/commercial-use
 ---
 

@@ -1,9 +1,8 @@
 ---
-title: Community Features
-sidebar_position: 7
+title: Community features
 ---
 
-# Community Features
+# Community features
 
 Badges, milestone notifications and the development feed.
 

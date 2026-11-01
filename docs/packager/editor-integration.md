@@ -1,6 +1,5 @@
 ---
 title: Editor integration
-sidebar_position: 7
 ---
 
 # Editor integration

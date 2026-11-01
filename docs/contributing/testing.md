@@ -1,6 +1,5 @@
 ---
 title: Testing
-sidebar_position: 4
 ---
 
 # Testing

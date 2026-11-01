@@ -1,6 +1,5 @@
 ---
 title: Control blocks
-sidebar_position: 6
 ---
 
 Control blocks decide when and how often other blocks run: loops, conditionals, waiting, stopping, and clones. Several of them are C blocks that wrap the blocks placed inside.

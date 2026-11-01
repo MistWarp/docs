@@ -1,15 +1,21 @@
 ---
 title: VM API
-sidebar_position: 2
+description: The VirtualMachine class that runs projects, with common tasks for unsandboxed extensions and the full method reference for embedders.
 ---
 
-`VirtualMachine` is the engine that runs a project. It loads and saves projects, controls
-playback, manages sprites/costumes/sounds, and holds the [`Runtime`](/api-reference/threads)
-that actually executes blocks. When the editor or player is open, the live instance is on
-`window.vm` (see the [overview](/api-reference/overview)).
+# VM API
 
-The class lives in `scratch-vm/src/virtual-machine.js` and is the default export of the
-`scratch-vm` package:
+`VirtualMachine` is the engine that runs a project. It loads and saves projects, controls
+playback, manages sprites, costumes and sounds, and holds the [`Runtime`](/api-reference/runtime)
+that executes blocks.
+
+You can reach it three ways:
+
+- In an [unsandboxed extension](/building-extensions/unsandboxed), as `Scratch.vm`. Block
+  functions also get the runtime as `util.runtime`.
+- In the editor or player, as `window.vm` from the browser console (see the
+  [overview](/api-reference/overview)).
+- In your own app, as the default export of the `scratch-vm` package:
 
 ```js
 import VirtualMachine from 'scratch-vm';
@@ -19,6 +25,146 @@ vm.start();
 
 `VirtualMachine` extends Node's `EventEmitter`, so you listen with `vm.on(name, handler)`.
 See [Events](/api-reference/events) for what it emits.
+
+These are internal objects, not a frozen public API. Guard for missing values (sprites get
+deleted, extensions unload) and prefer listening to events over polling.
+
+## Common tasks from an extension
+
+```js
+if (!Scratch.extensions.unsandboxed) {
+  throw new Error('This extension needs the VM');
+}
+const vm = Scratch.vm;
+const runtime = vm.runtime;
+```
+
+MistWarp compiles projects by default (`compilerOptions.enabled` is `true`), and framerate and
+stage size are not limited to Scratch's 30 FPS and 480x360. For threads and their statuses see
+[Threads](/api-reference/threads). To generate JavaScript for your blocks, see
+[compiled extensions](/building-extensions/compiled/overview).
+
+### Project control
+
+```js
+vm.greenFlag();          // press the green flag
+vm.stopAll();            // stop all scripts
+vm.setTurboMode(true);   // turbo mode on/off
+vm.setFramerate(60);     // target frames per second
+vm.setInterpolation(true);
+vm.setCompilerOptions({ enabled: true, warpTimer: false });
+vm.setRuntimeOptions({ maxClones: 300, miscLimits: true, fencing: true });
+vm.setStageSize(width, height);
+```
+
+
+### Targets
+
+A "target" is a sprite, a clone, or the stage.
+
+```js
+runtime.targets;                          // array of all targets (stage + sprites + clones)
+runtime.getTargetForStage();              // the stage target
+runtime.getTargetById(id);                // by internal id
+runtime.getSpriteTargetByName('Sprite1'); // the original (non-clone) sprite by name
+vm.editingTarget;                         // the sprite currently open in the editor
+```
+
+Target properties and methods:
+
+```js
+const t = runtime.getSpriteTargetByName('Sprite1');
+t.x; t.y; t.direction; t.size; t.visible;
+t.getName();
+t.isStage; t.isOriginal;
+t.currentCostume;                         // index
+t.sprite.costumes[t.currentCostume].name;
+
+t.setXY(100, 50);
+t.setDirection(90);
+t.setSize(150);
+```
+
+### Clones
+
+```js
+const original = runtime.getSpriteTargetByName('Sprite1');
+const clone = original.makeClone();
+if (clone) {
+  runtime.addTarget(clone);
+  clone.setXY(100, 50);
+}
+
+// remove a clone (never the original)
+if (!clone.isOriginal) runtime.disposeTarget(clone);
+```
+
+### Variables and lists
+
+Variables and lists live on a target. Use `''` as the type for a variable, `'list'` for a list.
+
+```js
+const stage = runtime.getTargetForStage();
+
+const score = stage.lookupVariableByNameAndType('score', '');
+if (score) score.value = 100;
+
+const items = stage.lookupVariableByNameAndType('items', 'list');
+if (items) items.value.push('new item');
+```
+
+Global variables and lists live on the stage, sprite-local ones on the sprite. To enumerate, iterate `target.variables` and check each entry's `.type`.
+
+### Starting scripts
+
+```js
+// Start every "when flag clicked" hat
+runtime.startHats('event_whenflagclicked');
+
+// Start hats matching a field
+runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'message1' });
+```
+
+`startHats` returns the started `Thread` objects. Inside a running block, use `util.startHats` instead. See [events and hats](/building-extensions/hats).
+
+### Input devices
+
+```js
+const mouse = runtime.ioDevices.mouse;
+mouse.getClientX(); mouse.getClientY(); mouse.getIsDown();
+
+const keyboard = runtime.ioDevices.keyboard;
+keyboard.getKeyIsDown('space');
+
+const clock = runtime.ioDevices.clock;
+clock.projectTimer();       // seconds since timer reset
+clock.resetProjectTimer();
+```
+
+### Stage size
+
+```js
+runtime.stageWidth;   // current logical width
+runtime.stageHeight;  // current logical height
+vm.setStageSize(640, 360);
+```
+
+### Extension management
+
+```js
+const em = vm.extensionManager;
+em.isExtensionLoaded('pen');   // boolean
+em.getExtensionURLs();         // loaded extension URLs
+em.refreshBlocks('myextension'); // re-render the palette after changing block info
+```
+
+### Per-project storage
+
+`runtime.extensionStorage` is an object saved inside the project file. Store small JSON-serializable settings keyed by your extension ID:
+
+```js
+runtime.extensionStorage.myextension = { volume: 0.5 };
+```
 
 ## Lifecycle
 

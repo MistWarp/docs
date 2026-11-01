@@ -1,6 +1,5 @@
 ---
 title: Block switches
-sidebar_position: 10
 ---
 
 # Block switches

@@ -1,9 +1,8 @@
 ---
-title: High Quality Pen
-sidebar_position: 9
+title: High quality pen
 ---
 
-# High Quality Pen
+# High quality pen
 
 By default the pen layer is drawn at 480x360 and stretched to fit the stage, so pen art can look blocky when the stage is larger. High Quality Pen renders the pen layer at the stage's real resolution instead, and disables some coordinate rounding so pen lines land where you expect. Enable it in the [editor settings](/editor/settings) or with the [`hqpen` URL parameter](/advanced/url-parameters).
 

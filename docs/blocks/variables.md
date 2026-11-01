@@ -1,6 +1,5 @@
 ---
 title: Variables and lists
-sidebar_position: 9
 ---
 
 The Variables category (internally called "data") holds two kinds of storage: variables, which each hold one value, and lists, which hold many values in order. You create variables and lists with the "Make a Variable" and "Make a List" buttons at the top of the category; MistWarp also has a dedicated [variable manager](/editor/variable-manager) for editing them in bulk.

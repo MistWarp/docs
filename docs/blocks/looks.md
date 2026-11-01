@@ -1,6 +1,5 @@
 ---
 title: Looks blocks
-sidebar_position: 3
 ---
 
 Looks blocks change what a sprite (or the [stage](/editor/stage)) shows: its costume or backdrop, size, graphic effects, layer, and speech or thought bubbles. When the stage is selected, only the backdrop, effect, and layer-independent blocks appear.

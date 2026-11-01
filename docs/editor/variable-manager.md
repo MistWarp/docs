@@ -1,6 +1,5 @@
 ---
 title: The variable manager
-sidebar_position: 20
 ---
 
 The variable manager is a window that shows every [variable and list](/editor/variables) at once and lets you read and change their values live while the project runs. It is far quicker than scattering monitors across the stage when you want to watch or tweak a lot of data.

@@ -1,6 +1,5 @@
 ---
 title: Architecture
-sidebar_position: 2
 ---
 
 # Architecture
@@ -11,7 +10,7 @@ MistWarp looks like one app but is really a set of independent packages wired to
 
 MistWarp is a fork of TurboWarp, which is a fork of Scratch, and it inherits Scratch's split into separate npm packages. Each is its own repository, developed independently and linked into the editor build.
 
-- **scratch-gui** is the editor and the community site: a React plus Redux application bundled by webpack. It owns the interface, the Redux store, the theme engine, the addon framework, and the community SPA. Everything you see is scratch-gui; almost everything in this Internals section is about it.
+- **scratch-gui** is the editor and the community site: a React plus Redux application bundled by Vite. It owns the interface, the Redux store, the theme engine, the addon framework, and the community SPA. Everything you see is scratch-gui; almost everything in this Internals section is about it.
 - **scratch-vm** is the engine. It is plain JavaScript, no React. It owns the runtime, the targets (sprites and the stage), the blocks, the threads, the interpreter, and the JS compiler. It is the source of truth for what a project actually does.
 - **scratch-render** draws the stage onto a WebGL canvas. The VM owns a renderer instance and tells it where every sprite, costume, and pen mark goes.
 - **scratch-blocks** is a fork of Google's Blockly. It draws the block workspace and the palette and turns block edits into changes the VM applies.
@@ -68,7 +67,7 @@ A project is serialized to the **sb3** format, a ZIP containing a `project.json`
 - **Deserialize.** Loading reverses this: parse `project.json`, rebuild targets and their block containers, and load each referenced asset by hash. `validate-project.js` sanity-checks the JSON on the way in.
 - **Storage.** Assets are content-addressed, so the same costume shared by many sprites is stored once. The editor's storage layer resolves an asset hash to its bytes, whether from the sb3, from the backend, or from the built-in library.
 
-Where the bytes physically live depends on how the project was opened: a local file, the built-in project fetcher, or the community backend. The publish pipeline (create, upload the sb3 and thumbnail, then share) is described below and in [Project Management](/editor/project-management) and [Packaging](/editor/packaging).
+Where the bytes physically live depends on how the project was opened: a local file, the built-in project fetcher, or the community backend. The publish pipeline (create, upload the sb3 and thumbnail, then share) is described below and in [Project Management](/editor/project-management) and [the packager](/packager/overview).
 
 ## The editor shell
 
@@ -109,7 +108,7 @@ Two editor subsystems sit alongside the React tree rather than inside it.
 
 ## The identity and community layer
 
-MistWarp is not local-only. scratch-gui also ships the community site (`src/community/`) from the same webpack build, and the editor has hooks into it.
+MistWarp is not local-only. scratch-gui also ships the community site (`src/community/`) from the same Vite build, and the editor has hooks into it.
 
 Identity is Rotur-based (`src/lib/rotur/identity.js` is the single source of truth for both apps). A user logs in with a Rotur token, which is exchanged for a 7-day MistWarp session token; both apps subscribe to that state and logout clears it. The frontend calls the backend at `https://api.mistwarp.org/v1` with Bearer-token auth. Rotur social features (posts, likes, follows, avatars) go straight to `https://api.rotur.dev`.
 

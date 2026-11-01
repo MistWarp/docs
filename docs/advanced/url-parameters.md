@@ -1,9 +1,8 @@
 ---
-title: URL Parameters
-sidebar_position: 3
+title: URL parameters
 ---
 
-# URL Parameters
+# URL parameters
 
 You can control how MistWarp loads and runs a project by adding parameters to the URL. This is useful for sharing a reproducible setup, embedding a project with specific options, or automating tests.
 
@@ -36,7 +35,7 @@ https://mistwarp.org/?project_url=https://example.com/project.sb3
 | Parameter | Value | What it does |
 |-----------|-------|--------------|
 | `fps` | number | Sets the [frame rate](/advanced/custom-fps). `0` runs at the display's refresh rate. |
-| `turbo` | switch | Enables [turbo mode](/advanced/warp-timer) (no per-frame throttling). |
+| `turbo` | switch | Enables [turbo mode](/editor/stage#turbo-mode) (no per-frame throttling). |
 | `interpolate` | switch | Enables [interpolation](/advanced/interpolation) for smoother motion. |
 | `hqpen` | switch | Enables [high quality pen](/advanced/high-quality-pen). |
 | `limitless` | switch | Removes [miscellaneous limits](/advanced/remove-limits). |

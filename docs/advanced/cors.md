@@ -1,6 +1,5 @@
 ---
 title: CORS
-sidebar_position: 6
 ---
 
 # CORS: why your fetch block does not work

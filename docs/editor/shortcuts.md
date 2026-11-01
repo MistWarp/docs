@@ -1,6 +1,5 @@
 ---
 title: Keyboard shortcuts
-sidebar_position: 15
 ---
 
 MistWarp has keyboard shortcuts for the common editor actions, and they are rebindable. Shortcuts shown with `Ctrl` use `Ctrl` on Windows and Linux and `⌘` (Command) on macOS.

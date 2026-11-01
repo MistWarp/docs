@@ -1,6 +1,5 @@
 ---
 title: Variables and lists
-sidebar_position: 9
 ---
 
 # Variables and lists

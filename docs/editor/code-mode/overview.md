@@ -1,6 +1,6 @@
 ---
 title: Code mode
-sidebar_position: 1
+sidebar_label: Overview
 ---
 
 The editor has two modes. **Blocks** mode is the classic editor with the Scripts, Costumes and Sounds tabs. **Code** mode replaces the left side of the editor with a workbench where the whole project is a tree of files: every sprite's scripts as [fractch](https://github.com/Mistium/FRACTCH) text, its costumes and sounds, and the project's extensions as JavaScript. In Code mode the stage floats over the workbench instead of sitting in a panel on the right, so the code gets the full width.

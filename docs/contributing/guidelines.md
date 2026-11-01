@@ -1,9 +1,8 @@
 ---
-title: Contribution Guidelines
-sidebar_position: 5
+title: Contribution guidelines
 ---
 
-# Contributing
+# Contribution guidelines
 
 This page covers the practical workflow for getting a change into MistWarp: where the code lives, how the packages link together while you work, the style rules, and how to open a pull request. If you have not set up a local build yet, read [Building and Running](/contributing/building-running) first.
 
