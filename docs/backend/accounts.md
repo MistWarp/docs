@@ -1,0 +1,28 @@
+---
+title: Accounts and Sign-in
+sidebar_position: 3
+---
+
+# Accounts and Sign-in
+
+MistWarp accounts are Rotur accounts. This page covers how a Rotur sign-in becomes a MistWarp session, and how plans and bans carry over from Rotur.
+
+## Sign-in flow
+
+1. Client holds a Rotur token from Sign in with Rotur, with the `validators:generate` scope.
+2. Client calls `POST https://api.rotur.dev/v2/validators` with `{"key": "<ROTUR_CLIENT_ID>"}` and the token in the `Authorization` header, never the URL. MistWarp's own token can always make validators for its app, without `validators:generate`. Older editors send `ROTUR_APP_KEY` instead. It must be the same Rotur instance the server validates against.
+3. Client calls `POST /v1/auth?v=<validator>`; the API validates it against `https://api.rotur.dev/validate`, with the app ID first and then the old key, and returns a 7 day session token (also set as the auth_token cookie). Bearer header and cookie are both accepted. For the app ID, Rotur also refuses anyone the app has banned, or who otherwise can't use MistWarp, with a message for them.
+
+Only MistWarp's own sign-in token can make app-ID validators (rotur/api#85), so the desktop app, which still uses the old sign-in, and older tokens send the old key. Rotur doesn't check the old key against MistWarp's Rotur App, so for those sign-ins Rotur's suspension, adults-only, parental approval and age settings aren't enforced, and a rotur.dev ban only applies once the five-minute ban sync has brought it in. Old-key validators made by another Rotur App's sign-in are refused. The gap closes once the desktop app uses Sign in with Rotur through a loopback redirect, which needs Rotur to accept any port on `http://127.0.0.1`.
+
+A refusal from Rotur is answered with 403 and its `code`, `error`, and for an app ban its `reason` and `until`.
+
+## Plans
+
+Perks follow the person's Rotur plan. mistwarp-api asks the apps API (`GET /v2/apps/<client id>/users/<id>/plan`), which answers whatever their privacy settings. Rotur's public profile hides the plan from anyone who can't see the balance, which covers every account without a date of birth, so it's only read for people the apps API doesn't know. Answers are kept for 5 minutes, and during an outage the last known plan stays.
+
+## Bans
+
+A MistWarp ban is also a ban from the MistWarp Rotur App (`PUT /v2/apps/<app>/bans/<user>`), so Rotur enforces it too: the person's MistWarp tokens stop working and Rotur won't let them sign in to MistWarp. Rotur shows them the ban's reason, and never who made it. Lifting a ban lifts both.
+
+Every five minutes MistWarp reads the app's bans. Bans made or lifted on rotur.dev/me/developer reach MistWarp's own list, and any ban or unban Rotur couldn't be told about yet is sent again. A ban lifted in MistWarp is never brought back from Rotur while that's pending. Rotur won't ban the app's owner or managers, classroom students, or accounts it doesn't know, so those bans stay MistWarp-only. Bans whose reason only names a report are sent with a general reason instead.
