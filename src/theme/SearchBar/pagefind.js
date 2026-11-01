@@ -4,7 +4,7 @@ export const loadPagefind = baseUrl => {
     if (!loading) {
         loading = import(/* webpackIgnore: true */ `${baseUrl}pagefind/pagefind.js`)
             .then(async pagefind => {
-                await pagefind.options({excerptLength: 22});
+                await pagefind.options({baseUrl: '/', excerptLength: 22});
                 pagefind.init();
                 return pagefind;
             })
