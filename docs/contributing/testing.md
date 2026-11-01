@@ -4,7 +4,7 @@ title: Testing
 
 # Testing
 
-MistWarp inherits Scratch's test setup: [Jest](https://jestjs.io/) in scratch-gui and [tap](https://node-tap.io/) in scratch-vm. This page lists the suites and how to run them.
+scratch-gui tests run on [Jest](https://jestjs.io/), and scratch-vm tests run on Node's built-in [test runner](https://nodejs.org/api/test.html) with `node:assert`. This page lists the suites and how to run them.
 
 ## scratch-gui
 
@@ -74,20 +74,22 @@ The tests need a Chrome and a `chromedriver` of the same major version. `CHROME_
 
 ## scratch-vm
 
-scratch-vm uses tap. From the scratch-vm checkout:
+scratch-vm uses `node:test`. From the scratch-vm checkout:
 
 ```bash
-npm run tap            # unit and integration tests
-npm run tap:unit       # unit tests only
-npm run tap:integration
-npx tap test/unit/<file>.js   # a single file
+npm test                          # lint, then unit and integration tests
+npm run test:node                 # unit and integration tests
+npm run test:unit                 # unit tests only
+npm run test:integration          # integration tests only
+node --test test/unit/<file>.js   # a single file
+node test/snapshot                # compiler snapshot tests
 ```
 
 The VM is where blocks and the compiler live, so this is the suite to run when changing runtime behavior. When adding or changing a block, add or update a fixture under `test/` so the behavior is pinned.
 
 ## What to test
 
-- Changing a block or the compiler: add a scratch-vm tap test.
+- Changing a block or the compiler: add a scratch-vm test.
 - Changing collaboration: run `pnpm run test:collab`.
 - Changing a React component or container: add a Jest unit test under `test/unit/`.
 - Anything user-facing that touches the browser: consider an integration test.
