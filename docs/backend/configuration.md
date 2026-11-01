@@ -13,12 +13,15 @@ The server loads `.env` from the directory it runs in. A value is looked up in t
 | PORT | 5627 | Listen port |
 | HISTORY_MIGRATION_WORKERS | 4 | Concurrent background workers used to backfill missing project histories (clamped to 1-8) |
 | APP_URL | https://api.mistwarp.org | Public URL of this API |
+| ROTUR_BASE | https://api.rotur.dev | The public Rotur API, for sign-in, profiles, plans, notifications and the apps API |
 | ROTUR_APP_KEY | mistwarp | The old validator key, for editors that predate validators keyed to the Rotur App |
 | COMMERCE_SERVICE_KEY | | Key registered for `mistwarp` in Rotur's `COMMERCE_SERVICE_KEYS`. Only bounty awards and the groups integration still use it |
 | ROTUR_CLIENT_ID | | The MistWarp Rotur App's client ID (`app_1938b6a87799f862`). With the secret, mistwarp-api calls the apps API as MistWarp |
 | ROTUR_CLIENT_SECRET | | One of the MistWarp Rotur App's secrets, made with **New secret** on rotur.dev/me/developer |
 | MISTWARP_ROTUR_USER | | Rotur account that gets MistWarp's share of game product sales. Without it, the MistWarp Rotur App's owner gets it |
 | ROTUR_WEBHOOK_SECRET | | Signing secret (`whsec_…`) of the MistWarp Rotur App's webhook. Without it `POST /v1/rotur/webhook` answers 503 |
+| ROTUR_SERVICE_SECRET | | The Rotur API's own `ROTUR_SERVICE_SECRET`. mistwarp-api uses it to call the Rotur API's storage ledger as the official app `mistwarp`. Without it, storage isn't counted against anyone's Rotur storage (see [Storage limits](/backend/storage#storage-limits)) |
+| ROTUR_LOCAL_API_URL | http://127.0.0.1:5602 | The Rotur API on this machine. It must be `http://127.0.0.1:<port>`, `http://localhost:<port>` or `http://[::1]:<port>` with nothing after the port but an optional trailing slash, so the service secret never leaves the machine. Any other value logs a warning at start and turns storage counting off |
 | R2_ENDPOINT | | https://accountid.r2.cloudflarestorage.com |
 | R2_BUCKET | mistwarp | R2 bucket name |
 | R2_ACCESS_KEY_ID | | R2 access key |
@@ -42,3 +45,5 @@ The server loads `.env` from the directory it runs in. A value is looked up in t
 
 The multiplayer WebSocket runs inside this API process at `/v1/connect`. It
 uses the same listener, domain, and deployment as the HTTP API.
+
+mistwarp-api runs on the same machine as the Rotur API. It calls the public Rotur API (`ROTUR_BASE`) like any other app, and the storage ledger directly on `ROTUR_LOCAL_API_URL`.
