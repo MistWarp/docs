@@ -45,7 +45,13 @@ GitHub's search quota is 10 requests a minute for an unauthenticated caller and 
 - One search covers the whole org, so a refresh costs two requests rather than
   one per repository.
 - A refresh happens at most once every five minutes. The snapshot is stored, so
-  a restart reuses it and costs nothing - a crash loop cannot burn the budget.
+  a restart reuses it and costs nothing, and a crash loop cannot burn the budget.
+- The loop ticks every minute, more often than the refresh window, so a tick
+  landing a moment early cannot push the next refresh out by a whole interval.
+  A tick that finds the snapshot fresh costs nothing.
+- A refresh where both searches fail keeps the last good snapshot rather than
+  overwriting it with nothing. If only one fails, the snapshot is replaced with
+  what the other found.
 - Every response's `X-RateLimit-*` headers are recorded, and a refresh is
   refused when the remaining quota would not cover it, keeping a small reserve
   for anything else on the same address.
