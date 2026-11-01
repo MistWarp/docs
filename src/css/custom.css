@@ -2,7 +2,8 @@
   --mw-bg: var(--ui-modal-background, #ffffff);
   --mw-text: var(--text-primary, #1f2230);
   --mw-accent: var(--looks-secondary, #6f45d0);
-  --mw-muted: color-mix(in srgb, var(--mw-text) 68%, var(--mw-bg));
+  --mw-accent-text: var(--mw-accent);
+  --mw-muted: color-mix(in srgb, var(--mw-text) 74%, var(--mw-bg));
   --mw-surface: color-mix(in srgb, var(--mw-text) 4%, var(--mw-bg));
   --mw-surface-strong: color-mix(in srgb, var(--mw-text) 8%, var(--mw-bg));
   --mw-divider: color-mix(in srgb, var(--mw-text) 12%, var(--mw-bg));
@@ -33,26 +34,26 @@
   --ifm-h5-font-size: 1rem;
   --ifm-h6-font-size: 1rem;
 
-  --ifm-color-primary: var(--mw-accent);
+  --ifm-color-primary: var(--mw-accent-text);
   --ifm-color-primary-dark: color-mix(in srgb, var(--mw-accent) 90%, #000000);
   --ifm-color-primary-darker: color-mix(in srgb, var(--mw-accent) 85%, #000000);
   --ifm-color-primary-darkest: color-mix(in srgb, var(--mw-accent) 70%, #000000);
   --ifm-color-primary-light: color-mix(in srgb, var(--mw-accent) 90%, #ffffff);
   --ifm-color-primary-lighter: color-mix(in srgb, var(--mw-accent) 85%, #ffffff);
   --ifm-color-primary-lightest: color-mix(in srgb, var(--mw-accent) 70%, #ffffff);
-  --ifm-link-color: var(--mw-accent);
-  --ifm-link-hover-color: var(--mw-accent);
+  --ifm-link-color: var(--mw-accent-text);
+  --ifm-link-hover-color: var(--mw-accent-text);
   --ifm-link-hover-decoration: underline;
 
   --ifm-navbar-height: 3.5rem;
   --ifm-navbar-background-color: var(--mw-bg);
   --ifm-navbar-shadow: none;
   --ifm-navbar-link-color: var(--mw-text);
-  --ifm-navbar-link-hover-color: var(--mw-accent);
+  --ifm-navbar-link-hover-color: var(--mw-accent-text);
   --ifm-navbar-padding-horizontal: 1.25rem;
 
   --ifm-menu-color: var(--mw-muted);
-  --ifm-menu-color-active: var(--mw-accent);
+  --ifm-menu-color-active: var(--mw-accent-text);
   --ifm-menu-color-background-active: color-mix(in srgb, var(--mw-accent) 10%, var(--mw-bg));
   --ifm-menu-color-background-hover: var(--mw-surface-strong);
   --ifm-menu-link-padding-vertical: 0.4rem;
@@ -116,6 +117,20 @@ html[data-theme='dark'] {
   color-scheme: dark;
 }
 
+html[data-embedded] {
+  --mw-muted: color-mix(in srgb, var(--mw-text) 94%, var(--mw-bg));
+}
+
+@supports (color: oklch(from red l c h)) {
+  :root {
+    --mw-accent-text: oklch(from var(--mw-accent) min(l, 0.5) c h);
+  }
+
+  html[data-theme='dark'] {
+    --mw-accent-text: oklch(from var(--mw-accent) max(l, 0.76) c h);
+  }
+}
+
 html,
 body {
   overscroll-behavior: none;
@@ -145,7 +160,7 @@ body {
 }
 
 .navbar__link--active {
-  color: var(--mw-accent);
+  color: var(--mw-accent-text);
 }
 
 .navbar__items--right {
@@ -173,7 +188,7 @@ html[data-embedded] .mw-navbar-github {
 }
 
 .theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link--active {
-  color: var(--mw-accent);
+  color: var(--mw-accent-text);
 }
 
 .theme-doc-sidebar-item-category-level-1 + .theme-doc-sidebar-item-category-level-1,
@@ -407,7 +422,7 @@ html[data-embedded] .mw-navbar-github {
 }
 
 .theme-admonition a {
-  color: var(--mw-accent);
+  color: var(--mw-accent-text);
   text-decoration-color: color-mix(in srgb, var(--mw-accent) 40%, transparent);
 }
 
@@ -444,7 +459,7 @@ html[data-embedded] .mw-navbar-github {
 
 .table-of-contents__link:hover,
 .table-of-contents__link--active {
-  color: var(--mw-accent);
+  color: var(--mw-accent-text);
 }
 
 .theme-doc-toc-mobile {
