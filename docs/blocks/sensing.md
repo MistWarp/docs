@@ -1,6 +1,5 @@
 ---
 title: Sensing blocks
-sidebar_position: 7
 ---
 
 Sensing blocks read the world around a script: collisions, the mouse and keyboard, the timer, the date, and the properties of other sprites.

@@ -1,6 +1,5 @@
 ---
 title: Embedding
-sidebar_position: 4
 ---
 
 # Embedding

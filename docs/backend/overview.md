@@ -1,9 +1,9 @@
 ---
-title: Backend Overview
-sidebar_position: 1
+title: Backend overview
+sidebar_label: Overview
 ---
 
-# Backend Overview
+# Backend overview
 
 mistwarp-api is the OSL service behind the MistWarp community platform. It handles Rotur sign-in, projects and their history, Cloudflare R2 storage, comments and other community features, MistWarp Classroom, game data, and pull requests between MistWarp forks. Rotur Git can be connected as an optional external Git provider. The source is at [MistWarp/api](https://github.com/MistWarp/api).
 

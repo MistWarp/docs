@@ -1,6 +1,5 @@
 ---
 title: Migrating from Scratch
-sidebar_position: 5
 ---
 
 # Migrating from Scratch
@@ -42,5 +41,5 @@ MistWarp supports cloud variables, but they are not linked to Scratch's cloud. A
 ## See also
 
 - [Quick start](/getting-started/quick-start)
-- [Editor tour](/getting-started/editor-tour)
+- [The editor interface](/editor/interface)
 - [Migrating from TurboWarp](/getting-started/migrating-from-turbowarp)

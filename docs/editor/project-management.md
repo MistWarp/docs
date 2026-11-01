@@ -1,6 +1,5 @@
 ---
 title: Project management
-sidebar_position: 11
 ---
 
 This page covers the lifecycle of a project: starting a new one, saving it (to your computer or to your MistWarp account), loading it back, sharing it, and remixing. Most of these actions live in the [File menu](/editor/menu-bar).
@@ -56,4 +55,4 @@ Neither replaces saving deliberately, but both reduce the cost of forgetting.
 - [The menu bar](/editor/menu-bar)
 - [Restore points and autosave](/editor/restore-points)
 - [Git version control](/editor/git)
-- [Packaging a project](/editor/packaging)
+- [Packaging a project](/packager/overview)

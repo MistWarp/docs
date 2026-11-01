@@ -1,6 +1,5 @@
 ---
 title: Sound blocks
-sidebar_position: 4
 ---
 
 Sound blocks play the sounds attached to a sprite or the stage, and control volume and audio effects. Add and edit sounds in the [Sounds tab](/editor/sounds). For playing musical notes and drums, use the [Music extension](/extensions/music) instead.

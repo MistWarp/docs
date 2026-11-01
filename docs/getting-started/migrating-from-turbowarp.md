@@ -1,6 +1,5 @@
 ---
 title: Migrating from TurboWarp
-sidebar_position: 6
 ---
 
 # Migrating from TurboWarp
@@ -49,5 +48,5 @@ TurboWarp's addon and theme systems are present and extended. MistWarp ships its
 ## See also
 
 - [Introduction](/getting-started/introduction)
-- [Editor tour](/getting-started/editor-tour)
+- [The editor interface](/editor/interface)
 - [Migrating from Scratch](/getting-started/migrating-from-scratch)

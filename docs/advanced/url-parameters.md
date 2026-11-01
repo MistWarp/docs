@@ -1,9 +1,8 @@
 ---
-title: URL Parameters
-sidebar_position: 3
+title: URL parameters
 ---
 
-# URL Parameters
+# URL parameters
 
 You can control how MistWarp loads and runs a project by adding parameters to the URL. This is useful for sharing a reproducible setup, embedding a project with specific options, or automating tests.
 

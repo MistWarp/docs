@@ -1,9 +1,8 @@
 ---
-title: Project Structure
-sidebar_position: 2
+title: Project structure
 ---
 
-# Project Structure
+# Project structure
 
 MistWarp is a multi-repository workspace. Each package is its own Git repository. scratch-gui builds on its own, and you only clone the other packages next to it when you want to change them. The parent directory itself is not a repository.
 

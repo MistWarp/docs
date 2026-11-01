@@ -1,6 +1,6 @@
 ---
 title: Blocks overview
-sidebar_position: 1
+sidebar_label: Overview
 ---
 
 Blocks are the puzzle pieces you snap together to build a project. Each block is one instruction; a stack of blocks is a script. MistWarp uses the same block language as Scratch, so anything you know from Scratch works here, and it adds a handful of extra blocks on top (see [MistWarp extras](/blocks/mistwarp-extras)).

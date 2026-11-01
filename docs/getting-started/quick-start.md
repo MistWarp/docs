@@ -1,6 +1,5 @@
 ---
 title: Quick start
-sidebar_position: 3
 ---
 
 # Quick start
@@ -44,7 +43,7 @@ MistWarp also keeps [restore points](/editor/restore-points) and autosaves in th
 
 ## Where to go next
 
-- [Editor tour](/getting-started/editor-tour) names every region of the interface.
+- [The editor interface](/editor/interface) names every region of the interface.
 - [Blocks overview](/blocks/overview) is the reference for each block category.
 - [Extensions overview](/extensions/overview) adds blocks for pen, music, translation, hardware, and more.
 - [Advanced settings](/advanced/custom-fps) unlock higher frame rates, a custom stage size, and other limits.

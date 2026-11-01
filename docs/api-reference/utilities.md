@@ -1,31 +1,102 @@
 ---
 title: Utilities
-sidebar_position: 9
+description: Scratch.Cast and the other helper modules in scratch-vm, with examples of Scratch's number, string, boolean and list index rules.
 ---
 
+# Utilities
+
 `scratch-vm/src/util/` holds small helper modules the engine uses everywhere. Extension authors
-most often need `Cast`; the rest are handy when you work with the VM directly. `Cast` is exposed
-to extensions as `Scratch.Cast` (see the [Extension API](/api-reference/extension-api)).
+most often need `Cast`, which extensions get as `Scratch.Cast` in both sandboxed and unsandboxed
+mode. The rest are handy when you work with the VM directly.
 
 ## Cast
 
-`util/cast.js` converts values the way Scratch blocks do. Scratch is loosely typed, so a block
-that expects a number must accept `"5"`, `true`, or `"apple"` and behave predictably. Always
-coerce inputs with `Cast` rather than raw JavaScript conversions, so your blocks match Scratch's
-rules exactly.
+`util/cast.js` implements Scratch's type coercion rules. Scratch is loosely typed, so a block that
+expects a number must accept `"5"`, `true` or `"apple"` and behave predictably. A block argument
+can be any type regardless of its declared `type` (see [dealing with inputs](/building-extensions/inputs)),
+so cast values before you use them. Using `Cast` keeps your blocks behaving the same way built-in
+blocks do, instead of following JavaScript's defaults.
 
-- `Cast.toNumber(value)`: to a number, treating non-numeric input as `0` (and `NaN` as `0`).
-- `Cast.toBoolean(value)`: to a boolean using Scratch's rules (the strings `""`, `"0"`, and
-  `"false"` are false).
-- `Cast.toString(value)`: to a string.
-- `Cast.compare(v1, v2)`: Scratch's comparison. Returns a negative number, `0`, or a positive
-  number, comparing numerically when both look like numbers and case-insensitively otherwise.
-- `Cast.toListIndex(index, length, acceptAll)`: turn a Scratch list index (including `"last"`,
-  `"random"`, `"all"`) into a real index, or an out-of-range marker.
-- `Cast.toRgbColorList(value)` / `Cast.toRgbColorObject(value)`: parse a color (a `#rrggbb` string
-  or a decimal) into `[r, g, b]` or `{r, g, b, a}`.
-- `Cast.isInt(value)`: whether the value is an integer (or an integer-valued string).
-- `Cast.isWhiteSpace(value)`: whether the value is `null`, empty, or only whitespace.
+### Number conversion
+
+```js
+const Cast = Scratch.Cast;
+
+Cast.toNumber('42');      // 42
+Cast.toNumber('3.14');    // 3.14
+Cast.toNumber('123abc');  // 123
+Cast.toNumber('abc');     // 0
+Cast.toNumber('');        // 0
+Cast.toNumber(true);      // 1
+Cast.toNumber(false);     // 0
+Cast.toNumber(null);      // 0
+Cast.toNumber(NaN);       // 0  (Scratch maps NaN to 0)
+```
+
+### String conversion
+
+`Cast.toString(value)` is `String(value)` with Scratch's expectations around it.
+
+```js
+Cast.toString(42);     // '42'
+Cast.toString(true);   // 'true'
+Cast.toString(null);   // 'null'
+```
+
+Do not rely on it to format arrays or objects in any Scratch-specific way. It uses JavaScript's default `String()`.
+
+### Boolean conversion
+
+Scratch's boolean rules differ from JavaScript's: the strings `''`, `'0'`, and `'false'` are all false.
+
+```js
+Cast.toBoolean(true);       // true
+Cast.toBoolean('');         // false
+Cast.toBoolean('0');        // false
+Cast.toBoolean('false');    // false
+Cast.toBoolean('anything'); // true
+Cast.toBoolean(0);          // false
+Cast.toBoolean(1);          // true
+```
+
+### Comparison
+
+`Cast.compare(a, b)` returns a negative number, zero, or a positive number. It compares numerically when both sides look like numbers, otherwise case-insensitively as strings.
+
+```js
+Cast.compare('10', '9');        // > 0  (numeric: 10 > 9)
+Cast.compare('apple', 'banana'); // < 0  (string)
+Cast.compare('5', '5');          // 0
+```
+
+Always test with `< 0`, `> 0`, or `=== 0`. Never `=== 1` or `=== -1`, because the magnitude is not guaranteed.
+
+### Type checks
+
+```js
+Cast.isInt(42);     // true
+Cast.isInt('42');   // true (coerced)
+Cast.isInt(3.14);   // false
+Cast.isWhiteSpace(' '); // true
+```
+
+### Colors
+
+```js
+Cast.toRgbColorList('#ff0000');   // [255, 0, 0]
+Cast.toRgbColorObject('#00ff00'); // {r: 0, g: 255, b: 0}
+```
+
+### List indices
+
+`Cast.toListIndex(index, length, acceptAll)` converts a Scratch list index (1-based, with support for `"last"`, `"random"`, and `"all"`) into a usable index, or `Cast.LIST_INVALID` when out of range.
+
+```js
+const i = Cast.toListIndex(args.INDEX, list.value.length, false);
+if (i !== Cast.LIST_INVALID) {
+  return list.value[i - 1];
+}
+```
 
 ## Color
 
@@ -61,6 +132,6 @@ rules exactly.
 
 ## See also
 
-- [Extension API](/api-reference/extension-api) for `Scratch.Cast`
+- [Extension API](/api-reference/extension-api) for the rest of the `Scratch` object
+- [Assorted APIs](/building-extensions/assorted-apis) for the `Scratch.Cast` tutorial example
 - [VM API](/api-reference/vm-api)
-- [Block registration](/api-reference/block-registration)

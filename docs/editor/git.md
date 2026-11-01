@@ -1,6 +1,5 @@
 ---
 title: Version history
-sidebar_position: 22
 ---
 
 MistWarp keeps version history in the background. Your first **Save to MistWarp** creates an initial version without asking you to name it. Later saves ask **What changed?** and use that short note to label the new version. You can inspect or restore old versions and use branches without learning Git first. The `.mwp` project file carries the complete history and every branch.

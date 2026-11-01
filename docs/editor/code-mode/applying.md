@@ -1,6 +1,5 @@
 ---
 title: Applying code
-sidebar_position: 2
 ---
 
 Typing in a script tab never changes the project on its own. Your text reaches the project when you **apply** it, and only if it parses, validates and converts back to the same blocks. Scripts you did not edit keep their exact blocks and block ids, and every apply can be undone.

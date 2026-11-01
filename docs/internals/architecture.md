@@ -1,6 +1,5 @@
 ---
 title: Architecture
-sidebar_position: 2
 ---
 
 # Architecture
@@ -68,7 +67,7 @@ A project is serialized to the **sb3** format, a ZIP containing a `project.json`
 - **Deserialize.** Loading reverses this: parse `project.json`, rebuild targets and their block containers, and load each referenced asset by hash. `validate-project.js` sanity-checks the JSON on the way in.
 - **Storage.** Assets are content-addressed, so the same costume shared by many sprites is stored once. The editor's storage layer resolves an asset hash to its bytes, whether from the sb3, from the backend, or from the built-in library.
 
-Where the bytes physically live depends on how the project was opened: a local file, the built-in project fetcher, or the community backend. The publish pipeline (create, upload the sb3 and thumbnail, then share) is described below and in [Project Management](/editor/project-management) and [Packaging](/editor/packaging).
+Where the bytes physically live depends on how the project was opened: a local file, the built-in project fetcher, or the community backend. The publish pipeline (create, upload the sb3 and thumbnail, then share) is described below and in [Project Management](/editor/project-management) and [the packager](/packager/overview).
 
 ## The editor shell
 

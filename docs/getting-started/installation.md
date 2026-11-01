@@ -1,6 +1,5 @@
 ---
 title: Installation
-sidebar_position: 2
 ---
 
 # Installation
@@ -42,7 +41,7 @@ MistWarp runs in current versions of Chrome, Edge, Firefox, and Safari. It needs
 ## Next steps
 
 - [Quick start](/getting-started/quick-start): build your first project.
-- [Editor tour](/getting-started/editor-tour): learn the interface.
+- [The editor interface](/editor/interface): learn the interface.
 
 ## See also
 

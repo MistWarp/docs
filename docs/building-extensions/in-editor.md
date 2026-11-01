@@ -1,6 +1,5 @@
 ---
 title: Writing extensions in the editor
-sidebar_position: 1.5
 ---
 
 You can write, test, and fix an extension without leaving MistWarp. Extensions are files in [Code mode](/editor/code-mode/extensions), and their code is saved inside the project, so it travels with it.

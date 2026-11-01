@@ -1,9 +1,8 @@
 ---
-title: Accounts and Sign-in
-sidebar_position: 3
+title: Accounts and sign-in
 ---
 
-# Accounts and Sign-in
+# Accounts and sign-in
 
 MistWarp accounts are Rotur accounts. This page covers how a Rotur sign-in becomes a MistWarp session, and how plans and bans carry over from Rotur.
 

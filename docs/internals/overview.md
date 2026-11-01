@@ -1,6 +1,6 @@
 ---
-title: Internals Overview
-sidebar_position: 1
+title: Editor internals
+sidebar_label: Overview
 ---
 
 # Internals

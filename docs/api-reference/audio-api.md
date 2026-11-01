@@ -1,6 +1,5 @@
 ---
 title: Audio API
-sidebar_position: 4
 ---
 
 # Audio API
@@ -101,5 +100,5 @@ getMic(args, util) {
 
 ## See also
 
-- [VM API](/building-extensions/apis/vm-api)
-- [Scratch object API](/building-extensions/apis/scratch-api)
+- [VM API](/api-reference/vm-api)
+- [Scratch object API](/api-reference/extension-api)

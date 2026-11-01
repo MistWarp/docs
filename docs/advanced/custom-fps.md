@@ -1,6 +1,5 @@
 ---
 title: Custom FPS
-sidebar_position: 7
 ---
 
 # Custom FPS

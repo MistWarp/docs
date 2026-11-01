@@ -1,6 +1,5 @@
 ---
 title: Extensions in Code mode
-sidebar_position: 3
 ---
 
 The **Extensions** folder of the explorer lists every extension in the project as a `.js` file. Open one to read and edit its code in a tab with JavaScript completion for the `Scratch` API and `getInfo`. Built-in extensions are listed without source.

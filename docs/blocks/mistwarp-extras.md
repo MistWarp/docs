@@ -1,6 +1,5 @@
 ---
 title: MistWarp extras
-sidebar_position: 11
 ---
 
 MistWarp is built on TurboWarp, which is built on Scratch. Along the way both projects added blocks that stock Scratch does not have. This page collects those extra blocks in one place. Each one lives in its normal category and is also linked from that category's page. For extension blocks (Pen, Music, and so on) see [Extensions](/extensions/overview) instead; this page is only the built-in extras.

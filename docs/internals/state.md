@@ -1,9 +1,8 @@
 ---
-title: State Management
-sidebar_position: 5
+title: State management
 ---
 
-# State Management
+# State management
 
 The editor keeps its interface state in a single Redux store. This page lists the actual reducers that make up that store and explains how action creators, selectors, and middleware fit around them.
 

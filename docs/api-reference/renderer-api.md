@@ -1,6 +1,5 @@
 ---
 title: Renderer API
-sidebar_position: 5
 ---
 
 # Renderer API
@@ -90,5 +89,5 @@ Stage coordinates match Scratch: `(0, 0)` is the center, x increases right, y in
 
 ## See also
 
-- [VM API](/building-extensions/apis/vm-api)
-- [Scratch object API](/building-extensions/apis/scratch-api)
+- [VM API](/api-reference/vm-api)
+- [Scratch object API](/api-reference/extension-api)

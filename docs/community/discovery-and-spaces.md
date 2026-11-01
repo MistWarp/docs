@@ -1,6 +1,5 @@
 ---
 title: Discovery and spaces
-sidebar_position: 1
 ---
 
 The Explore page finds projects by title, creator, and tag. It has four sort modes:

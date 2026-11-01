@@ -1,6 +1,5 @@
 ---
 title: micro:bit
-sidebar_position: 12
 ---
 
 # micro:bit

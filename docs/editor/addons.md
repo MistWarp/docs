@@ -1,6 +1,5 @@
 ---
 title: Addons
-sidebar_position: 17
 ---
 
 Addons are optional add-ons that change how the editor looks and behaves, from small conveniences to whole new tools. Each one can be turned on or off independently, and many have their own settings. They affect only your editor; they do not change how a project runs when shared.

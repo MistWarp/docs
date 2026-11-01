@@ -1,6 +1,5 @@
 ---
 title: Costumes and the paint editor
-sidebar_position: 5
 ---
 
 Every sprite has one or more **costumes**: the images it shows on the [stage](/editor/stage). The stage itself has **backdrops**, which are the same thing under a different name. The **Costumes** tab (called **Backdrops** when the stage is selected) lists them and opens the built-in paint editor for drawing and editing.
