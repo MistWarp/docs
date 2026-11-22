@@ -43,7 +43,7 @@ You can send an improvement without changing the creator's project directly:
 4. Open the fork's project page, choose **Contribute**, and create a pull request.
 5. The project owner reviews the changes and decides whether to merge them.
 
-A pull request follows your fork. Commits you save to the fork after opening it appear in the pull request, so you can answer review feedback by changing the fork. Owners need to commit any changes they saved in the editor before merging, and the project has to be on the branch the pull request targets.
+A pull request follows your fork. Commits you save to the fork after opening it appear in the pull request, so you can answer review feedback by changing the fork. Owners need to commit any changes they saved in the editor before merging, and the project has to be on the branch the pull request targets. If that branch has been deleted, close the pull request and open a new one.
 
 When the original project gets new commits, keep your fork up to date with **Sync with original**. It is on the fork's developer view (the **Code** tab), next to the line that says how far ahead and behind the original your fork is. A sync brings the original's new commits into your fork as one merge commit. If you and the original changed the same part of a sprite, edit the marked conflict and choose which version of each changed costume or sound to keep, then select **Save resolutions and sync**. Commit any changes you saved in the editor first, because the synced project replaces them. Projects whose history was saved before sprites were stored as separate files show one conflict for the whole project, so you choose either your fork or the original.
 
