@@ -51,6 +51,20 @@ The first start after history sizes were recorded measured the history of existi
 
 Upload callers hold the project's save lock (`project-history-<id>`). History preparation takes that lock itself, after resolving ancestors, and checks the saved source hasn't changed since. So an upload releases its lock while history is prepared and takes it back afterwards. That avoids deadlocking on its own lock and holding nested locks across a chain of remix ancestors.
 
+### Pull requests and remix sync
+
+A pull request records the remix's head when it is opened, but an open pull request follows the remix: `GET /v1/projects/:id/pulls/:index`, its `diff` and its `merge` use the current head of the remix branch the pull request was opened from (`headBranch`). If that branch no longer exists, they fall back to the recorded head. Merged and closed pull requests keep the head they had. The diff compares the remix head with the closest commit it shares with the target's current head, so changes the remix brought in from the target are not shown as part of the pull request. The `pull` object in a diff response carries that `baseCommit` and `headCommit`.
+
+`POST /v1/projects/:id/pulls/:index/merge` merges against the same shared commit. When the target's head is an ancestor of the remix head and the remix head is the remix's saved project, the server fast-forwards and answers `{merged: true, fastForward: true}`. Otherwise it answers `{merged: false, merge, expectedHead, sourceHead}`, where `merge` is the three-way merge with `changes`, `conflicts` and `baseHead`. A remix whose history shares no commit with the target answers 409 `pull_merge_unavailable`, and one whose changes are already in the target answers 409 `already_merged`. The client applies `merge.changes` to the target tree at `expectedHead` and uploads the result with `pullId`, `expectedHead`, `mergeTree` and `mergeSourceHead` (the `sourceHead` it merged). If the remix has moved since, the upload answers 409 `pull_head_changed`. An upload without `mergeSourceHead` merges the remix's current head. Once merged, the pull request records the remix head it merged as `headCommit`.
+
+`POST /v1/projects/:id/remix/sync` prepares a merge of the original project's current head into a remix. Only a maintainer of the remix who can see inside both projects may call it. It answers `{merge, sourceProjectId, sourceTitle, sourceHead, targetHead, expectedHead}`. `merge.alreadyMerged` is true when the remix already contains the original's head, and `merge.fastForward` when the remix has no commits of its own since. Text conflicts are marked `this remix` and `original`. The client applies the changes to the remix tree at `targetHead` and uploads them with `syncHead` (the `sourceHead`), `expectedHead` and `mergeTree`. The server then writes a merge commit, `Merge changes from <original title>`, whose parents are the remix head and the original's head. A sync refuses with:
+
+- 404 when the project is not a remix, or its original no longer exists.
+- 403 for anyone else, or once the original's source is no longer visible to the caller.
+- 409 `uncommitted_changes` while the remix has saved changes that are not committed, because the merged project would replace them.
+- 409 `head_changed` when `expectedHead` is missing or the remix moved, and 409 `original_changed` when the original moved after the sync was prepared.
+- 400 when `syncHead` is combined with `pullId`, branch merge fields, `restoreCommit` or `replaceHistory`.
+
 ### Serving snapshots
 
 Project, release and report-evidence snapshots are served from the local copy while one exists. Otherwise the API fetches the object from R2 through a presigned URL and passes it on as stored, with `Content-Encoding: gzip` when the stored copy is gzipped:
