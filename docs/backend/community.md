@@ -42,14 +42,16 @@ A Rotur organisation is a Rotur account with `account_type: "org"`. It can own M
 
 Members of the organisation whose Rotur permissions include `apps` or `admin` are its publishers. A publisher can create projects and spaces for the organisation (send `org: "<name>"` when creating), move their own content into it (an ownership transfer to the organisation's name), and manage, transfer or delete anything it owns, as if they were the owner. Billing-only and plain members cannot. Site admins always can. A publisher only manages content whose `ownerId` matches the organisation's current Rotur id, so a new organisation that later takes a freed name gets none of the old one's content.
 
-MistWarp asks Rotur who is in an organisation with `COMMERCE_SERVICE_KEY`, through `GET /v2/integrations/mistwarp/orgs/:name` (the organisation and every member with their permissions, including members who are not listed publicly) and `GET /v2/integrations/mistwarp/users/:id/orgs` (a person's organisations). Answers are cached for a minute. When Rotur cannot be reached, anything that needs an organisation's members answers 503 `rotur_unavailable` instead of refusing.
+MistWarp asks Rotur who is in an organisation with `COMMERCE_SERVICE_KEY`, through `GET /v2/integrations/mistwarp/orgs/:name` (the organisation and every member with their permissions, including members who are not listed publicly) and `GET /v2/integrations/mistwarp/users/:id/orgs` (a person's organisations). On Rotur's side that key is the `mistwarp` entry of its `COMMERCE_SERVICE_KEYS`. Rotur leaves out members who cannot sign in (banned, suspended or age-restricted), so they stop publishing for the organisation. Answers are cached for a minute. When Rotur cannot be reached, anything that needs an organisation's members answers 503 `rotur_unavailable` instead of refusing. That includes a move to an account whose Rotur profile says it is an organisation but whose members cannot be read.
+
+Creating for an organisation can be refused with `code`: `org_not_found` (400, the name is not an organisation), `org_forbidden` (403, the person does not publish for it) or `rotur_unavailable` (503).
 
 | Route | What it returns |
 | --- | --- |
-| `GET /v1/orgs/:name` | `{org, members, projects, spaces, isMember, canManage}`. `members` lists only publicly listed members unless the viewer is a member. Drafts and private spaces are included only for publishers |
+| `GET /v1/orgs/:name` | `{org, members, projects, spaces, isMember, canManage}`. `members` lists only publicly listed members unless the viewer is a member or a site admin. Drafts and private spaces are included only for publishers |
 | `GET /v1/me/orgs` | `{orgs: [{username, displayName, perms, canPublish}]}` for the signed-in person |
 
-Notifications about content an organisation owns (loves, comments, remixes, reviews, contributions, challenge entries and moderation) go to each of its publishers. On a challenge an organisation owns, its publishers are judges as well as anyone invited. `judges` lists the publicly listed ones, and `judgeCount` counts all of them.
+Notifications about content an organisation owns (loves, comments, remixes, reviews, contributions, sales, challenge entries and moderation) go to each of its publishers, up to 25 of them. The same event about the same content is sent once every ten minutes, so toggling a love does not repeat it. When a publisher enters an organisation's project in a challenge, the publisher, not the organisation, is recorded as the participant. On a challenge an organisation owns, its publishers are judges as well as anyone invited. `judges` lists the publicly listed ones, and `judgeCount` counts all of them.
 
 The Rotur groups integration (`/v1/groups/:tag` and the `groupTag` field) was removed. Organisations replace it.
 
