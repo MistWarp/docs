@@ -4,7 +4,7 @@ title: Community features
 
 # Community features
 
-Badges, milestone notifications and the development feed.
+Badges, milestone notifications, organisations and the development feed.
 
 ## Badges
 
@@ -35,6 +35,23 @@ MistWarp gives badges on people's Rotur profiles as the MistWarp Rotur App. Whic
 MistWarp sends one-time notifications at 5, 25, 50, 100, 500, and 1,000 likes or followers. Likes are counted separately for each project, comment, roadmap post, space, news post, profile post, and theme. The `like_milestones` collection stores progress independently of the inbox, so clearing notifications, unliking, and re-liking do not reset it.
 
 Project and community reactions check milestones when saved. Profile-post, theme, and follower checks read existing public APIs and keep their state in MistWarp. The client requests a check after a like or follow; opening the inbox also checks the current account's followers. These sampled counts can detect a threshold crossed between visits, but cannot detect a count that rose and fell entirely between checks. Existing counts establish a baseline without sending every earlier milestone. No Rotur or WarpTheme server changes are required.
+
+## Organisations
+
+A Rotur organisation is a Rotur account with `account_type: "org"`. It can own MistWarp projects and spaces directly: the record's `owner` is the organisation's username, `ownerId` its Rotur id, and `ownerType` is `"org"`. Projects and spaces made by a person have an empty `ownerType`.
+
+Members of the organisation whose Rotur permissions include `apps` or `admin` are its publishers. A publisher can create projects and spaces for the organisation (send `org: "<name>"` when creating), move their own content into it (an ownership transfer to the organisation's name), and manage, transfer or delete anything it owns, as if they were the owner. Billing-only and plain members cannot. Site admins always can. A publisher only manages content whose `ownerId` matches the organisation's current Rotur id, so a new organisation that later takes a freed name gets none of the old one's content.
+
+MistWarp asks Rotur who is in an organisation with `COMMERCE_SERVICE_KEY`, through `GET /v2/integrations/mistwarp/orgs/:name` (the organisation and every member with their permissions, including members who are not listed publicly) and `GET /v2/integrations/mistwarp/users/:id/orgs` (a person's organisations). Answers are cached for a minute. When Rotur cannot be reached, anything that needs an organisation's members answers 503 `rotur_unavailable` instead of refusing.
+
+| Route | What it returns |
+| --- | --- |
+| `GET /v1/orgs/:name` | `{org, members, projects, spaces, isMember, canManage}`. `members` lists only publicly listed members unless the viewer is a member. Drafts and private spaces are included only for publishers |
+| `GET /v1/me/orgs` | `{orgs: [{username, displayName, perms, canPublish}]}` for the signed-in person |
+
+Notifications about content an organisation owns (loves, comments, remixes, reviews, contributions, challenge entries and moderation) go to each of its publishers. On a challenge an organisation owns, its publishers are judges as well as anyone invited. `judges` lists the publicly listed ones, and `judgeCount` counts all of them.
+
+The Rotur groups integration (`/v1/groups/:tag` and the `groupTag` field) was removed. Organisations replace it.
 
 ## Development feed
 
