@@ -52,7 +52,7 @@ Creating for an organisation can be refused with `code`: `org_not_found` (400, t
 
 | Route | What it returns |
 | --- | --- |
-| `GET /v1/orgs/:name` | `{org, members, projects, spaces, isMember, canManage}`. `projects` and `spaces` hold the 100 most recently edited. `members` lists only publicly listed members unless the viewer is a member or a site admin. Drafts and private spaces are included only for publishers |
+| `GET /v1/orgs/:name` | `{org, members, projects, spaces, isMember, canManage}`. `projects` and `spaces` hold the 100 most recently edited. `members` lists only publicly listed members unless the viewer is a member or a site admin. Unshared projects and unlisted or private spaces are included only for publishers |
 | `GET /v1/me/orgs` | `{orgs: [{username, displayName, perms, canPublish}]}` for the signed-in person |
 
 Notifications about content an organisation owns (loves, comments, remixes, reviews, contributions, sales, challenge entries and moderation) go to each of its publishers, up to 25 of them. The same event about the same content is sent once every ten minutes, so toggling a love does not repeat it. Sales are the exception: every purchase is sent. When a publisher enters an organisation's project in a challenge, the publisher, not the organisation, is recorded as the participant. On a challenge an organisation owns, its publishers are judges as well as anyone invited. `judges` lists the publicly listed ones, and `judgeCount` counts all of them.
