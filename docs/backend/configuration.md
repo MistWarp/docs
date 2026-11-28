@@ -15,7 +15,7 @@ The server loads `.env` from the directory it runs in. A value is looked up in t
 | APP_URL | https://api.mistwarp.org | Public URL of this API |
 | ROTUR_BASE | https://api.rotur.dev | The public Rotur API, for sign-in, profiles, plans, notifications and the apps API |
 | ROTUR_APP_KEY | mistwarp | The old validator key, for editors that predate validators keyed to the Rotur App |
-| COMMERCE_SERVICE_KEY | | Key registered for `mistwarp` in Rotur's `COMMERCE_SERVICE_KEYS`. Only bounty awards and the groups integration still use it |
+| COMMERCE_SERVICE_KEY | | Key registered for `mistwarp` in Rotur's `COMMERCE_SERVICE_KEYS`. Bounty awards and the organisation lookups (`/v2/integrations/mistwarp/...`) use it |
 | ROTUR_CLIENT_ID | | The MistWarp Rotur App's client ID (`app_1938b6a87799f862`). With the secret, mistwarp-api calls the apps API as MistWarp |
 | ROTUR_CLIENT_SECRET | | One of the MistWarp Rotur App's secrets, made with **New secret** on rotur.dev/me/developer |
 | MISTWARP_ROTUR_USER | | Rotur account that gets MistWarp's share of game product sales. Without it, the MistWarp Rotur App's owner gets it |

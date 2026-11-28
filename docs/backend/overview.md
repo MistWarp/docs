@@ -45,7 +45,7 @@ The API needs OSL 3.0. `opal.json` lists the usual commands:
 | `git` | Git inspection, pull requests and Rotur Git |
 | `games` | Game saves, inventories and marketplace products |
 | `realtime` | The multiplayer and site WebSockets |
-| `community` | Spaces, roadmap, comments, bounties, profiles, news, notifications, milestones, standing, reports, groups |
+| `community` | Spaces, roadmap, comments, bounties, profiles, news, notifications, milestones, standing, reports, organisations |
 | `admin` | Admin tools, bans and shadow bans, moderation, error reports, funnel events |
 | `classroom` | MistWarp Classroom |
 | `rotur` | The Rotur App, plans and perks, payments, signals, badges and webhooks |
